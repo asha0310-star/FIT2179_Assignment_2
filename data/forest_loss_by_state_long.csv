@@ -1,0 +1,385 @@
+state,year,tc_loss_ha
+Johor,2001,43703
+Kedah,2001,3600
+Kelantan,2001,10558
+Kuala Lumpur,2001,36
+Labuan,2001,24
+Melaka,2001,3593
+Negeri Sembilan,2001,22431
+Pahang,2001,47473
+Perak,2001,16246
+Perlis,2001,259
+Pulau Pinang,2001,133
+Putrajaya,2001,61
+Sabah,2001,63041
+Sarawak,2001,100293
+Selangor,2001,11218
+Trengganu,2001,10138
+Johor,2002,35359
+Kedah,2002,9894
+Kelantan,2002,9120
+Kuala Lumpur,2002,119
+Labuan,2002,23
+Melaka,2002,2814
+Negeri Sembilan,2002,24928
+Pahang,2002,58056
+Perak,2002,20779
+Perlis,2002,173
+Pulau Pinang,2002,436
+Putrajaya,2002,49
+Sabah,2002,59779
+Sarawak,2002,73917
+Selangor,2002,7332
+Trengganu,2002,10067
+Johor,2003,13478
+Kedah,2003,4456
+Kelantan,2003,5576
+Kuala Lumpur,2003,48
+Labuan,2003,18
+Melaka,2003,1272
+Negeri Sembilan,2003,7334
+Pahang,2003,26962
+Perak,2003,9510
+Perlis,2003,55
+Pulau Pinang,2003,194
+Putrajaya,2003,24
+Sabah,2003,33047
+Sarawak,2003,73946
+Selangor,2003,3749
+Trengganu,2003,4385
+Johor,2004,40586
+Kedah,2004,7109
+Kelantan,2004,13804
+Kuala Lumpur,2004,170
+Labuan,2004,11
+Melaka,2004,1267
+Negeri Sembilan,2004,8938
+Pahang,2004,45058
+Perak,2004,14547
+Perlis,2004,112
+Pulau Pinang,2004,416
+Putrajaya,2004,50
+Sabah,2004,86717
+Sarawak,2004,109131
+Selangor,2004,8332
+Trengganu,2004,15756
+Johor,2005,44010
+Kedah,2005,7570
+Kelantan,2005,12530
+Kuala Lumpur,2005,81
+Labuan,2005,27
+Melaka,2005,3810
+Negeri Sembilan,2005,12717
+Pahang,2005,61428
+Perak,2005,19636
+Perlis,2005,222
+Pulau Pinang,2005,515
+Putrajaya,2005,32
+Sabah,2005,73026
+Sarawak,2005,121973
+Selangor,2005,8143
+Trengganu,2005,10040
+Johor,2006,36498
+Kedah,2006,8194
+Kelantan,2006,11407
+Kuala Lumpur,2006,77
+Labuan,2006,22
+Melaka,2006,1802
+Negeri Sembilan,2006,7498
+Pahang,2006,44941
+Perak,2006,12108
+Perlis,2006,79
+Pulau Pinang,2006,597
+Putrajaya,2006,5
+Sabah,2006,81771
+Sarawak,2006,114173
+Selangor,2006,4764
+Trengganu,2006,10589
+Johor,2007,39197
+Kedah,2007,6069
+Kelantan,2007,25134
+Kuala Lumpur,2007,57
+Labuan,2007,41
+Melaka,2007,3366
+Negeri Sembilan,2007,10172
+Pahang,2007,43997
+Perak,2007,19920
+Perlis,2007,83
+Pulau Pinang,2007,334
+Putrajaya,2007,30
+Sabah,2007,62739
+Sarawak,2007,175583
+Selangor,2007,9556
+Trengganu,2007,9412
+Johor,2008,18470
+Kedah,2008,9889
+Kelantan,2008,12747
+Kuala Lumpur,2008,49
+Labuan,2008,39
+Melaka,2008,2012
+Negeri Sembilan,2008,8384
+Pahang,2008,34052
+Perak,2008,16776
+Perlis,2008,110
+Pulau Pinang,2008,338
+Putrajaya,2008,7
+Sabah,2008,84258
+Sarawak,2008,163495
+Selangor,2008,6366
+Trengganu,2008,11270
+Johor,2009,46559
+Kedah,2009,8278
+Kelantan,2009,33123
+Kuala Lumpur,2009,76
+Labuan,2009,37
+Melaka,2009,3297
+Negeri Sembilan,2009,17249
+Pahang,2009,55336
+Perak,2009,29618
+Perlis,2009,241
+Pulau Pinang,2009,718
+Putrajaya,2009,51
+Sabah,2009,92081
+Sarawak,2009,306669
+Selangor,2009,14312
+Trengganu,2009,15446
+Johor,2010,28245
+Kedah,2010,13061
+Kelantan,2010,30615
+Kuala Lumpur,2010,78
+Labuan,2010,26
+Melaka,2010,519
+Negeri Sembilan,2010,5520
+Pahang,2010,56968
+Perak,2010,27183
+Perlis,2010,170
+Pulau Pinang,2010,944
+Putrajaya,2010,44
+Sabah,2010,104184
+Sarawak,2010,136600
+Selangor,2010,9737
+Trengganu,2010,17055
+Johor,2011,57621
+Kedah,2011,7693
+Kelantan,2011,22860
+Kuala Lumpur,2011,34
+Labuan,2011,55
+Melaka,2011,3157
+Negeri Sembilan,2011,15889
+Pahang,2011,57724
+Perak,2011,21467
+Perlis,2011,396
+Pulau Pinang,2011,579
+Putrajaya,2011,20
+Sabah,2011,68465
+Sarawak,2011,191239
+Selangor,2011,3685
+Trengganu,2011,12267
+Johor,2012,38805
+Kedah,2012,8921
+Kelantan,2012,35190
+Kuala Lumpur,2012,53
+Labuan,2012,119
+Melaka,2012,2548
+Negeri Sembilan,2012,24583
+Pahang,2012,93639
+Perak,2012,25398
+Perlis,2012,638
+Pulau Pinang,2012,672
+Putrajaya,2012,13
+Sabah,2012,104650
+Sarawak,2012,268503
+Selangor,2012,7760
+Trengganu,2012,16893
+Johor,2013,24984
+Kedah,2013,7336
+Kelantan,2013,16594
+Kuala Lumpur,2013,2
+Labuan,2013,17
+Melaka,2013,1403
+Negeri Sembilan,2013,10915
+Pahang,2013,42559
+Perak,2013,17761
+Perlis,2013,373
+Pulau Pinang,2013,356
+Putrajaya,2013,7
+Sabah,2013,65540
+Sarawak,2013,128693
+Selangor,2013,3549
+Trengganu,2013,13273
+Johor,2014,49796
+Kedah,2014,15645
+Kelantan,2014,38715
+Kuala Lumpur,2014,55
+Labuan,2014,71
+Melaka,2014,5024
+Negeri Sembilan,2014,18281
+Pahang,2014,86752
+Perak,2014,33901
+Perlis,2014,508
+Pulau Pinang,2014,827
+Putrajaya,2014,23
+Sabah,2014,137521
+Sarawak,2014,229051
+Selangor,2014,13558
+Trengganu,2014,16298
+Johor,2015,31797
+Kedah,2015,13412
+Kelantan,2015,24417
+Kuala Lumpur,2015,31
+Labuan,2015,79
+Melaka,2015,3121
+Negeri Sembilan,2015,10459
+Pahang,2015,62751
+Perak,2015,23936
+Perlis,2015,258
+Pulau Pinang,2015,491
+Putrajaya,2015,26
+Sabah,2015,106917
+Sarawak,2015,156138
+Selangor,2015,5913
+Trengganu,2015,14746
+Johor,2016,45063
+Kedah,2016,14906
+Kelantan,2016,27174
+Kuala Lumpur,2016,43
+Labuan,2016,120
+Melaka,2016,5325
+Negeri Sembilan,2016,16640
+Pahang,2016,99967
+Perak,2016,32984
+Perlis,2016,714
+Pulau Pinang,2016,726
+Putrajaya,2016,55
+Sabah,2016,113067
+Sarawak,2016,178750
+Selangor,2016,10238
+Trengganu,2016,19783
+Johor,2017,44064
+Kedah,2017,16052
+Kelantan,2017,20604
+Kuala Lumpur,2017,103
+Labuan,2017,37
+Melaka,2017,4385
+Negeri Sembilan,2017,13602
+Pahang,2017,71777
+Perak,2017,30468
+Perlis,2017,557
+Pulau Pinang,2017,641
+Putrajaya,2017,45
+Sabah,2017,88767
+Sarawak,2017,164697
+Selangor,2017,9572
+Trengganu,2017,18130
+Johor,2018,32738
+Kedah,2018,13980
+Kelantan,2018,23472
+Kuala Lumpur,2018,62
+Labuan,2018,28
+Melaka,2018,3933
+Negeri Sembilan,2018,10540
+Pahang,2018,59870
+Perak,2018,22953
+Perlis,2018,394
+Pulau Pinang,2018,459
+Putrajaya,2018,41
+Sabah,2018,92709
+Sarawak,2018,151383
+Selangor,2018,9037
+Trengganu,2018,16416
+Johor,2019,30412
+Kedah,2019,11720
+Kelantan,2019,26952
+Kuala Lumpur,2019,29
+Labuan,2019,22
+Melaka,2019,3817
+Negeri Sembilan,2019,9672
+Pahang,2019,56671
+Perak,2019,22414
+Perlis,2019,1151
+Pulau Pinang,2019,463
+Putrajaya,2019,55
+Sabah,2019,90613
+Sarawak,2019,118415
+Selangor,2019,8603
+Trengganu,2019,14395
+Johor,2020,22593
+Kedah,2020,8725
+Kelantan,2020,15748
+Kuala Lumpur,2020,11
+Labuan,2020,33
+Melaka,2020,2812
+Negeri Sembilan,2020,6491
+Pahang,2020,40948
+Perak,2020,15675
+Perlis,2020,704
+Pulau Pinang,2020,449
+Putrajaya,2020,24
+Sabah,2020,68313
+Sarawak,2020,72370
+Selangor,2020,4700
+Trengganu,2020,9177
+Johor,2021,21403
+Kedah,2021,7429
+Kelantan,2021,18512
+Kuala Lumpur,2021,15
+Labuan,2021,29
+Melaka,2021,2757
+Negeri Sembilan,2021,6086
+Pahang,2021,43940
+Perak,2021,19237
+Perlis,2021,217
+Pulau Pinang,2021,481
+Putrajaya,2021,31
+Sabah,2021,66593
+Sarawak,2021,72721
+Selangor,2021,7673
+Trengganu,2021,10475
+Johor,2022,15783
+Kedah,2022,5633
+Kelantan,2022,16884
+Kuala Lumpur,2022,8
+Labuan,2022,38
+Melaka,2022,1696
+Negeri Sembilan,2022,5008
+Pahang,2022,34213
+Perak,2022,13019
+Perlis,2022,190
+Pulau Pinang,2022,280
+Putrajaya,2022,15
+Sabah,2022,64221
+Sarawak,2022,75324
+Selangor,2022,3866
+Trengganu,2022,11951
+Johor,2023,24701
+Kedah,2023,7387
+Kelantan,2023,22406
+Kuala Lumpur,2023,12
+Labuan,2023,36
+Melaka,2023,1988
+Negeri Sembilan,2023,5854
+Pahang,2023,44907
+Perak,2023,17572
+Perlis,2023,218
+Pulau Pinang,2023,894
+Putrajaya,2023,22
+Sabah,2023,81567
+Sarawak,2023,85124
+Selangor,2023,5657
+Trengganu,2023,10309
+Johor,2024,19268
+Kedah,2024,6900
+Kelantan,2024,19725
+Kuala Lumpur,2024,15
+Labuan,2024,19
+Melaka,2024,2103
+Negeri Sembilan,2024,5846
+Pahang,2024,38448
+Perak,2024,14915
+Perlis,2024,267
+Pulau Pinang,2024,385
+Putrajaya,2024,18
+Sabah,2024,75672
+Sarawak,2024,79341
+Selangor,2024,4768
+Trengganu,2024,14841
