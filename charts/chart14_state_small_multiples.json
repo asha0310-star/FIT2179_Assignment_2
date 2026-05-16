@@ -1,0 +1,19 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Placeholder",
+  "width": 600,
+  "height": 300,
+  "mark": "text",
+  "data": {
+    "values": [
+      {
+        "text": "Coming soon"
+      }
+    ]
+  },
+  "encoding": {
+    "text": {
+      "field": "text"
+    }
+  }
+}
