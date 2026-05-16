@@ -43,7 +43,10 @@ h1 {
 h2 {
   font-size: 2.1rem;
   line-height: 1.15;
-  margin: 4rem 0 1rem;
+  /* IMPROVED: Added top border for sight-line reinforcement and visual hierarchy */
+  margin: 4rem 0 1.5rem 0;
+  padding-top: 2rem;
+  border-top: 3px solid #c25e1e;
 }
 
 h3 {
@@ -59,9 +62,10 @@ p {
 .lede {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 1.25rem;
-  font-weight: 400;
+  /* IMPROVED: Added font-weight 300 for lightness and visual contrast */
+  font-weight: 300;
   color: #3a4540;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   max-width: 65ch;
 }
 
@@ -78,7 +82,8 @@ p {
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 5rem 2rem;
+  /* IMPROVED: Increased padding from 5rem to allow more breathing room */
+  padding: 5rem 3rem;
 }
 
 .hero {
@@ -97,15 +102,19 @@ p {
 .kpi-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  /* IMPROVED: Increased gap from 1.5rem to 2rem (32px) for more generous spacing */
+  gap: 2rem;
   margin-top: 2rem;
 }
 
 .kpi {
   background: #ffffff;
   border-left: 4px solid #c25e1e;
-  /* primary accent colour */
-  padding: 1.25rem 1.5rem;
+  /* IMPROVED: Increased padding from 1.25rem 1.5rem to 1.75rem 2rem for HD breathing room */
+  padding: 1.75rem 2rem;
+  /* IMPROVED: Added subtle box shadow for figure-ground depth */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
 }
 
 .kpi-number {
@@ -119,9 +128,10 @@ p {
 
 .kpi-label {
   display: block;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   font-size: 0.95rem;
   color: #6b7570;
+  line-height: 1.4;
 }
 
 section {
@@ -131,68 +141,135 @@ section {
 .chart-card {
   background: #ffffff;
   border-radius: 4px;
-  padding: 1.5rem;
-  margin: 2rem 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  /* IMPROVED: Increased padding from 1.5rem to 2.5rem for HD-level breathing room */
+  padding: 2.5rem;
+  margin: 2.5rem 0;
+  /* IMPROVED: Slightly increased shadow for better figure-ground separation */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .chart-card.wide {
-  padding: 1rem;
+  /* IMPROVED: Changed from 1rem to 2rem for consistency with regular chart-cards */
+  padding: 2rem;
 }
 
+/* IMPROVED: New utility class for two-column layouts */
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin: 2rem 0;
+  /* IMPROVED: Increased gap from 1.5rem to 2rem (32px) for HD spacing */
+  gap: 2rem;
+  margin: 2.5rem 0;
 }
 
+/* IMPROVED: New utility class for three-column layouts (for future use) */
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  margin: 2.5rem 0;
+}
+
+/* IMPROVED: Enhanced caption styling */
 .caption {
   font-size: 0.85rem;
   color: #6b7570;
-  margin-top: -1rem;
+  margin-top: -1.5rem;
   margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* IMPROVED: Enhanced narrative text sections */
+.narrative {
+  background: #fafaf7;
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+  border-left: 3px solid #e8e6e1;
+  border-radius: 2px;
+}
+
+.narrative p {
+  margin-bottom: 0.75rem;
+}
+
+.narrative p:last-child {
+  margin-bottom: 0;
 }
 
 .closing {
   background: #1f2421;
   color: #fafaf7;
   padding: 4rem 3rem;
-  margin: 5rem -2rem 0;
+  /* IMPROVED: Adjusted margin to account for container padding */
+  margin: 5rem -3rem 0 -3rem;
   border-radius: 4px;
 }
 
 .closing h2 {
   color: #fafaf7;
   margin-top: 0;
+  border-top: none;
+  padding-top: 0;
 }
 
 .closing p {
   max-width: 60ch;
+  line-height: 1.7;
 }
 
+/* IMPROVED: Footer styling with better hierarchy */
 footer {
   margin-top: 5rem;
-  padding-top: 2rem;
+  padding-top: 2.5rem;
   border-top: 1px solid #d6dad7;
   font-size: 0.85rem;
   color: #6b7570;
 }
 
 footer p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+footer p strong {
+  color: #1f2421;
 }
 
 footer a {
   color: #c25e1e;
   text-decoration: none;
   border-bottom: 1px dotted #c25e1e;
+  transition: all 0.2s ease;
+}
+
+footer a:hover {
+  color: #a04d1a;
+  border-bottom-color: #a04d1a;
 }
 
 /* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .container {
+    padding: 4rem 2.5rem;
+  }
+
+  .kpi-row {
+    gap: 1.5rem;
+  }
+
+  .two-col,
+  .three-col {
+    gap: 1.5rem;
+  }
+
+  .chart-card {
+    padding: 2rem;
+  }
+}
+
 @media (max-width: 760px) {
   .container {
-    padding: 3rem 1.25rem;
+    padding: 3rem 1.5rem;
   }
 
   h1 {
@@ -201,10 +278,32 @@ footer a {
 
   h2 {
     font-size: 1.6rem;
+    margin: 3rem 0 1rem 0;
+    padding-top: 1.5rem;
   }
 
   .kpi-row,
-  .two-col {
+  .two-col,
+  .three-col {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .chart-card {
+    padding: 1.5rem;
+  }
+
+  .chart-card.wide {
+    padding: 1.5rem;
+  }
+
+  .lede {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .closing {
+    margin: 3rem -1.5rem 0 -1.5rem;
+    padding: 2.5rem 1.5rem;
   }
 }
