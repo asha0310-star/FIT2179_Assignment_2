@@ -1,19 +1,51 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
-  "data": {
-    "values": [
-      {
-        "text": "Coming soon"
-      }
+  "title": {
+    "text": "East Malaysia overtook the Peninsula",
+    "subtitle": "CPO production share, Peninsular Malaysia vs Sabah vs Sarawak",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 16,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
+  },
+  "width": 700,
+  "height": 320,
+  "data": {"url": "data/region_production_yearly.csv"},
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {"labelAngle": 0}
+    },
+    "y": {
+      "field": "cpo_production_t",
+      "type": "quantitative",
+      "title": "CPO production (tonnes)",
+      "stack": "zero"
+    },
+    "color": {
+      "field": "region",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Peninsular Malaysia", "Sabah", "Sarawak"],
+        "range": ["#c25e1e", "#5c8a6e", "#2d5a3d"]
+      },
+      "legend": {"title": null, "orient": "bottom"}
+    },
+    "tooltip": [
+      {"field": "region", "type": "nominal"},
+      {"field": "year", "type": "ordinal"},
+      {"field": "cpo_production_t", "type": "quantitative", "format": ",", "title": "Tonnes"}
     ]
   },
-  "encoding": {
-    "text": {
-      "field": "text"
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domain": false, "ticks": false,
+      "labelFont": "Inter", "titleFont": "Inter"
     }
   }
 }

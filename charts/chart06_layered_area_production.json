@@ -1,19 +1,70 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
-  "data": {
-    "values": [
-      {
-        "text": "Coming soon"
-      }
-    ]
+  "title": {
+    "text": "Production rose almost in lockstep with planted area",
+    "subtitle": "Malaysia: CPO production (bars) and planted area (line), 2000–2024",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 16,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
   },
+  "width": 700,
+  "height": 320,
+  "data": {"url": "data/malaysia_yearly.csv"},
   "encoding": {
-    "text": {
-      "field": "text"
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {"labelAngle": 0, "labelOverlap": "greedy"}
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "color": "#c25e1e", "opacity": 0.85},
+      "encoding": {
+        "y": {
+          "field": "cpo_production_Mt",
+          "type": "quantitative",
+          "title": "CPO production (million tonnes)",
+          "axis": {"titleColor": "#c25e1e", "grid": true, "gridColor": "#eeece4"}
+        },
+        "tooltip": [
+          {"field": "year", "type": "ordinal"},
+          {"field": "cpo_production_Mt", "type": "quantitative", "format": ".2f", "title": "Production (Mt)"},
+          {"field": "planted_area_Mha", "type": "quantitative", "format": ".2f", "title": "Area (Mha)"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#2d5a3d",
+        "strokeWidth": 2.5,
+        "point": {"filled": true, "size": 40}
+      },
+      "encoding": {
+        "y": {
+          "field": "planted_area_Mha",
+          "type": "quantitative",
+          "title": "Planted area (million hectares)",
+          "axis": {"titleColor": "#2d5a3d"}
+        },
+        "tooltip": [
+          {"field": "year", "type": "ordinal"},
+          {"field": "planted_area_Mha", "type": "quantitative", "format": ".2f", "title": "Area (Mha)"},
+          {"field": "cpo_production_Mt", "type": "quantitative", "format": ".2f", "title": "Production (Mt)"}
+        ]
+      }
+    }
+  ],
+  "resolve": {"scale": {"y": "independent"}},
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domain": false, "ticks": false,
+      "labelFont": "Inter", "titleFont": "Inter"
     }
   }
 }

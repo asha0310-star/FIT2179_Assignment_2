@@ -1,19 +1,65 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
-  "data": {
-    "values": [
-      {
-        "text": "Coming soon"
-      }
-    ]
+  "title": {
+    "text": "Malaysia's share of world palm oil is shrinking",
+    "subtitle": "Malaysia's CPO production as a % of world production, 1961–2023",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 16,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
   },
-  "encoding": {
-    "text": {
-      "field": "text"
+  "width": 460,
+  "height": 320,
+  "data": {"url": "data/palm_production_long.csv"},
+  "transform": [
+    {"filter": "datum.Entity == 'Malaysia' || datum.Entity == 'World'"},
+    {
+      "pivot": "Entity",
+      "value": "Palm oil - Production (tonnes)",
+      "groupby": ["Year"]
+    },
+    {"filter": "datum.Malaysia != null && datum.World != null && datum.World > 0"},
+    {"calculate": "datum.Malaysia / datum.World * 100", "as": "share_pct"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "area", "color": "#c25e1e", "opacity": 0.18, "interpolate": "monotone"},
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal",
+          "title": null,
+          "axis": {"format": "%Y", "labelAngle": 0}
+        },
+        "y": {
+          "field": "share_pct",
+          "type": "quantitative",
+          "title": "Malaysia's share of world palm oil (%)",
+          "axis": {"format": ".0f"}
+        }
+      }
+    },
+    {
+      "mark": {"type": "line", "color": "#c25e1e", "strokeWidth": 2.5, "interpolate": "monotone"},
+      "encoding": {
+        "x": {"field": "Year", "type": "temporal"},
+        "y": {"field": "share_pct", "type": "quantitative"},
+        "tooltip": [
+          {"field": "Year", "type": "temporal", "format": "%Y"},
+          {"field": "share_pct", "type": "quantitative", "format": ".1f", "title": "Malaysia share (%)"},
+          {"field": "Malaysia", "type": "quantitative", "format": ",.0f", "title": "Malaysia (t)"},
+          {"field": "World", "type": "quantitative", "format": ",.0f", "title": "World (t)"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domain": false, "ticks": false,
+      "labelFont": "Inter", "titleFont": "Inter",
+      "grid": true, "gridColor": "#eeece4"
     }
   }
 }

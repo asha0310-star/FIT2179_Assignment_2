@@ -1,19 +1,49 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
+  "title": {
+    "text": "Forest loss has not been spread evenly",
+    "subtitle": "Total tree cover loss, 2001–2024 (thousand hectares)",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 18,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
+  },
+  "width": 820,
+  "height": 380,
+  "projection": {"type": "mercator", "center": [109, 4], "scale": 1900},
   "data": {
-    "values": [
-      {
-        "text": "Coming soon"
+    "url": "data/malaysia_states.topojson",
+    "format": {"type": "topojson", "feature": "layer"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.NAME_1",
+      "from": {
+        "data": {"url": "data/forest_loss_state_totals.csv"},
+        "key": "state",
+        "fields": ["total_loss_2001_2024"]
       }
+    },
+    {"calculate": "datum.total_loss_2001_2024 / 1000", "as": "loss_kha"}
+  ],
+  "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.6},
+  "encoding": {
+    "color": {
+      "field": "loss_kha",
+      "type": "quantitative",
+      "scale": {"scheme": "oranges", "type": "quantize", "nice": true},
+      "title": "Tree cover loss (000 ha)",
+      "legend": {"orient": "bottom", "gradientLength": 280}
+    },
+    "tooltip": [
+      {"field": "properties.NAME_1", "type": "nominal", "title": "State"},
+      {"field": "loss_kha", "type": "quantitative", "format": ",.0f", "title": "Loss (000 ha)"}
     ]
   },
-  "encoding": {
-    "text": {
-      "field": "text"
-    }
+  "config": {
+    "view": {"stroke": "transparent"},
+    "legend": {"labelFont": "Inter", "titleFont": "Inter"},
+    "title": {"font": "Fraunces"}
   }
 }

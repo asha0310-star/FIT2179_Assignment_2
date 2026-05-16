@@ -1,19 +1,82 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
-  "data": {
-    "values": [
-      {
-        "text": "Coming soon"
-      }
-    ]
+  "title": {
+    "text": "Forest loss and palm oil production go together",
+    "subtitle": "Choropleth: forest loss 2001–2024. Circles: 2024 CPO production by region.",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 18,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
   },
-  "encoding": {
-    "text": {
-      "field": "text"
+  "width": 820,
+  "height": 380,
+  "projection": {"type": "mercator", "center": [109, 4], "scale": 1900},
+  "params": [
+    {"name": "grid", "select": "interval", "bind": "scales"}
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "data/malaysia_states.topojson",
+        "format": {"type": "topojson", "feature": "layer"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.NAME_1",
+          "from": {
+            "data": {"url": "data/forest_loss_state_totals.csv"},
+            "key": "state",
+            "fields": ["total_loss_2001_2024"]
+          }
+        },
+        {"calculate": "datum.total_loss_2001_2024 / 1000", "as": "loss_kha"}
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.6},
+      "encoding": {
+        "color": {
+          "field": "loss_kha",
+          "type": "quantitative",
+          "scale": {"scheme": "oranges", "type": "quantize"},
+          "title": "Forest loss (000 ha)",
+          "legend": {"orient": "bottom-left"}
+        },
+        "tooltip": [
+          {"field": "properties.NAME_1", "type": "nominal", "title": "State"},
+          {"field": "loss_kha", "type": "quantitative", "format": ",.0f", "title": "Loss (000 ha)"}
+        ]
+      }
+    },
+    {
+      "data": {"url": "data/state_cpo_2024.csv"},
+      "mark": {
+        "type": "circle",
+        "stroke": "#1f2421",
+        "strokeWidth": 0.8,
+        "fillOpacity": 0.55,
+        "fill": "#2d5a3d"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "size": {
+          "field": "cpo_production_t",
+          "type": "quantitative",
+          "title": "CPO production 2024 (tonnes)",
+          "scale": {"range": [400, 6000]},
+          "legend": {"orient": "bottom-right"}
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "Region"},
+          {"field": "cpo_production_t", "type": "quantitative", "format": ",", "title": "CPO (tonnes)"},
+          {"field": "planted_area_ha", "type": "quantitative", "format": ",", "title": "Planted area (ha)"}
+        ]
+      }
     }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "legend": {"labelFont": "Inter", "titleFont": "Inter"},
+    "title": {"font": "Fraunces"}
   }
 }

@@ -1,19 +1,89 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
-  "data": {
-    "values": [
-      {
-        "text": "Coming soon"
-      }
-    ]
+  "title": {
+    "text": "Where palm oil land grew the most",
+    "subtitle": "Area harvested for oil palm: 1961 → 2023 (million hectares)",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 18,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
   },
-  "encoding": {
-    "text": {
-      "field": "text"
+  "width": 700,
+  "height": 420,
+  "data": {"url": "data/landuse_slope.csv"},
+  "transform": [
+    {"filter": "datum.Year == 1961 || datum.Year == 2023"},
+    {
+      "calculate": "datum['Palm fruit oil - Area harvested (hectares)'] / 1e6",
+      "as": "Area_Mha"
+    },
+    {
+      "calculate": "datum.Entity === 'Malaysia' || datum.Entity === 'Indonesia' ? datum.Entity : 'Other'",
+      "as": "Group"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5,
+        "point": {"size": 100, "filled": true}
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {"orient": "top", "labelFontSize": 14, "labelFontWeight": "bold"}
+        },
+        "y": {
+          "field": "Area_Mha",
+          "type": "quantitative",
+          "title": "Million hectares",
+          "axis": {"grid": true, "gridColor": "#eeece4"}
+        },
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Malaysia", "Indonesia", "Other"],
+            "range": ["#c25e1e", "#2d5a3d", "#d6dad7"]
+          },
+          "legend": null
+        },
+        "detail": {"field": "Entity"},
+        "tooltip": [
+          {"field": "Entity", "type": "nominal"},
+          {"field": "Year", "type": "ordinal"},
+          {"field": "Area_Mha", "type": "quantitative", "format": ".2f", "title": "Million hectares"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.Year == 2023"}],
+      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11},
+      "encoding": {
+        "x": {"field": "Year", "type": "ordinal"},
+        "y": {"field": "Area_Mha", "type": "quantitative"},
+        "text": {"field": "Entity"},
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Malaysia", "Indonesia", "Other"],
+            "range": ["#c25e1e", "#2d5a3d", "#8a8a82"]
+          },
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domain": false, "ticks": false,
+      "labelFont": "Inter", "titleFont": "Inter"
     }
   }
 }

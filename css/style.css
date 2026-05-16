@@ -1,0 +1,210 @@
+/* === RESET === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+/* === TYPOGRAPHY === */
+/* Fraunces (display serif) — fits an "editorial / journalistic" topic */
+/* Inter (geometric sans) — clean modern body text */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #1f2421;
+  background: #fafaf7;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 800;
+  color: #1f2421;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 3.4rem;
+  line-height: 1.05;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin: 4rem 0 1rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+p {
+  max-width: 70ch;
+  margin-bottom: 1rem;
+}
+
+.lede {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #3a4540;
+  margin-bottom: 2rem;
+  max-width: 65ch;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7570;
+  margin-bottom: 1.5rem;
+}
+
+/* === LAYOUT === */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.hero {
+  margin-bottom: 6rem;
+  text-align: left;
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  color: #3a4540;
+  font-weight: 300;
+  margin: 1rem 0 3rem;
+  max-width: 38ch;
+}
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.kpi {
+  background: #ffffff;
+  border-left: 4px solid #c25e1e;
+  /* primary accent colour */
+  padding: 1.25rem 1.5rem;
+}
+
+.kpi-number {
+  display: block;
+  font-family: 'Fraunces', serif;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #1f2421;
+  line-height: 1;
+}
+
+.kpi-label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #6b7570;
+}
+
+section {
+  margin: 5rem 0;
+}
+
+.chart-card {
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.chart-card.wide {
+  padding: 1rem;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.caption {
+  font-size: 0.85rem;
+  color: #6b7570;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+}
+
+.closing {
+  background: #1f2421;
+  color: #fafaf7;
+  padding: 4rem 3rem;
+  margin: 5rem -2rem 0;
+  border-radius: 4px;
+}
+
+.closing h2 {
+  color: #fafaf7;
+  margin-top: 0;
+}
+
+.closing p {
+  max-width: 60ch;
+}
+
+footer {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid #d6dad7;
+  font-size: 0.85rem;
+  color: #6b7570;
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+}
+
+footer a {
+  color: #c25e1e;
+  text-decoration: none;
+  border-bottom: 1px dotted #c25e1e;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 760px) {
+  .container {
+    padding: 3rem 1.25rem;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .kpi-row,
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,19 +1,77 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
-  "data": {
-    "values": [
+  "title": {
+    "text": "Sarawak and Sabah carried most of the forest loss",
+    "subtitle": "Annual tree cover loss by state, 2001–2024 (thousand hectares). All panels share the same y-axis.",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 18,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
+  },
+  "data": {"url": "data/forest_loss_by_state_long.csv"},
+  "transform": [
+    {"calculate": "datum.tc_loss_ha / 1000", "as": "loss_kha"}
+  ],
+  "facet": {
+    "field": "state",
+    "type": "nominal",
+    "header": {
+      "labelFont": "Inter",
+      "labelFontSize": 12,
+      "labelFontWeight": "bold",
+      "labelColor": "#1f2421",
+      "title": null
+    },
+    "sort": {"op": "sum", "field": "loss_kha", "order": "descending"}
+  },
+  "columns": 4,
+  "spec": {
+    "width": 180,
+    "height": 110,
+    "layer": [
       {
-        "text": "Coming soon"
+        "mark": {"type": "area", "color": "#c25e1e", "opacity": 0.25, "interpolate": "monotone"},
+        "encoding": {
+          "x": {
+            "field": "year",
+            "type": "ordinal",
+            "axis": {
+              "labelAngle": 0,
+              "labelOverlap": "greedy",
+              "values": [2001, 2010, 2024],
+              "labelFontSize": 9
+            },
+            "title": null
+          },
+          "y": {
+            "field": "loss_kha",
+            "type": "quantitative",
+            "title": null,
+            "axis": {"labelFontSize": 9, "tickCount": 3}
+          }
+        }
+      },
+      {
+        "mark": {"type": "line", "color": "#c25e1e", "strokeWidth": 1.8, "interpolate": "monotone"},
+        "encoding": {
+          "x": {"field": "year", "type": "ordinal"},
+          "y": {"field": "loss_kha", "type": "quantitative"},
+          "tooltip": [
+            {"field": "state", "type": "nominal"},
+            {"field": "year", "type": "ordinal"},
+            {"field": "loss_kha", "type": "quantitative", "format": ",.1f", "title": "Loss (000 ha)"}
+          ]
+        }
       }
     ]
   },
-  "encoding": {
-    "text": {
-      "field": "text"
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domain": false, "ticks": false,
+      "labelFont": "Inter", "titleFont": "Inter",
+      "grid": false
     }
   }
 }

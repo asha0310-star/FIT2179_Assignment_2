@@ -1,19 +1,64 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
-  "data": {
-    "values": [
-      {
-        "text": "Coming soon"
-      }
+  "title": {
+    "text": "Sarawak's peaks tell the story of the 2010s",
+    "subtitle": "Annual tree cover loss by state, 2001–2024 (hectares)",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 16,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
+  },
+  "width": 460,
+  "height": 360,
+  "data": {"url": "data/forest_loss_by_state_long.csv"},
+  "params": [
+    {
+      "name": "year_min",
+      "value": 2001,
+      "bind": {"input": "range", "min": 2001, "max": 2024, "step": 1, "name": "From year: "}
+    },
+    {
+      "name": "year_max",
+      "value": 2024,
+      "bind": {"input": "range", "min": 2001, "max": 2024, "step": 1, "name": "To year:   "}
+    }
+  ],
+  "transform": [
+    {"filter": "datum.year >= year_min && datum.year <= year_max"}
+  ],
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {"labelAngle": 0, "labelOverlap": "greedy"}
+    },
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": null,
+      "sort": {"op": "sum", "field": "tc_loss_ha", "order": "descending"}
+    },
+    "color": {
+      "field": "tc_loss_ha",
+      "type": "quantitative",
+      "scale": {"scheme": "oranges"},
+      "title": "Loss (ha)",
+      "legend": {"orient": "bottom"}
+    },
+    "tooltip": [
+      {"field": "state", "type": "nominal"},
+      {"field": "year", "type": "ordinal"},
+      {"field": "tc_loss_ha", "type": "quantitative", "format": ",", "title": "Loss (ha)"}
     ]
   },
-  "encoding": {
-    "text": {
-      "field": "text"
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domain": false, "ticks": false,
+      "labelFont": "Inter"
     }
   }
 }

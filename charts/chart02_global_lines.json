@@ -1,19 +1,135 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
+  "title": {
+    "text": "Malaysia and Indonesia drove global palm oil growth",
+    "subtitle": "Production by country, 1961–2023 (million tonnes)",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 18,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
+  },
+  "width": 700,
+  "height": 380,
   "data": {
-    "values": [
+    "url": "data/palm_production_long.csv"
+  },
+  "params": [
+    {
+      "name": "country_select",
+      "select": {
+        "type": "point",
+        "fields": [
+          "Entity"
+        ]
+      },
+      "bind": "legend"
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.Entity !== 'World'"
+    },
+    {
+      "calculate": "datum['Palm oil - Production (tonnes)'] / 1e6",
+      "as": "Production_Mt"
+    },
+    {
+      "calculate": "datum.Entity === 'Malaysia' || datum.Entity === 'Indonesia' ? datum.Entity : 'Other'",
+      "as": "Group"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "strokeWidth": 2.5,
+    "interpolate": "monotone"
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal",
+      "title": null,
+      "axis": {
+        "format": "%Y",
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "Production_Mt",
+      "type": "quantitative",
+      "title": "Million tonnes",
+      "axis": {
+        "grid": true,
+        "gridColor": "#eeece4"
+      }
+    },
+    "color": {
+      "field": "Group",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Malaysia",
+          "Indonesia",
+          "Other"
+        ],
+        "range": [
+          "#c25e1e",
+          "#2d5a3d",
+          "#d6dad7"
+        ]
+      },
+      "legend": {
+        "title": null,
+        "orient": "top-left"
+      }
+    },
+    "detail": {
+      "field": "Entity"
+    },
+    "opacity": {
+      "condition": [
+        {
+          "param": "country_select",
+          "empty": false,
+          "value": 1
+        },
+        {
+          "test": "datum.Group !== 'Other'",
+          "value": 1
+        }
+      ],
+      "value": 0.25
+    },
+    "tooltip": [
       {
-        "text": "Coming soon"
+        "field": "Entity",
+        "type": "nominal",
+        "title": "Country"
+      },
+      {
+        "field": "Year",
+        "type": "temporal",
+        "format": "%Y"
+      },
+      {
+        "field": "Production_Mt",
+        "type": "quantitative",
+        "format": ".2f",
+        "title": "Million tonnes"
       }
     ]
   },
-  "encoding": {
-    "text": {
-      "field": "text"
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#6b7570",
+      "titleColor": "#1f2421"
     }
   }
 }

@@ -1,19 +1,58 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Placeholder",
-  "width": 600,
-  "height": 300,
-  "mark": "text",
-  "data": {
-    "values": [
-      {
-        "text": "Coming soon"
-      }
-    ]
+  "title": {
+    "text": "Seven markets bought half of Malaysia's palm oil in 2024",
+    "subtitle": "Top palm oil importers (tonnes, share of total exports)",
+    "anchor": "start",
+    "font": "Fraunces",
+    "fontSize": 16,
+    "subtitleFont": "Inter",
+    "subtitleColor": "#6b7570"
   },
-  "encoding": {
-    "text": {
-      "field": "text"
+  "width": 700,
+  "height": 280,
+  "data": {"url": "data/top_importers_2024.csv"},
+  "layer": [
+    {
+      "mark": {"type": "bar", "color": "#c25e1e", "cornerRadiusEnd": 2},
+      "encoding": {
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "sort": "-x",
+          "title": null
+        },
+        "x": {
+          "field": "tonnes",
+          "type": "quantitative",
+          "title": "Tonnes imported (2024)",
+          "axis": {"grid": true, "gridColor": "#eeece4"}
+        },
+        "tooltip": [
+          {"field": "country", "type": "nominal"},
+          {"field": "tonnes", "type": "quantitative", "format": ",", "title": "Tonnes"},
+          {"field": "share_pct", "type": "quantitative", "format": ".1f", "title": "Share %"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 6, "fontSize": 11, "color": "#1f2421"},
+      "encoding": {
+        "y": {"field": "country", "type": "nominal", "sort": "-x"},
+        "x": {"field": "tonnes", "type": "quantitative"},
+        "text": {
+          "field": "share_pct",
+          "type": "quantitative",
+          "format": ".1f"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "domain": false, "ticks": false,
+      "labelFont": "Inter", "titleFont": "Inter"
     }
   }
 }
