@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forests for Palm Oil — Malaysia's Trade-Off</title>
+
+  <!-- Vega + Vega-Lite + Vega-Embed (must be in this order) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;800&family=Inter:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- SECTION A: HOOK -->
+    <header class="hero">
+      <p class="eyebrow">Malaysia · 1961 – 2024</p>
+      <h1>Forests for Palm Oil</h1>
+      <p class="subtitle">How a single crop reshaped a country's landscape — and where the cost has fallen hardest.</p>
+      <div class="kpi-row">
+        <div class="kpi">
+          <span class="kpi-number">19.34 M</span>
+          <span class="kpi-label">tonnes of crude palm oil produced in 2024</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-number">5.6 M</span>
+          <span class="kpi-label">hectares planted with oil palm</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-number">9.5 M</span>
+          <span class="kpi-label">hectares of tree cover lost, 2001–2024</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION B: GLOBAL CONTEXT -->
+    <section>
+      <h2>A Crop That Conquered the World</h2>
+      <p class="lede">In sixty years, palm oil grew from a small West African export into the world's most-traded
+        vegetable oil. Malaysia and Indonesia produced almost all of that growth.</p>
+      <div class="chart-card">
+        <div id="chart02"></div>
+      </div>
+      <p class="caption">Source: Our World in Data, FAOSTAT.</p>
+
+      <div class="two-col">
+        <div class="chart-card">
+          <div id="chart03"></div>
+        </div>
+        <div class="chart-card">
+          <div id="chart04"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION C: EXPANSION -->
+    <section>
+      <h2>From a Few Estates to Millions of Hectares</h2>
+      <p class="lede">In 1961 fewer than 55,000 hectares of Malaysia were planted with oil palm. By 2024 the figure was
+        5.6 million — an area roughly the size of Croatia.</p>
+      <div class="chart-card">
+        <div id="chart05"></div>
+      </div>
+      <div class="chart-card">
+        <div id="chart06"></div>
+      </div>
+      <div class="chart-card">
+        <div id="chart07"></div>
+      </div>
+    </section>
+
+    <!-- SECTION D: THE COST (MAPS + SCATTER + DETAIL) -->
+    <section>
+      <h2>The Forest Pays the Bill</h2>
+      <p class="lede">Between 2001 and 2024 Malaysia lost roughly 9.5 million hectares of tree cover — close to a third
+        of the country's land area. The losses are concentrated in the same states where palm oil expanded the fastest.
+      </p>
+
+      <!-- The "money shot": planted area vs annual forest loss -->
+      <div class="chart-card wide">
+        <div id="chart13"></div>
+      </div>
+
+      <!-- The two maps -->
+      <div class="chart-card wide">
+        <div id="map08"></div>
+      </div>
+      <div class="chart-card wide">
+        <div id="map09"></div>
+      </div>
+
+      <!-- Heatmap and annual-loss line side-by-side -->
+      <div class="two-col">
+        <div class="chart-card">
+          <div id="chart10"></div>
+        </div>
+        <div class="chart-card">
+          <div id="chart11"></div>
+        </div>
+      </div>
+
+      <!-- Small multiples: one mini-line per state -->
+      <div class="chart-card wide">
+        <div id="chart14"></div>
+      </div>
+    </section>
+
+    <!-- SECTION E: TRADE -->
+    <section>
+      <h2>Where the Oil Goes</h2>
+      <p class="lede">In 2024 Malaysia exported 16.9 million tonnes of palm oil worth RM73 billion. Just seven markets
+        bought more than half of it.</p>
+      <div class="chart-card">
+        <div id="chart12"></div>
+      </div>
+    </section>
+
+    <!-- SECTION F: SO WHAT -->
+    <section class="closing">
+      <h2>What Comes Next</h2>
+      <p>The country has begun replanting older estates and tightening sustainability certification (MSPO became
+        mandatory in 2020). Whether forest cover can recover depends on whether we treat palm oil as land that
+        <em>was</em> something else — or as land that <em>still is</em>.</p>
+    </section>
+
+    <!-- FOOTER / METADATA -->
+    <footer>
+      <p><strong>Created by [Your Name]</strong> — May 2026, for FIT3179 Data Visualisation 2.</p>
+      <p>Data sources:
+        <a href="https://ourworldindata.org/palm-oil">Our World in Data — Palm Oil</a> ·
+        <a href="https://mpob.gov.my/">MPOB Overview of the Malaysian Oil Palm Industry 2024</a> ·
+        <a href="https://www.globalforestwatch.org/dashboards/country/MYS/">Global Forest Watch — Malaysia</a>.
+      </p>
+      <p>Generative AI was used to help proofread narrative text and to scaffold initial Vega-Lite JSON, which was then
+        edited and customised by the author.</p>
+    </footer>
+
+  </div>
+
+  <!-- Embed all charts -->
+  <script>
+    vegaEmbed('#chart02', 'charts/chart02_global_lines.json', { actions: false });
+    vegaEmbed('#chart03', 'charts/chart03_top_producers.json', { actions: false });
+    vegaEmbed('#chart04', 'charts/chart04_malaysia_share_line.json', { actions: false });
+    vegaEmbed('#chart05', 'charts/chart05_slope_landuse.json', { actions: false });
+    vegaEmbed('#chart06', 'charts/chart06_layered_area_production.json', { actions: false });
+    vegaEmbed('#chart07', 'charts/chart07_state_stacked_area.json', { actions: false });
+    vegaEmbed('#map08', 'charts/map08_choropleth_states.json', { actions: false });
+    vegaEmbed('#map09', 'charts/map09_layered_map.json', { actions: false });
+    vegaEmbed('#chart10', 'charts/chart10_heatmap.json', { actions: false });
+    vegaEmbed('#chart11', 'charts/chart11_annual_loss.json', { actions: false });
+    vegaEmbed('#chart12', 'charts/chart12_importers.json', { actions: false });
+    vegaEmbed('#chart13', 'charts/chart13_connected_scatter.json', { actions: false });
+    vegaEmbed('#chart14', 'charts/chart14_state_small_multiples.json', { actions: false });
+  </script>
+
+</body>
+
+</html>
