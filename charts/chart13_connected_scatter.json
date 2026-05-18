@@ -1,59 +1,106 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Twenty years of trade-off",
-    "subtitle": "Each dot = one year. As Malaysia's palm oil estate grew, forest loss stayed high — then began to ease.",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 18,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "text": "Two decades of trade-off",
+    "subtitle": "Each dot = one year, 2001–2024. As Malaysia's palm oil estate grew, forest loss stayed high — then began to ease.",
+    "anchor": "start"
   },
   "width": 760,
   "height": 460,
-  "data": {"url": "data/area_vs_loss_yearly.csv"},
+  "data": {
+    "url": "data/area_vs_loss_yearly.csv"
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum.planted_area_Mha) && isValid(datum.forest_loss_kha)"
+    }
+  ],
   "layer": [
     {
       "mark": {
         "type": "line",
-        "color": "#c9bca6",
-        "strokeWidth": 1.5,
-        "opacity": 0.8,
-        "interpolate": "monotone"
+        "color": "#5a5a52",
+        "strokeWidth": 2,
+        "opacity": 0.9,
+        "interpolate": "linear"
       },
       "encoding": {
-        "x": {"field": "planted_area_Mha", "type": "quantitative"},
-        "y": {"field": "forest_loss_kha", "type": "quantitative"},
-        "order": {"field": "year", "type": "ordinal"}
+        "x": {
+          "field": "planted_area_Mha",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "forest_loss_kha",
+          "type": "quantitative"
+        },
+        "order": {
+          "field": "year",
+          "type": "ordinal"
+        }
       }
     },
     {
-      "mark": {"type": "circle", "size": 130, "stroke": "white", "strokeWidth": 1.5},
+      "mark": {
+        "type": "circle",
+        "size": 150,
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
       "encoding": {
         "x": {
           "field": "planted_area_Mha",
           "type": "quantitative",
-          "scale": {"zero": false, "nice": true},
+          "scale": {
+            "zero": false,
+            "nice": true
+          },
           "title": "Malaysia's oil palm planted area (million hectares)",
-          "axis": {"grid": true, "gridColor": "#eeece4"}
+          "axis": {
+            "grid": true,
+            "gridColor": "#eeece4"
+          }
         },
         "y": {
           "field": "forest_loss_kha",
           "type": "quantitative",
           "title": "Tree cover loss that year (thousand hectares)",
-          "axis": {"grid": true, "gridColor": "#eeece4"}
+          "axis": {
+            "grid": true,
+            "gridColor": "#eeece4"
+          }
         },
         "color": {
           "field": "year",
           "type": "quantitative",
-          "scale": {"scheme": "oranges"},
+          "scale": {
+            "scheme": "oranges"
+          },
           "title": "Year",
-          "legend": {"orient": "right", "gradientLength": 200, "format": "d"}
+          "legend": {
+            "orient": "right",
+            "gradientLength": 200,
+            "format": "d"
+          }
         },
         "tooltip": [
-          {"field": "year", "type": "quantitative", "title": "Year", "format": "d"},
-          {"field": "planted_area_Mha", "type": "quantitative", "title": "Planted area (Mha)", "format": ".2f"},
-          {"field": "forest_loss_kha", "type": "quantitative", "title": "Forest loss (000 ha)", "format": ",.0f"}
+          {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "planted_area_Mha",
+            "type": "quantitative",
+            "title": "Planted area (Mha)",
+            "format": ".2f"
+          },
+          {
+            "field": "forest_loss_kha",
+            "type": "quantitative",
+            "title": "Forest loss (000 ha)",
+            "format": ",.0f"
+          }
         ]
       }
     },
@@ -65,24 +112,59 @@
       ],
       "mark": {
         "type": "text",
-        "dy": -14,
+        "dy": -16,
         "fontSize": 11,
         "fontWeight": "bold",
         "color": "#1f2421",
         "font": "Inter"
       },
       "encoding": {
-        "x": {"field": "planted_area_Mha", "type": "quantitative"},
-        "y": {"field": "forest_loss_kha", "type": "quantitative"},
-        "text": {"field": "year", "type": "quantitative", "format": "d"}
+        "x": {
+          "field": "planted_area_Mha",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "forest_loss_kha",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "year",
+          "type": "quantitative",
+          "format": "d"
+        }
       }
     }
   ],
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    },
     "axis": {
-      "domain": false, "ticks": false,
-      "labelFont": "Inter", "titleFont": "Inter"
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "titleFont": "Inter",
+      "titleFontSize": 12
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
     }
   }
 }

@@ -2,64 +2,273 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Malaysia's share of world palm oil is shrinking",
-    "subtitle": "Malaysia's CPO production as a % of world production, 1961–2023",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 16,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "Malaysia's CPO production as a % of world production, 1961–2023"
   },
   "width": 460,
   "height": 320,
-  "data": {"url": "data/palm_production_long.csv"},
+  "padding": {
+    "bottom": 40
+  },
+  "data": {
+    "url": "data/palm_production_long.csv"
+  },
   "transform": [
-    {"filter": "datum.Entity == 'Malaysia' || datum.Entity == 'World'"},
+    {
+      "filter": "datum.Entity == 'Malaysia' || datum.Entity == 'World'"
+    },
     {
       "pivot": "Entity",
       "value": "Palm oil - Production (tonnes)",
-      "groupby": ["Year"]
+      "groupby": [
+        "Year"
+      ]
     },
-    {"filter": "datum.Malaysia != null && datum.World != null && datum.World > 0"},
-    {"calculate": "datum.Malaysia / datum.World * 100", "as": "share_pct"}
+    {
+      "calculate": "toNumber(datum.Malaysia)",
+      "as": "Malaysia_num"
+    },
+    {
+      "calculate": "toNumber(datum.World)",
+      "as": "World_num"
+    },
+    {
+      "filter": "isValid(datum.Malaysia_num) && isValid(datum.World_num) && datum.World_num > 0"
+    },
+    {
+      "calculate": "datum.Malaysia_num / datum.World_num * 100",
+      "as": "share_pct"
+    },
+    {
+      "calculate": "datum.Malaysia_num / 1000000",
+      "as": "Malaysia_Mt"
+    },
+    {
+      "calculate": "datum.World_num / 1000000",
+      "as": "World_Mt"
+    },
+    {
+      "calculate": "datetime(toNumber(datum.Year), 0, 1)",
+      "as": "year_date"
+    }
+  ],
+  "params": [
+    {
+      "name": "year_link",
+      "value": 2024
+    }
   ],
   "layer": [
     {
-      "mark": {"type": "area", "color": "#c25e1e", "opacity": 0.18, "interpolate": "monotone"},
+      "mark": {
+        "type": "area",
+        "color": "#c25e1e",
+        "opacity": 0.18,
+        "interpolate": "monotone"
+      },
       "encoding": {
         "x": {
-          "field": "Year",
+          "field": "year_date",
           "type": "temporal",
           "title": null,
-          "axis": {"format": "%Y", "labelAngle": 0}
+          "axis": {
+            "format": "%Y",
+            "tickCount": 7,
+            "labelAngle": 0
+          }
         },
         "y": {
           "field": "share_pct",
           "type": "quantitative",
           "title": "Malaysia's share of world palm oil (%)",
-          "axis": {"format": ".0f"}
+          "axis": {
+            "format": ".0f"
+          }
         }
       }
     },
     {
-      "mark": {"type": "line", "color": "#c25e1e", "strokeWidth": 2.5, "interpolate": "monotone"},
+      "mark": {
+        "type": "line",
+        "color": "#c25e1e",
+        "strokeWidth": 2.5,
+        "interpolate": "monotone"
+      },
       "encoding": {
-        "x": {"field": "Year", "type": "temporal"},
-        "y": {"field": "share_pct", "type": "quantitative"},
+        "x": {
+          "field": "year_date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "share_pct",
+          "type": "quantitative"
+        },
         "tooltip": [
-          {"field": "Year", "type": "temporal", "format": "%Y"},
-          {"field": "share_pct", "type": "quantitative", "format": ".1f", "title": "Malaysia share (%)"},
-          {"field": "Malaysia", "type": "quantitative", "format": ",.0f", "title": "Malaysia (t)"},
-          {"field": "World", "type": "quantitative", "format": ",.0f", "title": "World (t)"}
+          {
+            "field": "Year",
+            "type": "quantitative",
+            "format": "d"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Malaysia share (%)"
+          },
+          {
+            "field": "Malaysia_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Malaysia (Mt)"
+          },
+          {
+            "field": "World_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "World (Mt)"
+          }
         ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.Year == 1990"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": 6,
+        "dy": -10,
+        "fontSize": 11,
+        "font": "Inter",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year_date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "share_pct",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "~70% in 1990"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.Year == 2023"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": -6,
+        "dy": -10,
+        "align": "right",
+        "fontSize": 11,
+        "font": "Inter",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year_date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "share_pct",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "27% in 2023"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#6b7570",
+        "strokeDash": [
+          4,
+          4
+        ]
+      },
+      "encoding": {
+        "x": {
+          "datum": {
+            "expr": "datetime(year_link, 0, 1)"
+          },
+          "type": "temporal"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.Year == 1982"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": 10,
+        "dy": -10,
+        "align": "left",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "font": "Inter",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year_date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "share_pct",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Peak: 76% in 1982"
+        }
       }
     }
   ],
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    },
     "axis": {
-      "domain": false, "ticks": false,
-      "labelFont": "Inter", "titleFont": "Inter",
-      "grid": true, "gridColor": "#eeece4"
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 12,
+      "labelColor": "#333333",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
     }
   }
 }

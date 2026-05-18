@@ -2,50 +2,173 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Two countries make 85% of the world's palm oil",
-    "subtitle": "CPO production, 2024 (thousand tonnes)",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 16,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "CPO production by country (million tonnes) — drag the slider to change year"
   },
   "width": 460,
   "height": 320,
-  "data": {"url": "data/cpo_by_country_long.csv"},
-  "transform": [
-    {"filter": "datum.Country !== 'World'"},
-    {"filter": "datum.Period == 2024"}
-  ],
-  "mark": {"type": "bar", "cornerRadiusEnd": 2},
-  "encoding": {
-    "y": {
-      "field": "Country",
-      "type": "nominal",
-      "sort": "-x",
-      "title": null,
-      "axis": {"labelFont": "Inter", "labelFontSize": 12}
-    },
-    "x": {
-      "field": "Production_kt",
-      "type": "quantitative",
-      "title": "Thousand tonnes",
-      "axis": {"grid": true, "gridColor": "#eeece4"}
-    },
-    "color": {
-      "condition": {"test": "datum.Country === 'Malaysia'", "value": "#c25e1e"},
-      "value": "#d6dad7"
-    },
-    "tooltip": [
-      {"field": "Country", "type": "nominal"},
-      {"field": "Production_kt", "type": "quantitative", "format": ",", "title": "Production (000 t)"}
-    ]
+  "data": {
+    "url": "data/cpo_by_country_long.csv"
   },
+  "params": [
+    {
+      "name": "year_select",
+      "value": 2024,
+      "bind": {
+        "input": "range",
+        "min": 2014,
+        "max": 2024,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.Country !== 'World'"
+    },
+    {
+      "filter": "datum.Period == year_select"
+    },
+    {
+      "calculate": "toNumber(datum.Production_kt) / 1000",
+      "as": "Production_Mt"
+    },
+    {
+      "calculate": "datum.Country === 'Malaysia' || datum.Country === 'Indonesia' ? datum.Country : 'Other'",
+      "as": "Group"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": {
+            "op": "max",
+            "field": "Production_Mt",
+            "order": "descending"
+          },
+          "title": null,
+          "axis": {
+            "labelFont": "Inter",
+            "labelFontSize": 12
+          }
+        },
+        "x": {
+          "field": "Production_Mt",
+          "type": "quantitative",
+          "title": "Million tonnes",
+          "axis": {
+            "grid": true,
+            "gridColor": "#eeece4"
+          }
+        },
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Malaysia",
+              "Indonesia",
+              "Other"
+            ],
+            "range": [
+              "#c25e1e",
+              "#2d5a3d",
+              "#d6dad7"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "Country",
+            "type": "nominal"
+          },
+          {
+            "field": "Period",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "Production_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Production (Mt)"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.Country === 'Indonesia'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "dy": -6,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "font": "Inter",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal"
+        },
+        "x": {
+          "field": "Production_Mt",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Indonesia + Malaysia ≈ 85% of world output"
+        }
+      }
+    }
+  ],
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    },
     "axis": {
-      "domain": false, "ticks": false,
-      "labelFont": "Inter", "titleFont": "Inter",
-      "labelColor": "#6b7570", "titleColor": "#1f2421"
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
     }
   }
 }

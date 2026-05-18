@@ -2,15 +2,14 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Malaysia and Indonesia drove global palm oil growth",
-    "subtitle": "Production by country, 1961–2023 (million tonnes)",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 18,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "Production by country, 1961–2023 (million tonnes)"
   },
-  "width": 700,
+  "width": "container",
   "height": 380,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
   "data": {
     "url": "data/palm_production_long.csv"
   },
@@ -39,86 +38,149 @@
       "as": "Group"
     }
   ],
-  "mark": {
-    "type": "line",
-    "strokeWidth": 2.5,
-    "interpolate": "monotone"
-  },
-  "encoding": {
-    "x": {
-      "field": "Year",
-      "type": "temporal",
-      "title": null,
-      "axis": {
-        "format": "%Y",
-        "labelAngle": 0
-      }
-    },
-    "y": {
-      "field": "Production_Mt",
-      "type": "quantitative",
-      "title": "Million tonnes",
-      "axis": {
-        "grid": true,
-        "gridColor": "#eeece4"
-      }
-    },
-    "color": {
-      "field": "Group",
-      "type": "nominal",
-      "scale": {
-        "domain": [
-          "Malaysia",
-          "Indonesia",
-          "Other"
-        ],
-        "range": [
-          "#c25e1e",
-          "#2d5a3d",
-          "#d6dad7"
-        ]
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5,
+        "interpolate": "monotone"
       },
-      "legend": {
-        "title": null,
-        "orient": "top-left"
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal",
+          "title": null,
+          "axis": {
+            "format": "%Y",
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "Production_Mt",
+          "type": "quantitative",
+          "title": "Million tonnes",
+          "axis": {
+            "grid": true,
+            "gridColor": "#eeece4"
+          }
+        },
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Malaysia",
+              "Indonesia",
+              "Other"
+            ],
+            "range": [
+              "#c25e1e",
+              "#2d5a3d",
+              "#d6dad7"
+            ]
+          },
+          "legend": {
+            "title": null,
+            "orient": "top-left"
+          }
+        },
+        "detail": {
+          "field": "Entity"
+        },
+        "opacity": {
+          "condition": [
+            {
+              "param": "country_select",
+              "empty": false,
+              "value": 1
+            },
+            {
+              "test": "datum.Group !== 'Other'",
+              "value": 1
+            }
+          ],
+          "value": 0.25
+        },
+        "tooltip": [
+          {
+            "field": "Entity",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "Year",
+            "type": "temporal",
+            "format": "%Y"
+          },
+          {
+            "field": "Production_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Million tonnes"
+          }
+        ]
       }
     },
-    "detail": {
-      "field": "Entity"
-    },
-    "opacity": {
-      "condition": [
+    {
+      "transform": [
         {
-          "param": "country_select",
-          "empty": false,
-          "value": 1
-        },
-        {
-          "test": "datum.Group !== 'Other'",
-          "value": 1
+          "filter": "datum.Entity == 'Malaysia' && datum.Year == 1990"
         }
       ],
-      "value": 0.25
-    },
-    "tooltip": [
-      {
-        "field": "Entity",
-        "type": "nominal",
-        "title": "Country"
+      "mark": {
+        "type": "text",
+        "dx": 8,
+        "dy": -8,
+        "align": "left",
+        "fontSize": 12,
+        "font": "Inter",
+        "color": "#1f2421"
       },
-      {
-        "field": "Year",
-        "type": "temporal",
-        "format": "%Y"
-      },
-      {
-        "field": "Production_Mt",
-        "type": "quantitative",
-        "format": ".2f",
-        "title": "Million tonnes"
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "Production_Mt",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Malaysia ~1990: peak share era"
+        }
       }
-    ]
-  },
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.Entity == 'Indonesia' && datum.Year == 2006"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": 10,
+        "dy": -10,
+        "align": "left",
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "font": "Inter",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "Production_Mt",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Indonesia overtakes Malaysia, 2006"
+        }
+      }
+    }
+  ],
   "config": {
     "view": {
       "stroke": "transparent"
@@ -127,9 +189,32 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "titleFont": "Inter",
+      "labelFontSize": 11,
       "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
       "titleColor": "#1f2421"
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
     }
   }
 }

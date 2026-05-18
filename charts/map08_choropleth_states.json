@@ -2,48 +2,211 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Forest loss has not been spread evenly",
-    "subtitle": "Total tree cover loss, 2001–2024 (thousand hectares)",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 18,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "Total tree cover loss, 2001–2024 (thousand hectares)"
   },
   "width": 820,
   "height": 380,
-  "projection": {"type": "mercator", "center": [109, 4], "scale": 1900},
-  "data": {
-    "url": "data/malaysia_states.topojson",
-    "format": {"type": "topojson", "feature": "layer"}
+  "projection": {
+    "type": "mercator",
+    "center": [
+      109,
+      4
+    ],
+    "scale": 1900
   },
-  "transform": [
+  "layer": [
     {
-      "lookup": "properties.NAME_1",
-      "from": {
-        "data": {"url": "data/forest_loss_state_totals.csv"},
-        "key": "state",
-        "fields": ["total_loss_2001_2024"]
+      "data": {
+        "url": "data/malaysia_states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "layer"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.NAME_1",
+          "from": {
+            "data": {
+              "url": "data/forest_loss_state_totals.csv"
+            },
+            "key": "state",
+            "fields": [
+              "total_loss_2001_2024"
+            ]
+          }
+        },
+        {
+          "calculate": "datum.total_loss_2001_2024 / 1000",
+          "as": "loss_kha"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 0.6
+      },
+      "encoding": {
+        "color": {
+          "field": "loss_kha",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "oranges"
+          },
+          "title": "Loss (000 ha)",
+          "legend": {
+            "orient": "bottom",
+            "gradientLength": 280
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.NAME_1",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "loss_kha",
+            "type": "quantitative",
+            "format": ",.0f",
+            "title": "Loss (000 ha)"
+          }
+        ]
       }
     },
-    {"calculate": "datum.total_loss_2001_2024 / 1000", "as": "loss_kha"}
-  ],
-  "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.6},
-  "encoding": {
-    "color": {
-      "field": "loss_kha",
-      "type": "quantitative",
-      "scale": {"scheme": "oranges", "type": "quantize", "nice": true},
-      "title": "Tree cover loss (000 ha)",
-      "legend": {"orient": "bottom", "gradientLength": 280}
+    {
+      "data": {
+        "values": [
+          {
+            "label": "Sarawak",
+            "lat": 2.5,
+            "lon": 113.5
+          },
+          {
+            "label": "Sabah",
+            "lat": 5.4,
+            "lon": 117.0
+          },
+          {
+            "label": "Pahang",
+            "lat": 3.8,
+            "lon": 102.6
+          },
+          {
+            "label": "Johor",
+            "lat": 2.0,
+            "lon": 103.4
+          },
+          {
+            "label": "Perak",
+            "lat": 4.6,
+            "lon": 101.1
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": "normal",
+        "dx": 0,
+        "dy": -8,
+        "align": "center"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "stroke": {
+          "value": "#1f2421"
+        },
+        "strokeWidth": {
+          "value": 2
+        }
+      }
     },
-    "tooltip": [
-      {"field": "properties.NAME_1", "type": "nominal", "title": "State"},
-      {"field": "loss_kha", "type": "quantitative", "format": ",.0f", "title": "Loss (000 ha)"}
-    ]
-  },
+    {
+      "data": {
+        "values": [
+          {
+            "note": "East Malaysia: 5.0M ha of 9.5M total",
+            "lat": 3.3,
+            "lon": 111.2
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Inter",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "align": "left",
+        "dx": 6,
+        "dy": -6,
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "note",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
   "config": {
-    "view": {"stroke": "transparent"},
-    "legend": {"labelFont": "Inter", "titleFont": "Inter"},
-    "title": {"font": "Fraunces"}
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
+    }
   }
 }

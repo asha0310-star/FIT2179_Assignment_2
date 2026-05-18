@@ -2,18 +2,21 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Where palm oil land grew the most",
-    "subtitle": "Area harvested for oil palm: 1961 → 2023 (million hectares)",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 18,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "Area harvested for oil palm: 1961 → 2023 (million hectares).",
+    "anchor": "start"
   },
   "width": 700,
   "height": 420,
-  "data": {"url": "data/landuse_slope.csv"},
+  "padding": {
+    "bottom": 40
+  },
+  "data": {
+    "url": "data/landuse_slope.csv"
+  },
   "transform": [
-    {"filter": "datum.Year == 1961 || datum.Year == 2023"},
+    {
+      "filter": "datum.Year == 1961 || datum.Year == 2023"
+    },
     {
       "calculate": "datum['Palm fruit oil - Area harvested (hectares)'] / 1e6",
       "as": "Area_Mha"
@@ -28,51 +31,109 @@
       "mark": {
         "type": "line",
         "strokeWidth": 2.5,
-        "point": {"size": 100, "filled": true}
+        "point": {
+          "size": 100,
+          "filled": true
+        }
       },
       "encoding": {
         "x": {
           "field": "Year",
           "type": "ordinal",
           "title": null,
-          "axis": {"orient": "top", "labelFontSize": 14, "labelFontWeight": "bold"}
+          "axis": {
+            "orient": "top",
+            "labelFontSize": 15,
+            "labelFontWeight": "bold",
+            "labelColor": "#333333",
+            "labelFont": "Inter"
+          }
         },
         "y": {
           "field": "Area_Mha",
           "type": "quantitative",
           "title": "Million hectares",
-          "axis": {"grid": true, "gridColor": "#eeece4"}
+          "axis": {
+            "grid": true,
+            "gridColor": "#eeece4"
+          }
         },
         "color": {
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": ["Malaysia", "Indonesia", "Other"],
-            "range": ["#c25e1e", "#2d5a3d", "#d6dad7"]
+            "domain": [
+              "Malaysia",
+              "Indonesia",
+              "Other"
+            ],
+            "range": [
+              "#c25e1e",
+              "#2d5a3d",
+              "#d6dad7"
+            ]
           },
           "legend": null
         },
-        "detail": {"field": "Entity"},
         "tooltip": [
-          {"field": "Entity", "type": "nominal"},
-          {"field": "Year", "type": "ordinal"},
-          {"field": "Area_Mha", "type": "quantitative", "format": ".2f", "title": "Million hectares"}
+          {
+            "field": "Entity",
+            "type": "nominal"
+          },
+          {
+            "field": "Year",
+            "type": "ordinal"
+          },
+          {
+            "field": "Area_Mha",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Million hectares"
+          }
         ]
       }
     },
     {
-      "transform": [{"filter": "datum.Year == 2023"}],
-      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11},
+      "transform": [
+        {
+          "filter": "datum.Year == 2023"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "font": "Inter",
+        "fontSize": 12,
+        "fill": "#1f2421"
+      },
       "encoding": {
-        "x": {"field": "Year", "type": "ordinal"},
-        "y": {"field": "Area_Mha", "type": "quantitative"},
-        "text": {"field": "Entity"},
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "Area_Mha",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Entity",
+          "type": "nominal"
+        },
         "color": {
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": ["Malaysia", "Indonesia", "Other"],
-            "range": ["#c25e1e", "#2d5a3d", "#8a8a82"]
+            "domain": [
+              "Malaysia",
+              "Indonesia",
+              "Other"
+            ],
+            "range": [
+              "#c25e1e",
+              "#2d5a3d",
+              "#d6dad7"
+            ]
           },
           "legend": null
         }
@@ -80,10 +141,39 @@
     }
   ],
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    },
     "axis": {
-      "domain": false, "ticks": false,
-      "labelFont": "Inter", "titleFont": "Inter"
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
     }
   }
 }

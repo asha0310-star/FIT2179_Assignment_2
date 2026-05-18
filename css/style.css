@@ -62,8 +62,7 @@ p {
 .lede {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 1.25rem;
-  /* IMPROVED: Added font-weight 300 for lightness and visual contrast */
-  font-weight: 300;
+  font-weight: 400;
   color: #3a4540;
   margin-bottom: 2.5rem;
   max-width: 65ch;
@@ -117,6 +116,11 @@ p {
   border-radius: 2px;
 }
 
+/* KPI subtle gradient for HD polish */
+.kpi {
+  background: linear-gradient(180deg, #ffffff 0%, #fbf9f7 100%);
+}
+
 .kpi-number {
   display: block;
   font-family: 'Fraunces', serif;
@@ -149,8 +153,7 @@ section {
 }
 
 .chart-card.wide {
-  /* IMPROVED: Changed from 1rem to 2rem for consistency with regular chart-cards */
-  padding: 2rem;
+  padding: 2.5rem;
 }
 
 /* IMPROVED: New utility class for two-column layouts */
@@ -160,6 +163,22 @@ section {
   /* IMPROVED: Increased gap from 1.5rem to 2rem (32px) for HD spacing */
   gap: 2rem;
   margin: 2.5rem 0;
+}
+
+/* Ensure grid children stretch to equal height and chart-cards layout cleanly */
+.two-col {
+  align-items: stretch;
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-card>div {
+  /* make the embedded chart area expand to fill available card height */
+  flex: 1 1 auto;
+  min-height: 220px;
 }
 
 /* IMPROVED: New utility class for three-column layouts (for future use) */
@@ -174,8 +193,8 @@ section {
 .caption {
   font-size: 0.85rem;
   color: #6b7570;
-  margin-top: -1.5rem;
-  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
   font-style: italic;
 }
 
@@ -306,4 +325,24 @@ footer a:hover {
     margin: 3rem -1.5rem 0 -1.5rem;
     padding: 2.5rem 1.5rem;
   }
+}
+
+/* === VEGA EMBED RESPONSIVE FIX ===
+   Ensure vega-embed outputs (svg/iframes) scale to their container width
+   instead of forcing layout overflow on narrow laptops. This preserves visual
+   fidelity while avoiding horizontal scroll on ~1300px screens.
+*/
+.chart-card>div .vega-embed,
+.chart-card>div .vega-embed>div,
+.chart-card>div .vega-embed>svg,
+.chart-card>div iframe {
+  max-width: 100%;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* In some embed variants the inner element uses explicit width attributes;
+   forcing box-sizing and overflow hidden at the container avoids scrollbars. */
+.chart-card>div {
+  overflow-x: hidden;
 }

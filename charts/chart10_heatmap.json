@@ -2,63 +2,172 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Sarawak's peaks tell the story of the 2010s",
-    "subtitle": "Annual tree cover loss by state, 2001–2024 (hectares)",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 16,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "Annual tree cover loss by state, 2001–2024 (thousand hectares). Sarawak peaks: 2012 and 2014 (marked ▲).",
+    "anchor": "start"
   },
   "width": 460,
   "height": 360,
-  "data": {"url": "data/forest_loss_by_state_long.csv"},
-  "params": [
+  "data": {
+    "url": "data/forest_loss_by_state_long.csv"
+  },
+  "transform": [
     {
-      "name": "year_min",
-      "value": 2001,
-      "bind": {"input": "range", "min": 2001, "max": 2024, "step": 1, "name": "From year: "}
-    },
-    {
-      "name": "year_max",
-      "value": 2024,
-      "bind": {"input": "range", "min": 2001, "max": 2024, "step": 1, "name": "To year:   "}
+      "calculate": "datum.tc_loss_ha / 1000",
+      "as": "loss_kha"
     }
   ],
-  "transform": [
-    {"filter": "datum.year >= year_min && datum.year <= year_max"}
+  "params": [
+    {
+      "name": "year_focus",
+      "value": 2012,
+      "bind": {
+        "input": "range",
+        "min": 2001,
+        "max": 2024,
+        "step": 1,
+        "name": "Highlight year: "
+      }
+    }
   ],
-  "mark": "rect",
-  "encoding": {
-    "x": {
-      "field": "year",
-      "type": "ordinal",
-      "title": null,
-      "axis": {"labelAngle": 0, "labelOverlap": "greedy"}
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "state_hover",
+          "select": {
+            "type": "point",
+            "fields": [
+              "state"
+            ],
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ],
+      "mark": "rect",
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "labelAngle": 0,
+            "labelOverlap": "greedy"
+          }
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": null,
+          "sort": {
+            "op": "max",
+            "field": "loss_kha",
+            "order": "descending"
+          }
+        },
+        "color": {
+          "field": "loss_kha",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "oranges"
+          },
+          "title": "Loss (000 ha)",
+          "legend": {
+            "orient": "bottom"
+          }
+        },
+        "opacity": {
+          "condition": [
+            {
+              "param": "state_hover",
+              "value": 0.75,
+              "empty": false
+            },
+            {
+              "test": "datum.year == year_focus",
+              "value": 0.85
+            }
+          ],
+          "value": 0.3
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal"
+          },
+          {
+            "field": "year",
+            "type": "ordinal"
+          },
+          {
+            "field": "loss_kha",
+            "type": "quantitative",
+            "format": ",.1f",
+            "title": "Loss (000 ha)"
+          }
+        ]
+      }
     },
-    "y": {
-      "field": "state",
-      "type": "nominal",
-      "title": null,
-      "sort": {"op": "sum", "field": "tc_loss_ha", "order": "descending"}
-    },
-    "color": {
-      "field": "tc_loss_ha",
-      "type": "quantitative",
-      "scale": {"scheme": "oranges"},
-      "title": "Loss (ha)",
-      "legend": {"orient": "bottom"}
-    },
-    "tooltip": [
-      {"field": "state", "type": "nominal"},
-      {"field": "year", "type": "ordinal"},
-      {"field": "tc_loss_ha", "type": "quantitative", "format": ",", "title": "Loss (ha)"}
-    ]
-  },
+    {
+      "transform": [
+        {
+          "filter": "datum.state == 'Sarawak' && (datum.year == 2012 || datum.year == 2014)"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "text": "▲",
+        "fontSize": 11,
+        "color": "#1f2421",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": {
+            "op": "max",
+            "field": "loss_kha",
+            "order": "descending"
+          }
+        }
+      }
+    }
+  ],
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    },
     "axis": {
-      "domain": false, "ticks": false,
-      "labelFont": "Inter"
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "titleFont": "Inter",
+      "titleFontSize": 12
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
     }
   }
 }

@@ -2,57 +2,178 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Seven markets bought half of Malaysia's palm oil in 2024",
-    "subtitle": "Top palm oil importers (tonnes, share of total exports)",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 16,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "Top palm oil importers (Mt and share of total exports). Top 7 markets = 51%.",
+    "anchor": "start"
   },
   "width": 700,
-  "height": 280,
-  "data": {"url": "data/top_importers_2024.csv"},
+  "height": 300,
+  "data": {
+    "url": "data/top_importers_2024.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.tonnes / 1000000",
+      "as": "tonnes_Mt"
+    },
+    {
+      "calculate": "datum.country == 'India' || datum.country == 'China' ? 'India + China' : 'Other top markets'",
+      "as": "Group"
+    }
+  ],
   "layer": [
     {
-      "mark": {"type": "bar", "color": "#c25e1e", "cornerRadiusEnd": 2},
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 2
+      },
       "encoding": {
         "y": {
           "field": "country",
           "type": "nominal",
-          "sort": "-x",
+          "sort": {
+            "op": "max",
+            "field": "tonnes_Mt",
+            "order": "descending"
+          },
           "title": null
         },
         "x": {
-          "field": "tonnes",
+          "field": "tonnes_Mt",
           "type": "quantitative",
-          "title": "Tonnes imported (2024)",
-          "axis": {"grid": true, "gridColor": "#eeece4"}
+          "title": "Million tonnes imported (2024)",
+          "axis": {
+            "grid": true,
+            "gridColor": "#eeece4"
+          }
+        },
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "India + China",
+              "Other top markets"
+            ],
+            "range": [
+              "#c25e1e",
+              "#d6b89b"
+            ]
+          },
+          "legend": {
+            "title": null,
+            "orient": "bottom"
+          }
         },
         "tooltip": [
-          {"field": "country", "type": "nominal"},
-          {"field": "tonnes", "type": "quantitative", "format": ",", "title": "Tonnes"},
-          {"field": "share_pct", "type": "quantitative", "format": ".1f", "title": "Share %"}
+          {
+            "field": "country",
+            "type": "nominal"
+          },
+          {
+            "field": "tonnes_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Imports (Mt)"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Share %"
+          }
         ]
       }
     },
     {
-      "mark": {"type": "text", "align": "left", "dx": 6, "fontSize": 11, "color": "#1f2421"},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "fontSize": 12,
+        "font": "Inter",
+        "color": "#1f2421"
+      },
       "encoding": {
-        "y": {"field": "country", "type": "nominal", "sort": "-x"},
-        "x": {"field": "tonnes", "type": "quantitative"},
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "sort": {
+            "op": "max",
+            "field": "tonnes_Mt",
+            "order": "descending"
+          }
+        },
+        "x": {
+          "field": "tonnes_Mt",
+          "type": "quantitative"
+        },
         "text": {
           "field": "share_pct",
           "type": "quantitative",
           "format": ".1f"
         }
       }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.country == 'India'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 60,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "font": "Inter",
+        "color": "#6b7570"
+      },
+      "encoding": {
+        "x": {
+          "field": "tonnes_Mt",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "country",
+          "type": "nominal"
+        },
+        "text": {
+          "value": "India + China alone ≈ 36% of all exports"
+        }
+      }
     }
   ],
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    },
     "axis": {
-      "domain": false, "ticks": false,
-      "labelFont": "Inter", "titleFont": "Inter"
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "titleFont": "Inter",
+      "titleFontSize": 12
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
     }
   }
 }

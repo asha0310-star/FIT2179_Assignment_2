@@ -2,81 +2,341 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Forest loss and palm oil production go together",
-    "subtitle": "Choropleth: forest loss 2001–2024. Circles: 2024 CPO production by region.",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 18,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "Sabah and Sarawak account for both the heaviest deforestation and the bulk of Malaysia's CPO output."
   },
-  "width": 820,
-  "height": 380,
-  "projection": {"type": "mercator", "center": [109, 4], "scale": 1900},
-  "params": [
-    {"name": "grid", "select": "interval", "bind": "scales"}
-  ],
+  "width": "container",
+  "height": 320,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [
+      111,
+      4
+    ],
+    "scale": 1900
+  },
   "layer": [
     {
       "data": {
         "url": "data/malaysia_states.topojson",
-        "format": {"type": "topojson", "feature": "layer"}
+        "format": {
+          "type": "topojson",
+          "feature": "layer"
+        }
       },
       "transform": [
         {
           "lookup": "properties.NAME_1",
           "from": {
-            "data": {"url": "data/forest_loss_state_totals.csv"},
+            "data": {
+              "url": "data/forest_loss_state_totals.csv"
+            },
             "key": "state",
-            "fields": ["total_loss_2001_2024"]
+            "fields": [
+              "total_loss_2001_2024"
+            ]
           }
         },
-        {"calculate": "datum.total_loss_2001_2024 / 1000", "as": "loss_kha"}
+        {
+          "calculate": "datum.total_loss_2001_2024 / 1000",
+          "as": "loss_kha"
+        }
       ],
-      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.6},
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 1.2
+      },
       "encoding": {
         "color": {
           "field": "loss_kha",
           "type": "quantitative",
-          "scale": {"scheme": "oranges", "type": "quantize"},
+          "scale": {
+            "scheme": "oranges",
+            "type": "quantize",
+            "domain": [
+              0,
+              3000
+            ]
+          },
           "title": "Forest loss (000 ha)",
-          "legend": {"orient": "bottom-left"}
+          "legend": {
+            "orient": "bottom"
+          }
         },
         "tooltip": [
-          {"field": "properties.NAME_1", "type": "nominal", "title": "State"},
-          {"field": "loss_kha", "type": "quantitative", "format": ",.0f", "title": "Loss (000 ha)"}
+          {
+            "field": "properties.NAME_1",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "loss_kha",
+            "type": "quantitative",
+            "format": ",.0f",
+            "title": "Loss (000 ha)"
+          }
         ]
       }
     },
     {
-      "data": {"url": "data/state_cpo_2024.csv"},
+      "data": {
+        "url": "data/state_cpo_2024.csv"
+      },
+      "transform": [
+        {
+          "calculate": "datum.cpo_production_t / 1000000",
+          "as": "cpo_production_Mt"
+        },
+        {
+          "calculate": "datum.planted_area_ha / 1000000",
+          "as": "planted_area_Mha"
+        }
+      ],
       "mark": {
         "type": "circle",
         "stroke": "#1f2421",
         "strokeWidth": 0.8,
-        "fillOpacity": 0.55,
+        "fillOpacity": 0.4,
         "fill": "#2d5a3d"
       },
       "encoding": {
-        "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude": {"field": "latitude", "type": "quantitative"},
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
         "size": {
           "field": "cpo_production_t",
           "type": "quantitative",
           "title": "CPO production 2024 (tonnes)",
-          "scale": {"range": [400, 6000]},
-          "legend": {"orient": "bottom-right"}
+          "scale": {
+            "type": "sqrt",
+            "domain": [
+              500000,
+              5000000
+            ],
+            "range": [
+              100,
+              2200
+            ]
+          },
+          "legend": {
+            "orient": "right",
+            "values": [
+              1000000,
+              2500000,
+              5000000
+            ]
+          }
         },
         "tooltip": [
-          {"field": "state", "type": "nominal", "title": "Region"},
-          {"field": "cpo_production_t", "type": "quantitative", "format": ",", "title": "CPO (tonnes)"},
-          {"field": "planted_area_ha", "type": "quantitative", "format": ",", "title": "Planted area (ha)"}
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "Region"
+          },
+          {
+            "field": "cpo_production_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "CPO (Mt)"
+          },
+          {
+            "field": "planted_area_Mha",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Planted area (Mha)"
+          }
         ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "label": "Sarawak",
+            "lat": 2.5,
+            "lon": 113.5
+          },
+          {
+            "label": "Sabah",
+            "lat": 6.0,
+            "lon": 117.0
+          },
+          {
+            "label": "Pahang",
+            "lat": 3.8,
+            "lon": 102.6
+          },
+          {
+            "label": "Johor",
+            "lat": 2.0,
+            "lon": 103.4
+          },
+          {
+            "label": "Perak",
+            "lat": 4.6,
+            "lon": 101.1
+          },
+          {
+            "label": "Selangor",
+            "lat": 3.2,
+            "lon": 101.8
+          },
+          {
+            "label": "Negeri Sembilan",
+            "lat": 2.7,
+            "lon": 101.9
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "dx": 0,
+        "dy": -8,
+        "align": "center",
+        "fill": "#ffffff"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "stroke": {
+          "value": "#1f2421"
+        },
+        "strokeWidth": {
+          "value": 1
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "note": "Sabah: largest producer",
+            "lat": 6.4,
+            "lon": 116.4
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Inter",
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "align": "left",
+        "dx": 6,
+        "dy": -6,
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "note",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "note": "Sarawak: high loss and production",
+            "lat": 2.9,
+            "lon": 112.5
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Inter",
+        "fontSize": 12,
+        "fontStyle": "normal",
+        "align": "left",
+        "dx": 6,
+        "dy": -6,
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "note",
+          "type": "nominal"
+        }
       }
     }
   ],
   "config": {
-    "view": {"stroke": "transparent"},
-    "legend": {"labelFont": "Inter", "titleFont": "Inter"},
-    "title": {"font": "Fraunces"}
+    "view": {
+      "stroke": "transparent",
+      "fill": "#f0f4f7"
+    },
+    "axis": {
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 12,
+      "labelColor": "#333333",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
+    }
   }
 }

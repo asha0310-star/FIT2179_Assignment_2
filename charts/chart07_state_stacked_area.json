@@ -2,50 +2,153 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "East Malaysia overtook the Peninsula",
-    "subtitle": "CPO production share, Peninsular Malaysia vs Sabah vs Sarawak",
-    "anchor": "start",
-    "font": "Fraunces",
-    "fontSize": 16,
-    "subtitleFont": "Inter",
-    "subtitleColor": "#6b7570"
+    "subtitle": "CPO production by region (million tonnes): Peninsular Malaysia vs Sabah vs Sarawak"
   },
   "width": 700,
   "height": 320,
-  "data": {"url": "data/region_production_yearly.csv"},
-  "mark": "area",
-  "encoding": {
-    "x": {
-      "field": "year",
-      "type": "ordinal",
-      "title": null,
-      "axis": {"labelAngle": 0}
-    },
-    "y": {
-      "field": "cpo_production_t",
-      "type": "quantitative",
-      "title": "CPO production (tonnes)",
-      "stack": "zero"
-    },
-    "color": {
-      "field": "region",
-      "type": "nominal",
-      "scale": {
-        "domain": ["Peninsular Malaysia", "Sabah", "Sarawak"],
-        "range": ["#c25e1e", "#5c8a6e", "#2d5a3d"]
-      },
-      "legend": {"title": null, "orient": "bottom"}
-    },
-    "tooltip": [
-      {"field": "region", "type": "nominal"},
-      {"field": "year", "type": "ordinal"},
-      {"field": "cpo_production_t", "type": "quantitative", "format": ",", "title": "Tonnes"}
-    ]
+  "data": {
+    "url": "data/region_production_yearly.csv"
   },
+  "transform": [
+    {
+      "calculate": "datum.cpo_production_t / 1000000",
+      "as": "cpo_production_Mt"
+    }
+  ],
+  "layer": [
+    {
+      "mark": "area",
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "labelAngle": 0,
+            "labelOverlap": "greedy"
+          }
+        },
+        "y": {
+          "field": "cpo_production_Mt",
+          "type": "quantitative",
+          "title": "CPO production (Mt)",
+          "stack": "zero"
+        },
+        "color": {
+          "field": "region",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Peninsular Malaysia",
+              "Sabah",
+              "Sarawak"
+            ],
+            "range": [
+              "#c25e1e",
+              "#5c8a6e",
+              "#2d5a3d"
+            ]
+          },
+          "legend": {
+            "title": null,
+            "orient": "bottom"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "region",
+            "type": "nominal"
+          },
+          {
+            "field": "year",
+            "type": "ordinal"
+          },
+          {
+            "field": "cpo_production_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Production (Mt)"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeDash": [
+          4,
+          4
+        ],
+        "opacity": 0.6
+      },
+      "encoding": {
+        "x": {
+          "datum": 2007,
+          "type": "ordinal"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "dy": -120,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "font": "Inter",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "datum": 2007,
+          "type": "ordinal"
+        },
+        "y": {
+          "datum": 18,
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "2007: East Malaysia overtakes the Peninsula"
+        }
+      }
+    }
+  ],
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    },
     "axis": {
-      "domain": false, "ticks": false,
-      "labelFont": "Inter", "titleFont": "Inter"
+      "domain": false,
+      "ticks": false,
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
+      "grid": true,
+      "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
+    },
+    "title": {
+      "font": "Fraunces",
+      "fontSize": 18,
+      "fontWeight": 600,
+      "color": "#1f2421",
+      "subtitleFont": "Inter",
+      "subtitleFontSize": 13,
+      "subtitleColor": "#6b7570",
+      "anchor": "start"
     }
   }
 }
