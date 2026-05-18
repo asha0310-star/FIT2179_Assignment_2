@@ -13,18 +13,6 @@
   "data": {
     "url": "data/palm_production_long.csv"
   },
-  "params": [
-    {
-      "name": "country_select",
-      "select": {
-        "type": "point",
-        "fields": [
-          "Entity"
-        ]
-      },
-      "bind": "legend"
-    }
-  ],
   "transform": [
     {
       "filter": "datum.Entity !== 'World'"
@@ -40,6 +28,18 @@
   ],
   "layer": [
     {
+      "params": [
+        {
+          "name": "country_select",
+          "select": {
+            "type": "point",
+            "fields": [
+              "Entity"
+            ]
+          },
+          "bind": "legend"
+        }
+      ],
       "mark": {
         "type": "line",
         "strokeWidth": 2.5,

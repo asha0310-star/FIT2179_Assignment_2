@@ -133,6 +133,36 @@
           "format": "d"
         }
       }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2020"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": 18,
+        "dy": 4,
+        "align": "left",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "font": "Inter",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "planted_area_Mha",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "forest_loss_kha",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "↙ trend begins to decouple, post-MSPO"
+        }
+      }
     }
   ],
   "config": {

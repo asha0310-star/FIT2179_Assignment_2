@@ -23,6 +23,13 @@
 
 <body>
 
+  <nav class="section-nav" aria-label="Section navigation">
+    <a href="#sec-global">Global</a>
+    <a href="#sec-land">Land</a>
+    <a href="#sec-forest">Forest</a>
+    <a href="#sec-trade">Trade</a>
+  </nav>
+
   <div class="container">
 
     <!-- ========================================
@@ -53,7 +60,7 @@
     <!-- ========================================
          SECTION B: GLOBAL CONTEXT
          ======================================== -->
-    <section>
+    <section id="sec-global">
       <h2>A Crop That Conquered the World</h2>
 
       <!-- EXPANDED NARRATIVE TEXT (HD requirement: 3–4 sentences) -->
@@ -62,240 +69,252 @@
         Malaysia and Indonesia produced almost all of that growth. Today, these two countries make 85% of the world's
         crude palm oil — a position achieved through decades of continuous expansion. The story of Malaysian palm oil
         is one of economic ambition and environmental cost.
-      <p>
-        The heatmap (left) reveals that forest loss was not steady across time. Sarawak and Sabah show distinct peaks
-        in the 2010s. The yield-per-hectare trend (right) peaks in the mid-2000s and then plateaus, suggesting that
-        expansion after 2010 added land faster than it improved productivity.
       </p>
-  </div>
-  <p class="caption">
-    Data source: <a href="https://ourworldindata.org/palm-oil" target="_blank">Our World in Data — Palm Oil</a>.
-    Malaysia (orange) and Indonesia (dark green) dominate global production. The "Other" countries (grey) include
-    all remaining producers combined.
-  </p>
 
-  <!-- TWO-COLUMN LAYOUT: CHARTS 03 & 04 -->
-  <div class="two-col">
-    <!-- CHART 03: TOP PRODUCERS SNAPSHOT -->
-    <div class="chart-card">
-      <div id="chart03"></div>
-    </div>
+      <p>
+        The chart above traces sixty years of expansion: Malaysia and Indonesia
+        (orange and dark green) carry the global trajectory, while every other
+        producer combined (grey) barely moves the dial. Below, the snapshot on the
+        left ranks today's largest producers, and the line on the right tracks how
+        Malaysia's <em>share</em> of that growing pie has slipped from 76 % in 1982
+        to 27 % in 2023 — even as its absolute output kept climbing.
+      </p>
 
-    <!-- CHART 04: MALAYSIA'S DECLINING SHARE -->
-    <div class="chart-card">
-      <div id="chart04"></div>
-    </div>
-  </div>
+      <!-- CHART 02: GLOBAL PRODUCTION LINES (FULL-WIDTH) -->
+      <div class="chart-card wide">
+        <div id="chart02"></div>
+      </div>
+      <p class="caption">
+        Data source: <a href="https://ourworldindata.org/palm-oil" target="_blank">Our World in Data — Palm Oil</a>.
+        Malaysia (orange) and Indonesia (dark green) dominate global production. Click a country in the legend
+        to isolate its line; "Other" combines all remaining producers.
+      </p>
 
-  <!-- EXPANDED NARRATIVE AFTER CHARTS -->
-  <p>
-    While Malaysia remains the world's second-largest palm oil producer after Indonesia, its share of global
-    production is declining. In 1990 Malaysia made more than 70% of the world's palm oil; by 2023 this had dropped
-    to just 27%. This reflects not a shrinking Malaysian industry, but a rapidly expanding one in Indonesia and
-    other producers in Southeast Asia. For Malaysia, maintaining production levels while losing market share creates
-    pressure to expand into new land.
-  </p>
-  </section>
+      <!-- TWO-COLUMN LAYOUT: CHARTS 03 & 04 -->
+      <div class="two-col">
+        <!-- CHART 03: TOP PRODUCERS SNAPSHOT -->
+        <div class="chart-card">
+          <div id="chart03"></div>
+        </div>
 
-  <!-- ========================================
+        <!-- CHART 04: MALAYSIA'S DECLINING SHARE -->
+        <div class="chart-card">
+          <div id="chart04"></div>
+        </div>
+      </div>
+
+      <!-- EXPANDED NARRATIVE AFTER CHARTS -->
+      <p>
+        While Malaysia remains the world's second-largest palm oil producer after Indonesia, its share of global
+        production is declining. In 1990 Malaysia made more than 70% of the world's palm oil; by 2023 this had dropped
+        to just 27%. This reflects not a shrinking Malaysian industry, but a rapidly expanding one in Indonesia and
+        other producers in Southeast Asia. For Malaysia, maintaining production levels while losing market share creates
+        pressure to expand into new land.
+      </p>
+    </section>
+
+    <!-- ========================================
          SECTION C: LAND EXPANSION
          ======================================== -->
-  <section>
-    <h2>From a Few Estates to Millions of Hectares</h2>
+    <section id="sec-land">
+      <h2>From a Few Estates to Millions of Hectares</h2>
 
-    <!-- EXPANDED NARRATIVE TEXT -->
-    <p class="lede">
-      In 1961 fewer than 55,000 hectares of Malaysia were planted with oil palm — an area smaller than a major city.
-      By 2024 the figure was 5.6 million hectares (5.6 Mha), an area roughly the size of Croatia. Most of this expansion
-      happened
-      after the 1980s, and it has accelerated sharply since 2000. The question is not whether Malaysia has expanded,
-      but where the land came from.
-    </p>
+      <!-- EXPANDED NARRATIVE TEXT -->
+      <p class="lede">
+        In 1961 fewer than 55,000 hectares of Malaysia were planted with oil palm — an area smaller than a major city.
+        By 2024 the figure was 5.6 million hectares (5.6 Mha), an area roughly the size of Croatia. Most of this
+        expansion
+        happened
+        after the 1980s, and it has accelerated sharply since 2000. The question is not whether Malaysia has expanded,
+        but where the land came from.
+      </p>
 
-    <!-- CHART 05: SLOPE CHART OF LAND EXPANSION -->
-    <div class="chart-card">
-      <div id="chart05"></div>
-    </div>
-    <p class="caption">
-      Data source: <a href="https://ourworldindata.org/" target="_blank">Our World in Data</a>.
-      Slope charts show the beginning and ending of a trend. Indonesia now has more oil palm area than Malaysia,
-      having started much smaller. The "Other" category includes emerging producers in Central Africa, Central
-      America,
-      and Papua New Guinea.
-    </p>
+      <!-- CHART 05: SLOPE CHART OF LAND EXPANSION -->
+      <div class="chart-card">
+        <div id="chart05"></div>
+      </div>
+      <p class="caption">
+        Data source: <a href="https://ourworldindata.org/" target="_blank">Our World in Data</a>.
+        Slope charts show the beginning and ending of a trend. Indonesia now has more oil palm area than Malaysia,
+        having started much smaller. The "Other" category includes emerging producers in Central Africa, Central
+        America,
+        and Papua New Guinea.
+      </p>
 
-    <!-- CHART 06: PRODUCTION VS. PLANTED AREA (DUAL-AXIS) -->
-    <div class="chart-card">
-      <div id="chart06"></div>
-    </div>
-    <p class="caption">
-      Data source: <a href="https://mpob.gov.my/" target="_blank">Malaysian Palm Oil Board (MPOB) 2024 Overview</a>.
-      The tight correlation between planted area (green line) and production (orange bars) shows that productivity
-      per hectare has been stable for two decades. Growth in production is driven almost entirely by growth in planted
-      area.
-    </p>
+      <!-- CHART 06: PRODUCTION VS. PLANTED AREA (DUAL-AXIS) -->
+      <div class="chart-card">
+        <div id="chart06"></div>
+      </div>
+      <p class="caption">
+        Data source: <a href="https://mpob.gov.my/" target="_blank">Malaysian Palm Oil Board (MPOB) 2024 Overview</a>.
+        The tight correlation between planted area (green line) and production (orange bars) shows that productivity
+        per hectare has been stable for two decades. Growth in production is driven almost entirely by growth in planted
+        area.
+      </p>
 
-    <!-- CHART 07: REGIONAL SHIFT (PENINSULAR VS EAST MALAYSIA) -->
-    <div class="chart-card">
-      <div id="chart07"></div>
-    </div>
-    <p class="caption">
-      Data source: MPOB 2024 Overview. Until the 1990s, Peninsular Malaysia was the country's main palm oil region.
-      Since 2000, Sabah and Sarawak (East Malaysia) have grown rapidly and now produce more than 60% of Malaysia's
-      crude palm oil. This shift is significant because East Malaysia still contains large tracts of primary forest.
-    </p>
-  </section>
+      <!-- CHART 07: REGIONAL SHIFT (PENINSULAR VS EAST MALAYSIA) -->
+      <div class="chart-card">
+        <div id="chart07"></div>
+      </div>
+      <p class="caption">
+        Data source: MPOB 2024 Overview. Until the 1990s, Peninsular Malaysia was the country's main palm oil region.
+        Since 2000, Sabah and Sarawak (East Malaysia) have grown rapidly and now produce more than 60% of Malaysia's
+        crude palm oil. This shift is significant because East Malaysia still contains large tracts of primary forest.
+      </p>
+    </section>
 
-  <!-- ========================================
+    <!-- ========================================
          SECTION D: THE ENVIRONMENTAL COST
          ======================================== -->
-  <section>
-    <h2>The Forest Pays the Bill</h2>
+    <section id="sec-forest">
+      <h2>The Forest Pays the Bill</h2>
 
-    <!-- EXPANDED NARRATIVE TEXT -->
-    <p class="lede">
-      Between 2001 and 2024 Malaysia lost roughly 9.5 million hectares of tree cover — about 29% of the country's
-      total land area. These losses are not random or evenly distributed. They are concentrated in the same states
-      where palm oil expanded the fastest: Sarawak, Sabah, and parts of the Peninsula. The timing is telling: forest
-      loss peaked in 2012 and 2014, years of intense plantation development. Tree cover loss includes commercial
-      harvest and plantation rotations, not only clearing of primary forest (see Global Forest Watch methodology).
-    </p>
+      <!-- EXPANDED NARRATIVE TEXT -->
+      <p class="lede">
+        Between 2001 and 2024 Malaysia lost roughly 9.5 million hectares of tree cover — about 29% of the country's
+        total land area. These losses are not random or evenly distributed. They are concentrated in the same states
+        where palm oil expanded the fastest: Sarawak, Sabah, and parts of the Peninsula. The timing is telling: forest
+        loss peaked in 2012 and 2014, years of intense plantation development. Tree cover loss includes commercial
+        harvest and plantation rotations, not only clearing of primary forest (see Global Forest Watch methodology).
+      </p>
 
-    <!-- CHART 13: THE "MONEY SHOT" — AREA VS. FOREST LOSS (CONNECTED SCATTER) -->
-    <div class="chart-card wide">
-      <div id="chart13"></div>
-    </div>
-    <p class="caption">
-      Data sources: MPOB (planted area) and <a href="https://www.globalforestwatch.org/" target="_blank">Global
-        Forest Watch</a> (tree cover loss). Each dot represents one year (2001–2024). The path shows how forest loss
-      has evolved as Malaysia's planted area increased. The recent trend (rightward, lower) suggests that forest loss
-      is beginning to decouple from plantation expansion — possibly due to land saturation or stricter enforcement of
-      sustainability rules (MSPO mandatory from 2020).
-    </p>
-
-    <!-- MAP 08: CHOROPLETH OF FOREST LOSS BY STATE -->
-    <div class="chart-card wide">
-      <div id="map08"></div>
-    </div>
-    <p class="caption">
-      Data source: Global Forest Watch, 2001–2024. Darker shades of orange indicate higher cumulative tree cover loss.
-      Sarawak (2.9M ha) and Sabah (2.1M ha) together account for more than half of Malaysia's forest loss. Peninsular
-      states have lower absolute loss but high relative loss compared to remaining forest area.
-    </p>
-
-    <!-- MAP 09: LAYERED MAP — FOREST LOSS + PRODUCTION CIRCLES -->
-    <div class="chart-card wide">
-      <div id="map09"></div>
-    </div>
-    <p class="caption">
-      Palm oil plantations in Malaysia were established predominantly on land that was previously forested. The
-      spatial overlap between high-production states (Sabah, Sarawak) and high forest-loss states is not coincidence —
-      it is the same land, before and after. <em>Data sources: Global Forest Watch (forest loss 2001–2024); MPOB
-        Annual Overview 2024 (state CPO production).</em>
-    </p>
-
-    <!-- TWO-COLUMN: HEATMAP & ANNUAL LOSS LINE -->
-    <div class="two-col">
-      <!-- CHART 10: HEATMAP OF ANNUAL LOSS BY STATE -->
-      <div class="chart-card">
-        <div id="chart10"></div>
+      <!-- CHART 13: THE "MONEY SHOT" — AREA VS. FOREST LOSS (CONNECTED SCATTER) -->
+      <div class="chart-card wide">
+        <div id="chart13"></div>
       </div>
+      <p class="caption">
+        Data sources: MPOB (planted area) and <a href="https://www.globalforestwatch.org/" target="_blank">Global
+          Forest Watch</a> (tree cover loss). Each dot represents one year (2001–2024). The path shows how forest loss
+        has evolved as Malaysia's planted area increased. The recent trend (rightward, lower) suggests that forest loss
+        is beginning to decouple from plantation expansion — possibly due to land saturation or stricter enforcement of
+        sustainability rules (MSPO mandatory from 2020).
+      </p>
 
-      <!-- CHART 11: NATIONAL ANNUAL LOSS TREND -->
-      <div class="chart-card">
-        <div id="chart11"></div>
+      <!-- MAP 08: CHOROPLETH OF FOREST LOSS BY STATE -->
+      <div class="chart-card wide">
+        <div id="map08"></div>
       </div>
-    </div>
-    <p>
-      The heatmap (left) reveals that forest loss was not steady across time. Sarawak and Sabah show distinct peaks
-      in the 2010s. The national trend (right) peaks in 2012 (327k ha) and 2014 (318k ha) — years
-      of aggressive expansion driven by rising commodity prices and heavy investment in East Malaysian concessions.
-      Since 2015, annual losses have declined, but the cumulative damage is substantial.
-    </p>
+      <p class="caption">
+        Data source: Global Forest Watch, 2001–2024. Darker shades of orange indicate higher cumulative tree cover loss.
+        Sarawak (2.9M ha) and Sabah (2.1M ha) together account for more than half of Malaysia's forest loss. Peninsular
+        states have lower absolute loss but high relative loss compared to remaining forest area.
+      </p>
 
-    <!-- CHART 14: SMALL MULTIPLES — ONE MINI-LINE PER STATE -->
-    <div class="chart-card wide">
-      <div id="chart14"></div>
-    </div>
-    <p class="caption">
-      Data source: Global Forest Watch. Each panel shows one Malaysian state's annual tree cover loss over 24 years.
-      States are sorted by total loss (largest to smallest). Sarawak and Sabah stand out for their volatile,
-      peak-heavy patterns, whereas Peninsular states show more moderate losses. This detail reveals that the
-      national trend masks very different regional stories.
-    </p>
-  </section>
+      <!-- MAP 09: LAYERED MAP — FOREST LOSS + PRODUCTION CIRCLES -->
+      <div class="chart-card wide">
+        <div id="map09"></div>
+      </div>
+      <p class="caption">
+        Palm oil plantations in Malaysia were established predominantly on land that was previously forested. The
+        spatial overlap between high-production states (Sabah, Sarawak) and high forest-loss states is not coincidence —
+        it is the same land, before and after. <em>Data sources: Global Forest Watch (forest loss 2001–2024); MPOB
+          Annual Overview 2024 (state CPO production).</em>
+      </p>
 
-  <!-- ========================================
+      <!-- TWO-COLUMN: HEATMAP & ANNUAL LOSS LINE -->
+      <div class="two-col">
+        <!-- CHART 10: HEATMAP OF ANNUAL LOSS BY STATE -->
+        <div class="chart-card">
+          <div id="chart10"></div>
+        </div>
+
+        <!-- CHART 11: NATIONAL ANNUAL LOSS TREND -->
+        <div class="chart-card">
+          <div id="chart11"></div>
+        </div>
+      </div>
+      <p>
+        The heatmap (left) shows that forest loss was concentrated in Sarawak and
+        Sabah in the 2010s. The national trend (right) peaks in 2012 (~628 kha)
+        and 2014 (~646 kha) — years of aggressive expansion driven by rising
+        commodity prices and heavy investment in East Malaysian concessions.
+        Since 2015, annual losses have fallen, but the cumulative damage is
+        substantial.
+      </p>
+
+      <!-- CHART 14: SMALL MULTIPLES — ONE MINI-LINE PER STATE -->
+      <div class="chart-card wide">
+        <div id="chart14"></div>
+      </div>
+      <p class="caption">
+        Data source: Global Forest Watch. Each panel shows one Malaysian state's annual tree cover loss over 24 years.
+        States are sorted by total loss (largest to smallest). Sarawak and Sabah stand out for their volatile,
+        peak-heavy patterns, whereas Peninsular states show more moderate losses. This detail reveals that the
+        national trend masks very different regional stories.
+      </p>
+    </section>
+
+    <!-- ========================================
          SECTION E: TRADE & EXPORTS
          ======================================== -->
-  <section>
-    <h2>Where the Oil Goes</h2>
+    <section id="sec-trade">
+      <h2>Where the Oil Goes</h2>
 
-    <!-- EXPANDED NARRATIVE TEXT -->
-    <p class="lede">
-      In 2024 Malaysia exported 16.9 million tonnes (16.9 Mt) of palm oil worth RM73 billion — a cornerstone of the
-      national
-      economy and a vital source of foreign exchange. But the markets for this oil are concentrated: just seven
-      countries buy more than half of Malaysia's exports. This concentration matters because it affects demand growth
-      and, consequently, the pressure to expand plantations further.
-    </p>
+      <!-- EXPANDED NARRATIVE TEXT -->
+      <p class="lede">
+        In 2024 Malaysia exported 16.9 million tonnes (16.9 Mt) of palm oil worth RM73 billion — a cornerstone of the
+        national
+        economy and a vital source of foreign exchange. But the markets for this oil are concentrated: just seven
+        countries buy more than half of Malaysia's exports. This concentration matters because it affects demand growth
+        and, consequently, the pressure to expand plantations further.
+      </p>
 
-    <!-- CHART 12: TOP IMPORTERS -->
-    <div class="chart-card">
-      <div id="chart12"></div>
-    </div>
-    <p class="caption">
-      Data source: MPOB 2024 Overview (trade data). The top seven importers (India, China, Pakistan, the Netherlands,
-      Egypt, Indonesia, and Spain) collectively buy 51% of Malaysia's palm oil exports. India and China alone account
-      for 36%. Demand in these markets is driven by food production, biofuel mandates, and industrial applications.
-      Rising demand in these markets has historically driven expansion in Malaysia and Indonesia.
-    </p>
-  </section>
+      <!-- CHART 12: TOP IMPORTERS -->
+      <div class="chart-card">
+        <div id="chart12"></div>
+      </div>
+      <p class="caption">
+        Data source: MPOB 2024 Overview (trade data). The top seven importers (India, European Union, China, Kenya,
+        Turkiye, the Philippines, and Japan) collectively buy 54.2% of Malaysia's palm oil exports. India remains the
+        largest importer, and demand in these markets is driven by food production, biofuel mandates, and industrial
+        applications. Rising demand in these markets has historically driven expansion in Malaysia and Indonesia.
+      </p>
+    </section>
 
-  <!-- ========================================
+    <!-- ========================================
          SECTION F: CLOSING & IMPLICATIONS
          ======================================== -->
-  <section class="closing">
-    <h2>What Comes Next</h2>
-    <p>
-      Malaysia's palm oil boom has created genuine economic value — jobs, export revenue, and rural development.
-      But it has also driven one of the world's fastest rates of deforestation. The country has begun to acknowledge
-      this trade-off: it has replanted older estates and tightened sustainability certification (MSPO became mandatory
-      in 2020). Tree cover loss has declined since 2014.
-    </p>
-    <p>
-      Whether forest cover can truly recover depends on how Malaysia treats palm oil land going forward. If the
-      industry
-      treats replanted estates as <em>already converted</em> land (available for re-development), forest recovery is
-      unlikely. But if certification schemes and enforcement genuinely protect remaining forests, and if demand growth
-      in key markets moderates, there is a path toward decoupling production from forest loss. The next decade will
-      determine which story Malaysia tells.
-    </p>
-  </section>
+    <section class="closing">
+      <h2>What Comes Next</h2>
+      <p>
+        Malaysia's palm oil boom has created genuine economic value — jobs, export revenue, and rural development.
+        But it has also driven one of the world's fastest rates of deforestation. The country has begun to acknowledge
+        this trade-off: it has replanted older estates and tightened sustainability certification (MSPO became mandatory
+        in 2020). Tree cover loss has declined since 2014.
+      </p>
+      <p>
+        Whether forest cover can truly recover depends on how Malaysia treats palm oil land going forward. If the
+        industry
+        treats replanted estates as <em>already converted</em> land (available for re-development), forest recovery is
+        unlikely. But if certification schemes and enforcement genuinely protect remaining forests, and if demand growth
+        in key markets moderates, there is a path toward decoupling production from forest loss. The next decade will
+        determine which story Malaysia tells.
+      </p>
+    </section>
 
-  <!-- ========================================
+    <!-- ========================================
          FOOTER / METADATA
          ======================================== -->
-  <footer>
-    <p>
-      <strong>Created by Abdul Hakim Shaon</strong> — May 2026 | FIT3179 Data Visualisation 2, Monash University
-      Malaysia
-    </p>
-    <p>
-      <strong>Data sources:</strong><br>
-      • <a href="https://ourworldindata.org/palm-oil" target="_blank">Our World in Data — Palm Oil</a><br>
-      • <a href="https://mpob.gov.my/" target="_blank">Malaysian Palm Oil Board (MPOB) — Annual Overview Report
-        2024</a><br>
-      • <a href="https://www.globalforestwatch.org/dashboards/country/MYS/" target="_blank">Global Forest Watch —
-        Malaysia Dashboard</a>
-    </p>
-    <p>
-      <strong>Methodology:</strong> Generative AI tools (Claude and ChatGPT) were used for: (1) proofreading narrative
-      text for grammar; (2) suggesting initial Vega-Lite encoding structures, which were then substantially modified;
-      and (3) help debugging map projection parameters. All data wrangling, chart design choices, story structure, and
-      final code are the author’s own work.
-    </p>
-  </footer>
+    <footer>
+      <p>
+        <strong>Created by Abdul Hakim Shaon</strong> — May 2026 | FIT3179 Data Visualisation 2, Monash University
+        Malaysia
+      </p>
+      <p>
+        <strong>Data sources:</strong><br>
+        • <a href="https://ourworldindata.org/palm-oil" target="_blank">Our World in Data — Palm Oil</a><br>
+        • <a href="https://mpob.gov.my/" target="_blank">Malaysian Palm Oil Board (MPOB) — Annual Overview Report
+          2024</a><br>
+        • <a href="https://www.globalforestwatch.org/dashboards/country/MYS/" target="_blank">Global Forest Watch —
+          Malaysia Dashboard</a>
+      </p>
+      <p>
+        <strong>Methodology:</strong> Generative AI tools (Claude and ChatGPT) were used for: (1) proofreading narrative
+        text for grammar; (2) suggesting initial Vega-Lite encoding structures, which were then substantially modified;
+        and (3) help debugging map projection parameters. All data wrangling, chart design choices, story structure, and
+        final code are the author’s own work.
+      </p>
+    </footer>
 
   </div>
 
@@ -323,7 +342,7 @@
     const p08 = embedIfExists('#map08', 'charts/map08_choropleth_states.json');
     const p09 = embedIfExists('#map09', 'charts/map09_layered_map.json');
     const p10 = embedIfExists('#chart10', 'charts/chart10_heatmap.json');
-    const p11 = embedIfExists('#chart11', 'charts/chart11_yield.json');
+    const p11 = embedIfExists('#chart11', 'charts/chart11_annual_loss.json');
     const p12 = embedIfExists('#chart12', 'charts/chart12_importers.json');
     const p13 = embedIfExists('#chart13', 'charts/chart13_connected_scatter.json');
     const p14 = embedIfExists('#chart14', 'charts/chart14_state_small_multiples.json');

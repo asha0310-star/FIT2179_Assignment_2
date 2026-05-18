@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Seven markets bought half of Malaysia's palm oil in 2024",
-    "subtitle": "Top palm oil importers (Mt and share of total exports). Top 7 markets = 51%.",
+    "text": "Seven markets bought over half of Malaysia's palm oil in 2024",
+    "subtitle": "Top palm oil importers (Mt and share of total exports). Top 7 markets = 54.2%.",
     "anchor": "start"
   },
   "width": 700,
@@ -139,7 +139,7 @@
           "type": "nominal"
         },
         "text": {
-          "value": "India + China alone ≈ 36% of all exports"
+          "value": "India alone takes nearly 1 in 5 tonnes"
         }
       }
     }
