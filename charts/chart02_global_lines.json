@@ -42,7 +42,7 @@
       ],
       "mark": {
         "type": "line",
-        "strokeWidth": 2.5,
+        "strokeWidth": 3,
         "interpolate": "monotone"
       },
       "encoding": {
@@ -76,7 +76,7 @@
             "range": [
               "#c25e1e",
               "#2d5a3d",
-              "#d6dad7"
+              "#9ca3af"
             ]
           },
           "legend": {

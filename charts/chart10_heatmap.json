@@ -1,11 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Sarawak's peaks tell the story of the 2010s",
-    "subtitle": "Annual tree cover loss by state, 2001–2024 (thousand hectares). Sarawak peaks: 2012 and 2014 (marked ▲).",
+    "text": "Tree cover loss by state and year",
+    "subtitle": "Full overview of annual tree cover loss, 2001–2024 (thousand hectares). Darker cells show higher loss.",
     "anchor": "start"
   },
-  "width": 460,
+  "width": 420,
   "height": 360,
   "data": {
     "url": "data/forest_loss_by_state_long.csv"
@@ -14,19 +14,6 @@
     {
       "calculate": "datum.tc_loss_ha / 1000",
       "as": "loss_kha"
-    }
-  ],
-  "params": [
-    {
-      "name": "year_focus",
-      "value": 2012,
-      "bind": {
-        "input": "range",
-        "min": 2001,
-        "max": 2024,
-        "step": 1,
-        "name": "Highlight year: "
-      }
     }
   ],
   "layer": [
@@ -77,18 +64,12 @@
           }
         },
         "opacity": {
-          "condition": [
-            {
-              "param": "state_hover",
-              "value": 0.75,
-              "empty": false
-            },
-            {
-              "test": "datum.year == year_focus",
-              "value": 0.85
-            }
-          ],
-          "value": 0.3
+          "condition": {
+            "param": "state_hover",
+            "value": 0.9,
+            "empty": false
+          },
+          "value": 0.8
         },
         "tooltip": [
           {
@@ -106,35 +87,6 @@
             "title": "Loss (000 ha)"
           }
         ]
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.state == 'Sarawak' && (datum.year == 2012 || datum.year == 2014)"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "text": "▲",
-        "fontSize": 11,
-        "color": "#1f2421",
-        "fontWeight": "bold"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal"
-        },
-        "y": {
-          "field": "state",
-          "type": "nominal",
-          "sort": {
-            "op": "max",
-            "field": "loss_kha",
-            "order": "descending"
-          }
-        }
       }
     }
   ],

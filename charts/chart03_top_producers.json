@@ -4,7 +4,7 @@
     "text": "Two countries make 85% of the world's palm oil",
     "subtitle": "CPO production by country (million tonnes) — drag the slider to change year"
   },
-  "width": 460,
+  "width": 420,
   "height": 320,
   "data": {
     "url": "data/cpo_by_country_long.csv"
@@ -80,7 +80,7 @@
             "range": [
               "#c25e1e",
               "#2d5a3d",
-              "#d6dad7"
+              "#9ca3af"
             ]
           },
           "legend": null

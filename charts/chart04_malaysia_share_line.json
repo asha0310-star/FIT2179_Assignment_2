@@ -4,7 +4,7 @@
     "text": "Malaysia's share of world palm oil is shrinking",
     "subtitle": "Malaysia's CPO production as a % of world production, 1961–2023"
   },
-  "width": 460,
+  "width": 420,
   "height": 320,
   "padding": {
     "bottom": 40
@@ -201,6 +201,32 @@
             "expr": "datetime(year_link, 0, 1)"
           },
           "type": "temporal"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dx": 6,
+        "dy": -120,
+        "align": "left",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "font": "Inter",
+        "color": "#4b5563"
+      },
+      "encoding": {
+        "x": {
+          "datum": {
+            "expr": "datetime(year_link, 0, 1)"
+          },
+          "type": "temporal"
+        },
+        "y": {
+          "value": 78
+        },
+        "text": {
+          "value": "Selected year"
         }
       }
     },

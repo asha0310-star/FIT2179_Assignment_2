@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Two decades of trade-off",
-    "subtitle": "Each dot = one year, 2001–2024. As Malaysia's palm oil estate grew, forest loss stayed high — then began to ease.",
+    "text": "Planted area and forest loss move together",
+    "subtitle": "Each dot = one year, 2001–2024. Colour shows time; there is no line connecting the points.",
     "anchor": "start"
   },
   "width": 760,
@@ -18,31 +18,8 @@
   "layer": [
     {
       "mark": {
-        "type": "line",
-        "color": "#5a5a52",
-        "strokeWidth": 2,
-        "opacity": 0.9,
-        "interpolate": "linear"
-      },
-      "encoding": {
-        "x": {
-          "field": "planted_area_Mha",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "forest_loss_kha",
-          "type": "quantitative"
-        },
-        "order": {
-          "field": "year",
-          "type": "ordinal"
-        }
-      }
-    },
-    {
-      "mark": {
         "type": "circle",
-        "size": 150,
+        "size": 170,
         "stroke": "white",
         "strokeWidth": 1.5
       },
@@ -112,7 +89,7 @@
       ],
       "mark": {
         "type": "text",
-        "dy": -16,
+        "dy": -14,
         "fontSize": 11,
         "fontWeight": "bold",
         "color": "#1f2421",
@@ -160,7 +137,7 @@
           "type": "quantitative"
         },
         "text": {
-          "value": "↙ trend begins to decouple, post-MSPO"
+          "value": "Late years drift down and right"
         }
       }
     }

@@ -73,7 +73,7 @@
         "mark": {
           "type": "line",
           "color": "#c25e1e",
-          "strokeWidth": 1.8,
+          "strokeWidth": 2.2,
           "interpolate": "monotone"
         },
         "encoding": {
@@ -117,7 +117,7 @@
         ],
         "mark": {
           "type": "rule",
-          "color": "#6b7570",
+          "color": "#4b5563",
           "strokeDash": [
             3,
             3

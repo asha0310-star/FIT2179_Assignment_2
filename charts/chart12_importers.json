@@ -5,7 +5,7 @@
     "subtitle": "Top palm oil importers (Mt and share of total exports). Top 7 markets = 54.2%.",
     "anchor": "start"
   },
-  "width": 700,
+  "width": 420,
   "height": 300,
   "data": {
     "url": "data/top_importers_2024.csv"
@@ -55,8 +55,8 @@
               "Other top markets"
             ],
             "range": [
-              "#c25e1e",
-              "#d6b89b"
+              "#7c3aed",
+              "#9ca3af"
             ]
           },
           "legend": {

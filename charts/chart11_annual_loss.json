@@ -5,7 +5,7 @@
     "subtitle": "Malaysia, annual tree cover loss (thousand hectares), 2001–2024",
     "anchor": "start"
   },
-  "width": 460,
+  "width": 420,
   "height": 320,
   "data": {
     "url": "data/area_vs_loss_yearly.csv"
