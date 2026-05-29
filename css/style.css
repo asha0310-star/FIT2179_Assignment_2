@@ -393,3 +393,116 @@ footer a:hover {
 .chart-card>div {
   overflow-x: hidden;
 }
+/* ============================================================
+   HD UPGRADE CSS — append to css/style.css
+   Adds: section rhythm, hero chart card, alternating tones,
+   coordinated-selection visual states.
+   ============================================================ */
+
+/* Tighter section spacing rhythm for editorial pacing.
+   The existing rule `section { margin: 5rem 0; }` is overridden. */
+section {
+  margin: 7rem 0;
+  scroll-margin-top: 2rem;
+}
+
+/* Subtle alternating-band background so each section reads
+   as its own page — improves figure-ground separation. */
+.container > section:nth-of-type(even) {
+  background: linear-gradient(180deg, #fbf9f7 0%, #fafaf7 100%);
+  margin-left: -3rem;
+  margin-right: -3rem;
+  padding: 4rem 3rem 5rem 3rem;
+  border-radius: 4px;
+}
+
+/* `.hero` modifier for chart-cards that anchor a section.
+   Larger shadow + left accent stripe in the Malaysia orange
+   communicates "this chart matters." */
+.chart-card.hero {
+  border-left: 6px solid var(--color-malaysia);
+  box-shadow: 0 4px 16px rgba(31, 36, 33, 0.08);
+  padding: 3rem 2.5rem;
+}
+
+.chart-card.hero > div {
+  min-height: 380px;
+}
+
+/* Coordinated-selection muting.
+   When a state is selected on map08 the JS below adds the
+   class `state-selected` to <body>. Charts that don't yet
+   have their own selection logic dim slightly so the eye
+   knows the map is now driving the page. */
+body.state-selected .chart-card:not(.hero):not(.is-linked) {
+  opacity: 0.55;
+  transition: opacity 250ms ease;
+}
+
+body.state-selected .chart-card.is-linked {
+  outline: 2px solid var(--color-malaysia);
+  outline-offset: 4px;
+  transition: outline 250ms ease;
+}
+
+/* Pill that shows which state is currently selected. */
+.selected-state-pill {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2421;
+  color: #fafaf7;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  z-index: 30;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+body.state-selected .selected-state-pill {
+  display: inline-block;
+}
+
+.selected-state-pill button {
+  background: transparent;
+  border: none;
+  color: #c25e1e;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+/* Two new utility classes used by the tradeoff chart's caption block.
+   The chart sits in a `.wide hero` card; below it we add a
+   pull-quote that frames the story. */
+.pull-quote {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #1f2421;
+  max-width: 32ch;
+  margin: 2rem 0 2rem 1rem;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--color-malaysia);
+}
+
+/* Mobile fix for the wider section padding. */
+@media (max-width: 760px) {
+  section {
+    margin: 4rem 0;
+  }
+  .container > section:nth-of-type(even) {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    padding: 2.5rem 1.5rem 3rem 1.5rem;
+  }
+  .chart-card.hero {
+    padding: 1.5rem;
+  }
+}

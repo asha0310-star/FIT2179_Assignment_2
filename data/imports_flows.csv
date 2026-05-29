@@ -1,0 +1,15 @@
+country,volume_Mt,certified,point,x,y,order
+India,3.03,FALSE,source,0,4.0,0
+India,3.03,FALSE,dest,100,1,1
+China,1.39,FALSE,source,0,4.0,0
+China,1.39,FALSE,dest,100,2,1
+European Union,1.29,TRUE,source,0,4.0,0
+European Union,1.29,TRUE,dest,100,3,1
+Kenya,1.26,FALSE,source,0,4.0,0
+Kenya,1.26,FALSE,dest,100,4,1
+Turkiye,0.91,FALSE,source,0,4.0,0
+Turkiye,0.91,FALSE,dest,100,5,1
+Philippines,0.69,FALSE,source,0,4.0,0
+Philippines,0.69,FALSE,dest,100,6,1
+Japan,0.6,TRUE,source,0,4.0,0
+Japan,0.6,TRUE,dest,100,7,1

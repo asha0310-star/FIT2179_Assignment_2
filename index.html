@@ -190,7 +190,7 @@
       </p>
 
       <!-- MAP 09: LAYERED MAP — FOREST LOSS + PRODUCTION CIRCLES -->
-      <div class="chart-card wide">
+      <div class="chart-card wide" data-state-linked>
         <div id="map09"></div>
       </div>
       <p class="caption">
@@ -201,10 +201,26 @@
           production).</em>
       </p>
 
+      <!-- CHART 99: THE TRADE-OFF (HD anchor chart) -->
+      <div class="chart-card wide hero">
+        <div id="chart99"></div>
+      </div>
+      <p class="pull-quote">
+        Forty-eight billion ringgit added — eight million hectares of trees lost.
+      </p>
+      <p class="caption">
+        Data sources: MPOB Annual Overview (export earnings) and Global Forest Watch (tree-cover loss).
+        Bars above the axis show export value in RM billions; bars below show forest loss
+        in thousand hectares (scaled 1:5 against export value for direct visual comparison).
+        Each year is one paired column. 2008 marks the global financial crisis;
+        forest loss spikes in 2012 and 2014 align with the fastest plantation expansion.
+        By 2022, exports hit a record while annual forest loss was at its lowest in a decade.
+      </p>
+
       <!-- TWO-COLUMN: HEATMAP & ANNUAL LOSS LINE -->
       <div class="two-col">
         <!-- CHART 10: HEATMAP OF ANNUAL LOSS BY STATE -->
-        <div class="chart-card">
+        <div class="chart-card" data-state-linked>
           <div id="chart10"></div>
         </div>
 
@@ -220,7 +236,7 @@
       </p>
 
       <!-- CHART 14: SMALL MULTIPLES — ONE MINI-LINE PER STATE -->
-      <div class="chart-card wide">
+      <div class="chart-card wide" data-state-linked>
         <div id="chart14"></div>
       </div>
       <p class="caption">
@@ -321,15 +337,16 @@
     const p03 = embedIfExists('#chart03', 'charts/chart03_top_producers.json');
     const p04 = embedIfExists('#chart04', 'charts/chart04_malaysia_share_line.json');
     const p05 = embedIfExists('#chart05', 'charts/chart05_slope_landuse.json');
-    const p06 = embedIfExists('#chart06', 'charts/chart06_layered_area_production.json');
+    const p06 = embedIfExists('#chart06', 'charts/chart06_efficiency_metric.json');
     const p07 = embedIfExists('#chart07', 'charts/chart07_state_stacked_area.json');
     const p08 = embedIfExists('#map08', 'charts/map08_choropleth_states.json');
     const p09 = embedIfExists('#map09', 'charts/map09_layered_map.json');
     const p10 = embedIfExists('#chart10', 'charts/chart10_heatmap.json');
     const p11 = embedIfExists('#chart11', 'charts/chart11_annual_loss.json');
-    const p12 = embedIfExists('#chart12', 'charts/chart12_importers.json');
+    const p12 = embedIfExists('#chart12', 'charts/chart12_flow_diagram.json');
     const p13 = embedIfExists('#chart13', 'charts/chart13_connected_scatter.json');
     const p14 = embedIfExists('#chart14', 'charts/chart14_state_small_multiples.json');
+    const p99 = embedIfExists('#chart99', 'charts/chart99_tradeoff_dual.json');
 
     // Safely sync chart03 -> chart04 year signal if both embeds succeeded
     Promise.allSettled([p03, p04]).then(results => {
@@ -361,6 +378,117 @@
         }
       }
     });
+
+    // State selection synchronization for map08
+    // Note: This requires map08 to have an interactive selection defined in its spec
+    let currentSelectedState = null;
+    const stateLinkedCards = document.querySelectorAll('[data-state-linked]');
+    const allChartCards = document.querySelectorAll('.chart-card');
+
+    Promise.allSettled([p08]).then(results => {
+      const res08 = results[0].status === 'fulfilled' ? results[0].value : null;
+      if (!res08) return;
+
+      const map08View = res08.view;
+      if (!map08View) return;
+
+      // Listen for signal changes on state selection (requires map08 spec to define this)
+      if (typeof map08View.addSignalListener === 'function') {
+        try {
+          map08View.addSignalListener('selected_state', (name, value) => {
+            if (value) {
+              currentSelectedState = value;
+              applyStateFilter();
+            } else {
+              clearStateFilter();
+            }
+          });
+        } catch (e) {
+          console.debug('State selection not available in map08', e);
+        }
+      }
+    });
+
+    function applyStateFilter() {
+      // Highlight state-linked cards with orange outline
+      stateLinkedCards.forEach(card => {
+        card.style.outline = '3px solid #ff9800';
+        card.style.outlineOffset = '0';
+      });
+
+      // Dim all other cards
+      allChartCards.forEach(card => {
+        if (!card.hasAttribute('data-state-linked')) {
+          card.style.opacity = '0.55';
+        }
+      });
+
+      // Show clear-filter pill
+      showClearFilterPill();
+    }
+
+    function clearStateFilter() {
+      currentSelectedState = null;
+
+      // Remove outline from state-linked cards
+      stateLinkedCards.forEach(card => {
+        card.style.outline = '';
+        card.style.outlineOffset = '';
+      });
+
+      // Restore opacity on all cards
+      allChartCards.forEach(card => {
+        card.style.opacity = '1';
+      });
+
+      // Hide clear-filter pill
+      hideClearFilterPill();
+    }
+
+    function showClearFilterPill() {
+      let pill = document.querySelector('.clear-filter-pill');
+      if (!pill) {
+        pill = document.createElement('div');
+        pill.className = 'clear-filter-pill';
+        pill.innerHTML = '✕ Clear filter';
+        pill.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #ff9800;
+          color: white;
+          padding: 8px 12px;
+          border-radius: 20px;
+          cursor: pointer;
+          font-size: 14px;
+          z-index: 1000;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        `;
+        pill.addEventListener('click', () => {
+          clearStateFilter();
+          // Also clear selection in map08
+          Promise.allSettled([p08]).then(results => {
+            const res08 = results[0].status === 'fulfilled' ? results[0].value : null;
+            if (res08 && res08.view && typeof res08.view.signal === 'function') {
+              try {
+                res08.view.signal('selected_state', null).runAsync();
+              } catch (e) {
+                console.debug('Could not clear selection', e);
+              }
+            }
+          });
+        });
+        document.body.appendChild(pill);
+      }
+      pill.style.display = 'block';
+    }
+
+    function hideClearFilterPill() {
+      const pill = document.querySelector('.clear-filter-pill');
+      if (pill) {
+        pill.style.display = 'none';
+      }
+    }
 
   </script>
 
