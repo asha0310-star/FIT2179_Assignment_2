@@ -25,7 +25,7 @@
   },
   "params": [
     {
-      "name": "year_hover_trade",
+      "name": "year_hover_trade_chart99",
       "select": {
         "type": "point",
         "fields": [
@@ -107,13 +107,13 @@
         "opacity": {
           "condition": [
             {
-              "param": "year_hover_trade",
+              "param": "year_hover_trade_chart99",
               "empty": false,
-              "value": 1
+              "value": 0.95
             },
             {
-              "test": "length(data('year_hover_trade_store')) == 0",
-              "value": 0.9
+              "test": "length(data('year_hover_trade_chart99_store')) == 0",
+              "value": 0.2
             }
           ],
           "value": 0.35
@@ -153,12 +153,12 @@
         "opacity": {
           "condition": [
             {
-              "param": "year_hover_trade",
+              "param": "year_hover_trade_chart99",
               "empty": false,
               "value": 1
             },
             {
-              "test": "length(data('year_hover_trade_store')) == 0",
+              "test": "length(data('year_hover_trade_chart99_store')) == 0",
               "value": 0.9
             }
           ],

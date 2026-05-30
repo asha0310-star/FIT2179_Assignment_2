@@ -10,14 +10,9 @@
   "data": {
     "url": "data/area_vs_loss_yearly.csv"
   },
-  "transform": [
-    {
-      "filter": "isValid(datum.planted_area_Mha) && isValid(datum.forest_loss_kha)"
-    }
-  ],
   "params": [
     {
-      "name": "year_hover",
+      "name": "year_hover_chart13",
       "select": {
         "type": "point",
         "fields": [
@@ -26,6 +21,11 @@
         "on": "mouseover",
         "clear": "mouseout"
       }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "isValid(datum.planted_area_Mha) && isValid(datum.forest_loss_kha)"
     }
   ],
   "layer": [
@@ -84,12 +84,12 @@
         "size": {
           "condition": [
             {
-              "param": "year_hover",
+              "param": "year_hover_chart13",
               "empty": false,
-              "value": 260
+              "value": 3.5
             },
             {
-              "test": "length(data('year_hover_store')) == 0",
+              "test": "length(data('year_hover_chart13_store')) == 0",
               "value": 150
             }
           ],
@@ -98,12 +98,12 @@
         "opacity": {
           "condition": [
             {
-              "param": "year_hover",
+              "param": "year_hover_chart13",
               "empty": false,
-              "value": 1
+              "value": 5
             },
             {
-              "test": "length(data('year_hover_store')) == 0",
+              "test": "length(data('year_hover_chart13_store')) == 0",
               "value": 0.88
             }
           ],

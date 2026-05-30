@@ -23,6 +23,19 @@
   "data": {
     "url": "data/imports_flows.csv"
   },
+  "params": [
+    {
+      "name": "importer_hover_chart12",
+      "select": {
+        "type": "point",
+        "fields": [
+          "country"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
+    }
+  ],
   "transform": [
     {
       "calculate": "datum.country + ' (' + format(datum.share_pct, '.1f') + '%)'",
@@ -114,12 +127,12 @@
         "opacity": {
           "condition": [
             {
-              "param": "importer_hover",
+              "param": "importer_hover_chart12",
               "empty": false,
               "value": 0.95
             },
             {
-              "test": "length(data('importer_hover_store')) == 0",
+              "test": "length(data('importer_hover_chart12_store')) == 0",
               "value": 0.72
             }
           ],
@@ -223,12 +236,12 @@
         "opacity": {
           "condition": [
             {
-              "param": "importer_hover",
+              "param": "importer_hover_chart12",
               "empty": false,
               "value": 1
             },
             {
-              "test": "length(data('importer_hover_store')) == 0",
+              "test": "length(data('importer_hover_chart12_store')) == 0",
               "value": 0.95
             }
           ],
@@ -326,18 +339,5 @@
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
-  },
-  "params": [
-    {
-      "name": "importer_hover",
-      "select": {
-        "type": "point",
-        "fields": [
-          "country"
-        ],
-        "on": "mouseover",
-        "clear": "mouseout"
-      }
-    }
-  ]
+  }
 }

@@ -36,7 +36,7 @@
       "as": "World_candidate"
     },
     {
-      "joinaggregate": [
+      "aggregate": [
         {
           "op": "max",
           "field": "World_candidate",

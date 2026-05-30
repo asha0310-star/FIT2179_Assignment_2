@@ -3,3 +3,9 @@
 Icon
 .AppleDouble
 .LSOverride
+
+# macOS system files
+.DS_Store
+Icon
+Icon?
+.venv/
