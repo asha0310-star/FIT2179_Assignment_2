@@ -37,11 +37,7 @@
         "y": {
           "field": "country",
           "type": "nominal",
-          "sort": {
-            "op": "sum",
-            "field": "tonnes_Mt",
-            "order": "descending"
-          },
+          "sort": "-x",
           "title": null
         },
         "x": {
@@ -85,11 +81,7 @@
         "y": {
           "field": "country",
           "type": "nominal",
-          "sort": {
-            "op": "sum",
-            "field": "tonnes_Mt",
-            "order": "descending"
-          }
+          "sort": "-x"
         },
         "x": {
           "field": "tonnes_Mt",
@@ -111,11 +103,7 @@
         "y": {
           "field": "country",
           "type": "nominal",
-          "sort": {
-            "op": "sum",
-            "field": "tonnes_Mt",
-            "order": "descending"
-          }
+          "sort": "-x"
         },
         "x": {
           "field": "tonnes_Mt",

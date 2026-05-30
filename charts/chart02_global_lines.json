@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Malaysia and Indonesia drove global palm oil growth",
-    "subtitle": "Production by group, 1961\u20132023 (million tonnes); \u2018Other\u2019 is aggregated across remaining producers."
+    "subtitle": "Production by group, 1961–2023 (million tonnes); ‘Other’ is aggregated across remaining producers."
   },
   "width": "container",
   "height": 390,

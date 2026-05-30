@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Palm expansion and forest loss overlap, but later years drift down",
-    "subtitle": "Connected annual path, 2001\u20132024: planted area on x-axis and tree-cover loss on y-axis.",
+    "subtitle": "Connected annual path, 2001–2024: planted area on x-axis and tree-cover loss on y-axis.",
     "anchor": "start"
   },
   "width": "container",
@@ -143,50 +143,15 @@
       "data": {
         "values": [
           {
-            "planted_area_Mha": 3.5,
-            "forest_loss_kha": 332.81,
-            "label": "2001 start"
+            "planted_area_Mha": 5.42,
+            "forest_loss_kha": 245,
+            "label": "Late years drift down\nfrom the 2014 peak"
           }
         ]
       },
       "mark": {
         "type": "text",
-        "font": "Inter",
-        "fontSize": 11,
-        "fontStyle": "italic",
-        "lineBreak": "\n",
-        "color": "#1f2421",
-        "dx": 10,
-        "dy": 8,
-        "align": "left"
-      },
-      "encoding": {
-        "x": {
-          "field": "planted_area_Mha",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "forest_loss_kha",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "label"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "planted_area_Mha": 5.39,
-            "forest_loss_kha": 646.03,
-            "label": "2014 peak-loss year"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "font": "Inter",
+        "align": "right",
         "fontSize": 11,
         "fontStyle": "italic",
         "lineBreak": "\n",
@@ -222,13 +187,8 @@
       "mark": {
         "type": "text",
         "font": "Inter",
-        "fontSize": 11,
-        "fontStyle": "italic",
         "lineBreak": "\n",
-        "color": "#1f2421",
-        "dx": -10,
-        "dy": 18,
-        "align": "right"
+        "color": "#1f2421"
       },
       "encoding": {
         "x": {

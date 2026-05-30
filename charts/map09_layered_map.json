@@ -156,12 +156,18 @@
           }
         ],
         "opacity": {
-          "condition": {
-            "param": "region_hover",
-            "empty": false,
-            "value": 0.95
-          },
-          "value": 0.65
+          "condition": [
+            {
+              "param": "region_hover",
+              "empty": false,
+              "value": 0.95
+            },
+            {
+              "test": "length(data('region_hover_store')) == 0",
+              "value": 0.65
+            }
+          ],
+          "value": 0.35
         },
         "strokeWidth": {
           "condition": {
