@@ -43,9 +43,7 @@
           "as": "World_kt"
         }
       ],
-      "groupby": [
-        "Period"
-      ]
+      "groupby": ["Period"]
     },
     {
       "filter": "datum.Country !== 'World' && datum.Period == year_select"
@@ -63,22 +61,8 @@
       "as": "Group"
     },
     {
-      "calculate": "format(datum.Production_Mt, '.1f') + ' Mt \u00b7 ' + format(datum.share_pct, '.1f') + '%'",
+      "calculate": "format(datum.Production_Mt, '.1f') + ' Mt · ' + format(datum.share_pct, '.1f') + '%'",
       "as": "value_label"
-    },
-    {
-      "window": [
-        {
-          "op": "rank",
-          "as": "rank"
-        }
-      ],
-      "sort": [
-        {
-          "field": "Production_Mt",
-          "order": "descending"
-        }
-      ]
     }
   ],
   "layer": [
@@ -92,62 +76,31 @@
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": "-x",
+          "sort": {"field": "Production_Mt", "order": "descending"},
           "title": null,
-          "axis": {
-            "labelLimit": 120
-          }
+          "axis": {"labelLimit": 120}
         },
         "x": {
           "field": "Production_Mt",
           "type": "quantitative",
           "title": "Crude palm oil production (Mt)",
-          "scale": {
-            "domain": [
-              0,
-              48
-            ]
-          },
-          "axis": {
-            "grid": true,
-            "tickCount": 6
-          }
+          "scale": {"domain": [0, 48]},
+          "axis": {"grid": true, "tickCount": 6}
         },
-        "x2": {
-          "datum": 0
-        },
+        "x2": {"datum": 0},
         "color": {
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Indonesia",
-              "Malaysia",
-              "Other"
-            ],
-            "range": [
-              "#2d5a3d",
-              "#c25e1e",
-              "#b9c0bc"
-            ]
+            "domain": ["Indonesia", "Malaysia", "Other"],
+            "range": ["#2d5a3d", "#c25e1e", "#8f9792"]
           },
           "legend": null
         },
         "tooltip": [
-          {
-            "field": "Country"
-          },
-          {
-            "field": "Production_Mt",
-            "type": "quantitative",
-            "format": ".2f"
-          },
-          {
-            "field": "share_pct",
-            "type": "quantitative",
-            "format": ".1f",
-            "title": "World share (%)"
-          }
+          {"field": "Country", "type": "nominal"},
+          {"field": "Production_Mt", "type": "quantitative", "format": ".2f", "title": "Production (Mt)"},
+          {"field": "share_pct", "type": "quantitative", "format": ".1f", "title": "World share (%)"}
         ]
       }
     },
@@ -163,26 +116,15 @@
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": "-x"
+          "sort": {"field": "Production_Mt", "order": "descending"}
         },
-        "x": {
-          "field": "Production_Mt",
-          "type": "quantitative"
-        },
+        "x": {"field": "Production_Mt", "type": "quantitative"},
         "color": {
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Indonesia",
-              "Malaysia",
-              "Other"
-            ],
-            "range": [
-              "#2d5a3d",
-              "#c25e1e",
-              "#b9c0bc"
-            ]
+            "domain": ["Indonesia", "Malaysia", "Other"],
+            "range": ["#2d5a3d", "#c25e1e", "#8f9792"]
           },
           "legend": null
         }
@@ -202,15 +144,10 @@
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": "-x"
+          "sort": {"field": "Production_Mt", "order": "descending"}
         },
-        "x": {
-          "field": "Production_Mt",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "value_label"
-        }
+        "x": {"field": "Production_Mt", "type": "quantitative"},
+        "text": {"field": "value_label"}
       }
     },
     {
@@ -219,7 +156,7 @@
           {
             "Country": "Thailand",
             "Production_Mt": 28,
-            "note": "Indonesia + Malaysia account for about 80\u201385%\nof the world total in recent years."
+            "note": "Indonesia + Malaysia account for about 80–85%\nof the world total in recent years."
           }
         ]
       },
@@ -236,22 +173,15 @@
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": "-x"
+          "sort": {"field": "Production_Mt", "order": "descending"}
         },
-        "x": {
-          "field": "Production_Mt",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "note"
-        }
+        "x": {"field": "Production_Mt", "type": "quantitative"},
+        "text": {"field": "note"}
       }
     }
   ],
   "config": {
-    "view": {
-      "stroke": "transparent"
-    },
+    "view": {"stroke": "transparent"},
     "axis": {
       "domain": false,
       "ticks": false,

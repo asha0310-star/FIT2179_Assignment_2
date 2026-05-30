@@ -3,289 +3,102 @@
   "title": {
     "text": "Economic Gain vs Environmental Bill",
     "subtitle": [
-      "Malaysia, 2001\u20132024: export earnings rise above zero; tree-cover loss is shown below zero.",
+      "Malaysia, 2001–2024: export earnings rise above zero; tree-cover loss is shown below zero.",
       "Units are explained in labels and caption; loss is rescaled for visual comparison, not equivalence."
     ],
     "anchor": "start"
   },
   "width": "container",
   "height": 420,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
-  "padding": {
-    "top": 20,
-    "bottom": 30,
-    "left": 10,
-    "right": 10
-  },
-  "data": {
-    "url": "data/malaysia_economy_yearly.csv"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
+  "padding": {"top": 20, "bottom": 30, "left": 10, "right": 10},
+  "data": {"url": "data/malaysia_economy_yearly.csv"},
   "transform": [
-    {
-      "calculate": "toNumber(datum.export_value_RMbn)",
-      "as": "exports"
-    },
-    {
-      "calculate": "toNumber(datum.forest_loss_kha)",
-      "as": "loss_kha"
-    },
-    {
-      "calculate": "-datum.loss_kha / 5",
-      "as": "loss_neg"
-    },
-    {
-      "calculate": "toNumber(datum.year) == 2008 ? '2008: GFC' : (toNumber(datum.year) == 2022 ? '2022: export record' : null)",
-      "as": "export_annotation"
-    }
+    {"calculate": "toNumber(datum.export_value_RMbn)", "as": "exports"},
+    {"calculate": "toNumber(datum.forest_loss_kha)", "as": "loss_kha"},
+    {"calculate": "-datum.loss_kha / 5", "as": "loss_neg"},
+    {"calculate": "toNumber(datum.year) == 2008 ? '2008: GFC' : (toNumber(datum.year) == 2022 ? '2022: export record' : null)", "as": "export_annotation"}
   ],
   "encoding": {
     "x": {
       "field": "year",
       "type": "ordinal",
       "title": null,
-      "axis": {
-        "labelAngle": 0,
-        "labelOverlap": "greedy",
-        "labelFont": "Inter",
-        "labelFontSize": 11,
-        "labelColor": "#333333"
-      }
+      "axis": {"labelAngle": 0, "labelOverlap": "greedy", "labelFont": "Inter", "labelFontSize": 11, "labelColor": "#333333"}
     }
   },
   "layer": [
     {
-      "mark": {
-        "type": "rule",
-        "color": "#1f2421",
-        "strokeWidth": 1
-      },
-      "encoding": {
-        "y": {
-          "datum": 0
-        }
-      }
+      "mark": {"type": "rule", "color": "#1f2421", "strokeWidth": 1},
+      "encoding": {"y": {"datum": 0}}
     },
     {
-      "mark": {
-        "type": "bar",
-        "color": "#c25e1e",
-        "cornerRadiusEnd": 2
-      },
+      "mark": {"type": "bar", "color": "#c25e1e", "cornerRadiusEnd": 2, "opacity": 0.9},
       "encoding": {
         "y": {
           "field": "exports",
           "type": "quantitative",
           "title": null,
-          "axis": {
-            "labelExpr": "datum.value >= 0 ? format(datum.value, '.0f') : format(-datum.value * 5, '.0f')",
-            "grid": true,
-            "gridColor": "#eeece4"
-          },
-          "scale": {
-            "domain": [
-              -150,
-              150
-            ]
-          }
+          "axis": {"labelExpr": "datum.value >= 0 ? format(datum.value, '.0f') : format(-datum.value * 5, '.0f')", "grid": true, "gridColor": "#eeece4"},
+          "scale": {"domain": [-150, 150]}
         },
         "opacity": {
           "value": 0.9
         },
         "tooltip": [
-          {
-            "field": "year",
-            "type": "ordinal",
-            "title": "Year"
-          },
-          {
-            "field": "exports",
-            "type": "quantitative",
-            "format": ".1f",
-            "title": "Exports (RM bn)"
-          },
-          {
-            "field": "loss_kha",
-            "type": "quantitative",
-            "format": ".1f",
-            "title": "Forest loss (kha)"
-          }
+          {"field": "year", "type": "ordinal", "title": "Year"},
+          {"field": "exports", "type": "quantitative", "format": ".1f", "title": "Exports (RM bn)"},
+          {"field": "loss_kha", "type": "quantitative", "format": ".1f", "title": "Forest loss (kha)"}
         ]
       }
     },
     {
-      "mark": {
-        "type": "bar",
-        "color": "#2d5a3d",
-        "cornerRadiusEnd": 2
-      },
+      "mark": {"type": "bar", "color": "#2d5a3d", "cornerRadiusEnd": 2, "opacity": 0.9},
       "encoding": {
-        "y": {
-          "field": "loss_neg",
-          "type": "quantitative"
-        },
-        "opacity": {
-          "value": 0.9
-        },
+        "y": {"field": "loss_neg", "type": "quantitative"},
         "tooltip": [
-          {
-            "field": "year",
-            "type": "ordinal",
-            "title": "Year"
-          },
-          {
-            "field": "loss_kha",
-            "type": "quantitative",
-            "format": ".1f",
-            "title": "Forest loss (kha)"
-          },
-          {
-            "field": "exports",
-            "type": "quantitative",
-            "format": ".1f",
-            "title": "Exports (RM bn)"
-          }
+          {"field": "year", "type": "ordinal", "title": "Year"},
+          {"field": "loss_kha", "type": "quantitative", "format": ".1f", "title": "Forest loss (kha)"},
+          {"field": "exports", "type": "quantitative", "format": ".1f", "title": "Exports (RM bn)"}
         ]
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.export_annotation != null"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "dy": -8,
-        "fontSize": 10,
-        "fontStyle": "italic",
-        "font": "Inter",
-        "color": "#1f2421"
-      },
+      "transform": [{"filter": "datum.export_annotation != null"}],
+      "mark": {"type": "text", "dy": -8, "fontSize": 10, "fontStyle": "italic", "font": "Inter", "color": "#1f2421"},
       "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal"
-        },
-        "y": {
-          "field": "exports",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "export_annotation",
-          "type": "nominal"
-        }
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "exports", "type": "quantitative"},
+        "text": {"field": "export_annotation", "type": "nominal"}
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.year == 2014"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "dy": 14,
-        "fontSize": 10,
-        "fontStyle": "italic",
-        "font": "Inter",
-        "color": "#1f2421"
-      },
+      "transform": [{"filter": "datum.year == 2014"}],
+      "mark": {"type": "text", "dy": 14, "fontSize": 10, "fontStyle": "italic", "font": "Inter", "color": "#1f2421"},
       "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal"
-        },
-        "y": {
-          "field": "loss_neg",
-          "type": "quantitative"
-        },
-        "text": {
-          "value": "2014: loss peak"
-        }
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "loss_neg", "type": "quantitative"},
+        "text": {"value": "2014: loss peak"}
       }
     },
     {
-      "data": {
-        "values": [
-          {
-            "label": "\u2191 Export earnings (RM bn)",
-            "x": "2001",
-            "y": 130
-          },
-          {
-            "label": "\u2193 Forest loss (kha, \u00f75 scale)",
-            "x": "2001",
-            "y": -130
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "fontSize": 11,
-        "fontWeight": 600,
-        "font": "Inter"
-      },
+      "data": {"values": [
+        {"label": "↑ Export earnings (RM bn)", "x": "2001", "y": 130},
+        {"label": "↓ Forest loss (kha, ÷5 scale)", "x": "2001", "y": -130}
+      ]},
+      "mark": {"type": "text", "align": "left", "fontSize": 11, "fontWeight": 600, "font": "Inter"},
       "encoding": {
-        "x": {
-          "field": "x",
-          "type": "ordinal"
-        },
-        "y": {
-          "field": "y",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "label"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.y > 0",
-            "value": "#c25e1e"
-          },
-          "value": "#2d5a3d"
-        }
+        "x": {"field": "x", "type": "ordinal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "label"},
+        "color": {"condition": {"test": "datum.y > 0", "value": "#c25e1e"}, "value": "#2d5a3d"}
       }
     }
   ],
   "config": {
-    "view": {
-      "stroke": "transparent"
-    },
-    "axis": {
-      "domain": false,
-      "ticks": false,
-      "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
-      "titleFont": "Inter",
-      "titleFontSize": 12,
-      "titleFontWeight": 500,
-      "titleColor": "#1f2421",
-      "grid": true,
-      "gridColor": "#eeece4"
-    },
-    "legend": {
-      "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
-      "titleFont": "Inter",
-      "titleFontSize": 12,
-      "titleColor": "#1f2421"
-    },
-    "title": {
-      "font": "Fraunces",
-      "fontSize": 18,
-      "fontWeight": 600,
-      "color": "#1f2421",
-      "subtitleFont": "Inter",
-      "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
-      "subtitleLineHeight": 18,
-      "anchor": "start"
-    }
+    "view": {"stroke": "transparent"},
+    "axis": {"domain": false, "ticks": false, "labelFont": "Inter", "labelFontSize": 11, "labelColor": "#6b7570", "titleFont": "Inter", "titleFontSize": 12, "titleFontWeight": 500, "titleColor": "#1f2421", "grid": true, "gridColor": "#eeece4"},
+    "legend": {"labelFont": "Inter", "labelFontSize": 11, "labelColor": "#6b7570", "titleFont": "Inter", "titleFontSize": 12, "titleColor": "#1f2421"},
+    "title": {"font": "Fraunces", "fontSize": 18, "fontWeight": 600, "color": "#1f2421", "subtitleFont": "Inter", "subtitleFontSize": 13, "subtitleColor": "#6b7570", "subtitleLineHeight": 18, "anchor": "start"}
   }
 }

@@ -10,19 +10,9 @@
   },
   "width": "container",
   "height": 360,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
-  "padding": {
-    "top": 10,
-    "bottom": 20,
-    "left": 80,
-    "right": 110
-  },
-  "data": {
-    "url": "data/imports_flows.csv"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
+  "padding": {"top": 10, "bottom": 20, "left": 80, "right": 110},
+  "data": {"url": "data/imports_flows.csv"},
   "transform": [
     {
       "calculate": "datum.country + ' (' + format(datum.share_pct, '.1f') + '%)'",
@@ -34,270 +24,83 @@
       "field": "x",
       "type": "quantitative",
       "axis": null,
-      "scale": {
-        "domain": [
-          -5,
-          105
-        ]
-      }
+      "scale": {"domain": [-5, 105]}
     },
     "y": {
       "field": "y",
       "type": "quantitative",
       "axis": null,
-      "scale": {
-        "domain": [
-          0.3,
-          7.7
-        ],
-        "reverse": true
-      }
+      "scale": {"domain": [0.3, 7.7], "reverse": true}
     }
   },
   "layer": [
     {
-      "mark": {
-        "type": "line",
-        "interpolate": "monotone",
-        "opacity": 0.72
-      },
+      "mark": {"type": "line", "interpolate": "monotone", "opacity": 0.72},
       "encoding": {
-        "detail": {
-          "field": "country",
-          "type": "nominal"
-        },
-        "order": {
-          "field": "order",
-          "type": "ordinal"
-        },
+        "detail": {"field": "country", "type": "nominal"},
+        "order": {"field": "order", "type": "ordinal"},
         "size": {
           "field": "volume_Mt",
           "type": "quantitative",
-          "scale": {
-            "range": [
-              3,
-              34
-            ]
-          },
-          "legend": {
-            "title": "Volume (Mt)",
-            "orient": "bottom",
-            "values": [
-              0.5,
-              1.5,
-              2.5
-            ]
-          }
+          "scale": {"range": [3, 34]},
+          "legend": {"title": "Volume (Mt)", "orient": "bottom", "values": [0.5, 1.5, 2.5]}
         },
-        "color": {
-          "value": "#c25e1e"
-        },
+        "color": {"value": "#c25e1e"},
         "tooltip": [
-          {
-            "field": "country",
-            "type": "nominal",
-            "title": "Destination"
-          },
-          {
-            "field": "volume_Mt",
-            "type": "quantitative",
-            "format": ".2f",
-            "title": "Volume (Mt)"
-          },
-          {
-            "field": "share_pct",
-            "type": "quantitative",
-            "format": ".1f",
-            "title": "Share of exports (%)"
-          }
+          {"field": "country", "type": "nominal", "title": "Destination"},
+          {"field": "volume_Mt", "type": "quantitative", "format": ".2f", "title": "Volume (Mt)"},
+          {"field": "share_pct", "type": "quantitative", "format": ".1f", "title": "Share of exports (%)"}
         ]
       }
     },
     {
       "transform": [
-        {
-          "filter": "datum.point == 'source'"
-        },
-        {
-          "aggregate": [
-            {
-              "op": "sum",
-              "field": "volume_Mt",
-              "as": "total"
-            }
-          ],
-          "groupby": [
-            "x",
-            "y"
-          ]
-        }
+        {"filter": "datum.point == 'source'"},
+        {"aggregate": [{"op": "sum", "field": "volume_Mt", "as": "total"}], "groupby": ["x", "y"]}
       ],
-      "mark": {
-        "type": "circle",
-        "color": "#c25e1e",
-        "size": 600,
-        "opacity": 0.92,
-        "stroke": "#1f2421",
-        "strokeWidth": 1
-      },
+      "mark": {"type": "circle", "color": "#c25e1e", "size": 600, "opacity": 0.92, "stroke": "#1f2421", "strokeWidth": 1},
       "encoding": {}
     },
     {
-      "data": {
-        "values": [
-          {
-            "x": 0,
-            "y": 4,
-            "label": "Malaysia"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "dy": -22,
-        "fontSize": 14,
-        "fontWeight": 700,
-        "font": "Fraunces",
-        "color": "#1f2421"
-      },
+      "data": {"values": [{"x": 0, "y": 4, "label": "Malaysia"}]},
+      "mark": {"type": "text", "align": "center", "dy": -22, "fontSize": 14, "fontWeight": 700, "font": "Fraunces", "color": "#1f2421"},
       "encoding": {
-        "x": {
-          "field": "x",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "y",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "label"
-        }
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "label"}
       }
     },
     {
-      "data": {
-        "values": [
-          {
-            "x": 0,
-            "y": 4,
-            "label": "15.27 Mt total exports"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "dy": 28,
-        "fontSize": 10,
-        "fontStyle": "italic",
-        "font": "Inter",
-        "color": "#6b7570",
-        "opacity": 0.95
-      },
+      "data": {"values": [{"x": 0, "y": 4, "label": "15.27 Mt total exports"}]},
+      "mark": {"type": "text", "align": "center", "dy": 28, "fontSize": 10, "fontStyle": "italic", "font": "Inter", "color": "#6b7570", "opacity": 0.95},
       "encoding": {
-        "x": {
-          "field": "x",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "y",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "label"
-        }
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "label"}
       }
+    },
+    {
+      "transform": [{"filter": "datum.point == 'dest'"}],
+      "mark": {"type": "circle", "size": 90, "opacity": 0.95},
+      "encoding": {"color": {"value": "#2d5a3d"}}
+    },
+    {
+      "transform": [{"filter": "datum.point == 'dest'"}],
+      "mark": {"type": "text", "align": "left", "dx": 12, "fontSize": 12, "fontWeight": 600, "font": "Inter", "color": "#1f2421"},
+      "encoding": {"text": {"field": "country_label", "type": "nominal"}}
     },
     {
       "transform": [
-        {
-          "filter": "datum.point == 'dest'"
-        }
+        {"filter": "datum.point == 'dest'"},
+        {"calculate": "format(datum.volume_Mt, '.2f') + ' Mt'", "as": "vol_label"}
       ],
-      "mark": {
-        "type": "circle",
-        "size": 90,
-        "opacity": 0.95
-      },
-      "encoding": {
-        "color": {
-          "value": "#2d5a3d"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.point == 'dest'"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 12,
-        "fontSize": 12,
-        "fontWeight": 600,
-        "font": "Inter",
-        "color": "#1f2421"
-      },
-      "encoding": {
-        "text": {
-          "field": "country_label",
-          "type": "nominal"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.point == 'dest'"
-        },
-        {
-          "calculate": "format(datum.volume_Mt, '.2f') + ' Mt'",
-          "as": "vol_label"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 12,
-        "dy": 14,
-        "fontSize": 10,
-        "fontStyle": "italic",
-        "font": "Inter",
-        "color": "#6b7570"
-      },
-      "encoding": {
-        "text": {
-          "field": "vol_label",
-          "type": "nominal"
-        }
-      }
+      "mark": {"type": "text", "align": "left", "dx": 12, "dy": 14, "fontSize": 10, "fontStyle": "italic", "font": "Inter", "color": "#6b7570"},
+      "encoding": {"text": {"field": "vol_label", "type": "nominal"}}
     }
   ],
   "config": {
-    "view": {
-      "stroke": "transparent"
-    },
-    "legend": {
-      "labelFont": "Inter",
-      "labelFontSize": 11,
-      "titleFont": "Inter",
-      "titleFontSize": 11,
-      "titleColor": "#6b7570",
-      "labelColor": "#1f2421"
-    },
-    "title": {
-      "font": "Fraunces",
-      "fontSize": 18,
-      "fontWeight": 600,
-      "color": "#1f2421",
-      "subtitleFont": "Inter",
-      "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
-      "subtitleLineHeight": 18,
-      "anchor": "start"
-    }
+    "view": {"stroke": "transparent"},
+    "legend": {"labelFont": "Inter", "labelFontSize": 11, "titleFont": "Inter", "titleFontSize": 11, "titleColor": "#6b7570", "labelColor": "#1f2421"},
+    "title": {"font": "Fraunces", "fontSize": 18, "fontWeight": 600, "color": "#1f2421", "subtitleFont": "Inter", "subtitleFontSize": 13, "subtitleColor": "#6b7570", "subtitleLineHeight": 18, "anchor": "start"}
   }
 }

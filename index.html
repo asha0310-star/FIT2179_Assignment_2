@@ -185,29 +185,6 @@
           >.
         </p>
 
-        <h3>Producing more without expanding land as fast</h3>
-        <p>
-          Comparing tonnes and hectares on the same chart can be misleading
-          because the units are different. Indexing both series to 2001 = 100
-          makes the pattern easier to read: if production rises faster than
-          planted area, Malaysia is getting more output from each hectare rather
-          than relying only on expansion.
-        </p>
-        <div class="chart-card wide">
-          <div
-            id="chart17"
-            role="img"
-            aria-label="Indexed line chart comparing Malaysia crude palm oil production and oil palm planted area over time."
-          ></div>
-        </div>
-        <p class="caption">
-          Both series are indexed to 2001 = 100. The chart compares direction and
-          pace of change, not the original units. A widening gap suggests higher
-          output per hectare, while a flat planted-area line suggests slower land
-          expansion. Data source: MPOB / Our World in Data, based on cleaned
-          yearly files in this repository.
-        </p>
-
         <div class="chart-card">
           <div
             id="chart07"
@@ -290,30 +267,6 @@
           production).</em>
         </p>
 
-        <h3>Which states lost the largest share?</h3>
-        <p>
-          Absolute loss shows where the largest number of hectares disappeared,
-          but it can hide how intense the pressure was relative to each state’s
-          original tree cover. This dot plot normalises loss by the 2000
-          tree-cover extent, so smaller states can be compared more fairly with
-          Sabah and Sarawak.
-        </p>
-        <div class="chart-card wide">
-          <div
-            id="chart16"
-            role="img"
-            aria-label="Dot plot showing relative tree-cover loss intensity by Malaysian state from 2001 to 2024."
-          ></div>
-        </div>
-        <p class="caption">
-          Relative intensity is calculated as total tree-cover loss from
-          2001–2024 divided by tree-cover extent in 2000, using the same 30%
-          tree-cover threshold as the existing Global Forest Watch state-loss
-          charts. This does not prove that every lost hectare became oil palm,
-          but it shows where forest pressure was proportionally strongest. Data
-          source: Global Forest Watch.
-        </p>
-
         <h3>The trade-off in one chart</h3>
         <p class="pull-quote">
           Export value climbed while annual forest loss fell from its 2012–2014
@@ -321,9 +274,9 @@
         </p>
         <div class="chart-card wide hero">
           <div
-            id="chart99"
+            id="chart16"
             role="img"
-            aria-label="Dual-direction bar chart comparing palm oil export earnings and annual tree-cover loss from 2001 to 2024."
+            aria-label="Dot plot showing relative tree-cover loss intensity by Malaysian state from 2001 to 2024."
           ></div>
         </div>
         <p class="caption">
@@ -531,14 +484,6 @@
       const p11 = embedIfExists("#chart11", "charts/chart11_annual_loss.json");
       const p12 = embedIfExists("#chart12", "charts/chart12_flow_diagram.json");
       const p15 = embedIfExists("#chart15", "charts/chart15_importer_rank.json");
-      const p16 = embedIfExists(
-        "#chart16",
-        "charts/chart16_loss_intensity_dotplot.json",
-      );
-      const p17 = embedIfExists(
-        "#chart17",
-        "charts/chart17_indexed_production_area.json",
-      );
       const p13 = embedIfExists(
         "#chart13",
         "charts/chart13_connected_scatter.json",
