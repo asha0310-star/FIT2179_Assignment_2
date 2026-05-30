@@ -219,7 +219,8 @@
         "fontSize": 10,
         "fontStyle": "italic",
         "font": "Inter",
-        "color": "#6b7570"
+        "color": "#6b7570",
+        "opacity": 0.95
       },
       "encoding": {
         "x": {
