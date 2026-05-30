@@ -42,6 +42,9 @@
           "axis": {"labelExpr": "datum.value >= 0 ? format(datum.value, '.0f') : format(-datum.value * 5, '.0f')", "grid": true, "gridColor": "#eeece4"},
           "scale": {"domain": [-150, 150]}
         },
+        "opacity": {
+          "value": 0.9
+        },
         "tooltip": [
           {"field": "year", "type": "ordinal", "title": "Year"},
           {"field": "exports", "type": "quantitative", "format": ".1f", "title": "Exports (RM bn)"},
