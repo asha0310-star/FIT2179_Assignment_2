@@ -1,92 +1,102 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "East Malaysia overtook the Peninsula",
-    "subtitle": "CPO production by region (million tonnes), 2000–2024"
+    "text": "Production is still anchored in the Peninsula, but forest pressure is highest in East Malaysia",
+    "subtitle": "MPOB regional CPO production and planted area, 2025",
+    "anchor": "start"
   },
   "width": "container",
   "height": 320,
   "data": {
-    "url": "data/region_production_yearly.csv"
+    "url": "data/state_cpo_2025.csv"
   },
   "transform": [
     {
       "calculate": "datum.cpo_production_t / 1000000",
       "as": "cpo_production_Mt"
+    },
+    {
+      "calculate": "datum.planted_area_ha / 1000000",
+      "as": "planted_area_Mha"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "cpo_production_t",
+          "as": "total_cpo_t"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.cpo_production_t / datum.total_cpo_t * 100",
+      "as": "share_pct"
+    },
+    {
+      "calculate": "datum.region + ': ' + format(datum.share_pct, '.1f') + '% of CPO'",
+      "as": "label"
     }
   ],
   "layer": [
     {
-      "mark": "area",
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 3
+      },
       "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal",
+        "y": {
+          "field": "region",
+          "type": "nominal",
+          "sort": ["Peninsular Malaysia", "Sabah", "Sarawak"],
           "title": null,
           "axis": {
-            "labelAngle": 0,
-            "labelOverlap": "greedy"
+            "labelFont": "Inter",
+            "labelFontSize": 12
           }
         },
-        "y": {
+        "x": {
           "field": "cpo_production_Mt",
           "type": "quantitative",
-          "title": "CPO production (Mt)",
-          "stack": "zero"
+          "title": "CPO production (million tonnes)",
+          "axis": {
+            "grid": true,
+            "gridColor": "#eeece4"
+          }
         },
         "color": {
           "field": "region",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Peninsular Malaysia",
-              "Sabah",
-              "Sarawak"
-            ],
-            "range": [
-              "#8a5a2b",
-              "#5c8a6e",
-              "#1f3d2f"
-            ]
+            "domain": ["Peninsular Malaysia", "Sabah", "Sarawak"],
+            "range": ["#8a5a2b", "#5c8a6e", "#1f3d2f"]
           },
-          "legend": {
-            "title": null,
-            "orient": "bottom"
-          }
+          "legend": null
         },
         "tooltip": [
           {
             "field": "region",
-            "type": "nominal"
-          },
-          {
-            "field": "year",
-            "type": "ordinal"
+            "type": "nominal",
+            "title": "Region"
           },
           {
             "field": "cpo_production_Mt",
             "type": "quantitative",
             "format": ".2f",
-            "title": "Production (Mt)"
+            "title": "CPO (Mt)"
+          },
+          {
+            "field": "planted_area_Mha",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Planted area (Mha)"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Share of CPO (%)"
           }
         ]
-      }
-    },
-    {
-      "mark": {
-        "type": "rule",
-        "color": "#1f2421",
-        "strokeDash": [
-          4,
-          4
-        ],
-        "opacity": 0.6
-      },
-      "encoding": {
-        "x": {
-          "datum": 2007,
-          "type": "ordinal"
-        }
       }
     },
     {
@@ -94,23 +104,54 @@
         "type": "text",
         "align": "left",
         "dx": 6,
-        "dy": -10,
-        "fontSize": 11,
-        "fontStyle": "italic",
         "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": 600,
         "color": "#1f2421"
       },
       "encoding": {
-        "x": {
-          "datum": 2007,
-          "type": "ordinal"
-        },
         "y": {
-          "datum": 17,
+          "field": "region",
+          "type": "nominal",
+          "sort": ["Peninsular Malaysia", "Sabah", "Sarawak"]
+        },
+        "x": {
+          "field": "cpo_production_Mt",
           "type": "quantitative"
         },
         "text": {
-          "value": "2007: East Malaysia overtakes Peninsula"
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "note": "Sabah + Sarawak produce 43.9% of CPO but contain most cumulative tree-cover loss."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "font": "Inter",
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "#4b5563",
+        "dx": 0,
+        "dy": 0
+      },
+      "encoding": {
+        "x": {
+          "value": 0
+        },
+        "y": {
+          "value": 285
+        },
+        "text": {
+          "field": "note"
         }
       }
     }
@@ -122,23 +163,12 @@
     "axis": {
       "domain": false,
       "ticks": false,
-      "labelFont": "Inter",
-      "labelFontSize": 11,
       "labelColor": "#6b7570",
-      "titleFont": "Inter",
-      "titleFontSize": 12,
-      "titleFontWeight": 500,
       "titleColor": "#1f2421",
+      "titleFont": "Inter",
+      "labelFont": "Inter",
       "grid": true,
       "gridColor": "#eeece4"
-    },
-    "legend": {
-      "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
-      "titleFont": "Inter",
-      "titleFontSize": 12,
-      "titleColor": "#1f2421"
     },
     "title": {
       "font": "Fraunces",
@@ -147,12 +177,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
-      "anchor": "start"
+      "subtitleColor": "#6b7570"
     }
-  },
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
   }
 }

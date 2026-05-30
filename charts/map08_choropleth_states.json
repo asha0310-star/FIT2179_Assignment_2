@@ -8,10 +8,7 @@
   "height": 380,
   "projection": {
     "type": "mercator",
-    "center": [
-      109,
-      4
-    ],
+    "center": [109, 4],
     "scale": 1900
   },
   "layer": [
@@ -35,9 +32,7 @@
               "url": "data/forest_loss_state_totals.csv"
             },
             "key": "state",
-            "fields": [
-              "total_loss_2001_2024"
-            ]
+            "fields": ["total_loss_2001_2024"]
           }
         },
         {
@@ -98,9 +93,7 @@
           "name": "state_select",
           "select": {
             "type": "point",
-            "fields": [
-              "state_name"
-            ],
+            "fields": ["state_name"],
             "on": "click",
             "clear": "dblclick"
           },

@@ -88,10 +88,7 @@
             "gridColor": "#eeece4"
           },
           "scale": {
-            "domain": [
-              -150,
-              150
-            ]
+            "domain": [-150, 150]
           }
         },
         "tooltip": [

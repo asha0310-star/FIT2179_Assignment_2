@@ -33,9 +33,7 @@
           "name": "country_select",
           "select": {
             "type": "point",
-            "fields": [
-              "Entity"
-            ]
+            "fields": ["Entity"]
           },
           "bind": "legend"
         }
@@ -68,16 +66,8 @@
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Malaysia",
-              "Indonesia",
-              "Other"
-            ],
-            "range": [
-              "#c25e1e",
-              "#2d5a3d",
-              "#9ca3af"
-            ]
+            "domain": ["Malaysia", "Indonesia", "Other"],
+            "range": ["#c25e1e", "#2d5a3d", "#9ca3af"]
           },
           "legend": {
             "title": null,
