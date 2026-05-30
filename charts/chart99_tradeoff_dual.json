@@ -1,10 +1,10 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "The Economic Gain, the Environmental Bill",
+    "text": "Economic Gain vs Environmental Bill",
     "subtitle": [
-      "Malaysia: palm oil export earnings (up) vs annual tree-cover loss (down), 2001–2024.",
-      "Different units are rescaled to compare direction over time, not direct equivalence."
+      "Malaysia, 2001\u20132024: export earnings rise above zero; tree-cover loss is shown below zero.",
+      "Units are explained in labels and caption; loss is rescaled for visual comparison, not equivalence."
     ],
     "anchor": "start"
   },
@@ -15,7 +15,7 @@
     "contains": "padding"
   },
   "padding": {
-    "top": 10,
+    "top": 20,
     "bottom": 30,
     "left": 10,
     "right": 10
@@ -23,6 +23,19 @@
   "data": {
     "url": "data/malaysia_economy_yearly.csv"
   },
+  "params": [
+    {
+      "name": "year_hover_trade",
+      "select": {
+        "type": "point",
+        "fields": [
+          "year"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
+    }
+  ],
   "transform": [
     {
       "calculate": "toNumber(datum.export_value_RMbn)",
@@ -37,8 +50,8 @@
       "as": "loss_neg"
     },
     {
-      "calculate": "toNumber(datum.year) == 2008 ? '2008: GFC' : (toNumber(datum.year) == 2014 ? '2014: loss peak' : (toNumber(datum.year) == 2022 ? '2022: export record' : null))",
-      "as": "annotation"
+      "calculate": "toNumber(datum.year) == 2008 ? '2008: GFC' : (toNumber(datum.year) == 2022 ? '2022: export record' : null)",
+      "as": "export_annotation"
     }
   ],
   "encoding": {
@@ -72,24 +85,38 @@
       "mark": {
         "type": "bar",
         "color": "#c25e1e",
-        "cornerRadiusEnd": 2,
-        "opacity": 0.9
+        "cornerRadiusEnd": 2
       },
       "encoding": {
         "y": {
           "field": "exports",
           "type": "quantitative",
-          "title": "Exports (RM bn, up) / tree-cover loss (000 ha, down; rescaled)",
+          "title": null,
           "axis": {
             "labelExpr": "datum.value >= 0 ? format(datum.value, '.0f') : format(-datum.value * 5, '.0f')",
-            "titleColor": "#1f2421",
-            "titleFontSize": 12,
             "grid": true,
             "gridColor": "#eeece4"
           },
           "scale": {
-            "domain": [-150, 150]
+            "domain": [
+              -150,
+              150
+            ]
           }
+        },
+        "opacity": {
+          "condition": [
+            {
+              "param": "year_hover_trade",
+              "empty": false,
+              "value": 1
+            },
+            {
+              "test": "length(data('year_hover_trade_store')) == 0",
+              "value": 0.9
+            }
+          ],
+          "value": 0.35
         },
         "tooltip": [
           {
@@ -116,13 +143,26 @@
       "mark": {
         "type": "bar",
         "color": "#2d5a3d",
-        "cornerRadiusEnd": 2,
-        "opacity": 0.85
+        "cornerRadiusEnd": 2
       },
       "encoding": {
         "y": {
           "field": "loss_neg",
           "type": "quantitative"
+        },
+        "opacity": {
+          "condition": [
+            {
+              "param": "year_hover_trade",
+              "empty": false,
+              "value": 1
+            },
+            {
+              "test": "length(data('year_hover_trade_store')) == 0",
+              "value": 0.9
+            }
+          ],
+          "value": 0.35
         },
         "tooltip": [
           {
@@ -148,7 +188,7 @@
     {
       "transform": [
         {
-          "filter": "datum.annotation != null"
+          "filter": "datum.export_annotation != null"
         }
       ],
       "mark": {
@@ -166,44 +206,39 @@
         },
         "y": {
           "field": "exports",
-          "type": "quantitative",
-          "title": "Exports (RM bn, up) / tree-cover loss (000 ha, down; rescaled)"
+          "type": "quantitative"
         },
         "text": {
-          "field": "annotation",
+          "field": "export_annotation",
           "type": "nominal"
         }
       }
     },
     {
-      "data": {
-        "values": [
-          {
-            "label": "↑ Export earnings",
-            "x": "2001",
-            "y": 130
-          }
-        ]
-      },
+      "transform": [
+        {
+          "filter": "datum.year == 2014"
+        }
+      ],
       "mark": {
         "type": "text",
-        "align": "left",
-        "fontSize": 11,
-        "fontWeight": 600,
+        "dy": 14,
+        "fontSize": 10,
+        "fontStyle": "italic",
         "font": "Inter",
-        "color": "#c25e1e"
+        "color": "#1f2421"
       },
       "encoding": {
         "x": {
-          "field": "x",
+          "field": "year",
           "type": "ordinal"
         },
         "y": {
-          "field": "y",
+          "field": "loss_neg",
           "type": "quantitative"
         },
         "text": {
-          "field": "label"
+          "value": "2014: loss peak"
         }
       }
     },
@@ -211,7 +246,12 @@
       "data": {
         "values": [
           {
-            "label": "↓ Forest loss",
+            "label": "\u2191 Export earnings (RM bn)",
+            "x": "2001",
+            "y": 130
+          },
+          {
+            "label": "\u2193 Forest loss (kha, \u00f75 scale)",
             "x": "2001",
             "y": -130
           }
@@ -222,8 +262,7 @@
         "align": "left",
         "fontSize": 11,
         "fontWeight": 600,
-        "font": "Inter",
-        "color": "#2d5a3d"
+        "font": "Inter"
       },
       "encoding": {
         "x": {
@@ -236,6 +275,13 @@
         },
         "text": {
           "field": "label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.y > 0",
+            "value": "#c25e1e"
+          },
+          "value": "#2d5a3d"
         }
       }
     }
@@ -257,9 +303,17 @@
       "grid": true,
       "gridColor": "#eeece4"
     },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
+    },
     "title": {
       "font": "Fraunces",
-      "fontSize": 20,
+      "fontSize": 18,
       "fontWeight": 600,
       "color": "#1f2421",
       "subtitleFont": "Inter",

@@ -35,7 +35,10 @@
       "type": "quantitative",
       "axis": null,
       "scale": {
-        "domain": [-5, 105]
+        "domain": [
+          -5,
+          105
+        ]
       }
     },
     "y": {
@@ -43,7 +46,10 @@
       "type": "quantitative",
       "axis": null,
       "scale": {
-        "domain": [0.3, 7.7],
+        "domain": [
+          0.3,
+          7.7
+        ],
         "reverse": true
       }
     }
@@ -53,7 +59,7 @@
       "mark": {
         "type": "line",
         "interpolate": "monotone",
-        "opacity": 0.72
+        "opacity": 1
       },
       "encoding": {
         "detail": {
@@ -68,12 +74,19 @@
           "field": "volume_Mt",
           "type": "quantitative",
           "scale": {
-            "range": [3, 34]
+            "range": [
+              3,
+              34
+            ]
           },
           "legend": {
             "title": "Volume (Mt)",
             "orient": "bottom",
-            "values": [0.5, 1.5, 2.5]
+            "values": [
+              0.5,
+              1.5,
+              2.5
+            ]
           }
         },
         "color": {
@@ -97,7 +110,21 @@
             "format": ".1f",
             "title": "Share of exports (%)"
           }
-        ]
+        ],
+        "opacity": {
+          "condition": [
+            {
+              "param": "importer_hover",
+              "empty": false,
+              "value": 0.95
+            },
+            {
+              "test": "length(data('importer_hover_store')) == 0",
+              "value": 0.72
+            }
+          ],
+          "value": 0.18
+        }
       }
     },
     {
@@ -113,7 +140,10 @@
               "as": "total"
             }
           ],
-          "groupby": ["x", "y"]
+          "groupby": [
+            "x",
+            "y"
+          ]
         }
       ],
       "mark": {
@@ -189,6 +219,20 @@
         },
         "text": {
           "field": "label"
+        },
+        "opacity": {
+          "condition": [
+            {
+              "param": "importer_hover",
+              "empty": false,
+              "value": 1
+            },
+            {
+              "test": "length(data('importer_hover_store')) == 0",
+              "value": 0.95
+            }
+          ],
+          "value": 0.35
         }
       }
     },
@@ -282,5 +326,18 @@
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
-  }
+  },
+  "params": [
+    {
+      "name": "importer_hover",
+      "select": {
+        "type": "point",
+        "fields": [
+          "country"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
+    }
+  ]
 }
