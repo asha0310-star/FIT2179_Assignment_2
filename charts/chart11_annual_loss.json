@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "National forest loss peaked in 2012 and 2014",
-    "subtitle": "Annual tree-cover loss, 2001–2024. Includes harvest and plantation rotation, not only primary forest clearing.",
+    "text": "National forest loss peaked in 2014",
+    "subtitle": "Annual tree-cover loss, 2001\u20132024. Includes harvest and plantation rotation, not only primary forest clearing.",
     "anchor": "start"
   },
   "width": "container",
@@ -12,10 +12,38 @@
   },
   "layer": [
     {
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "mean",
+              "field": "forest_loss_kha",
+              "as": "mean_loss"
+            }
+          ]
+        }
+      ],
       "mark": {
-        "type": "area",
+        "type": "rule",
+        "color": "#6b7570",
+        "strokeDash": [
+          4,
+          4
+        ],
+        "opacity": 0.55
+      },
+      "encoding": {
+        "y": {
+          "field": "mean_loss",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
         "color": "#c25e1e",
-        "opacity": 0.18,
+        "strokeWidth": 2.8,
         "interpolate": "monotone"
       },
       "encoding": {
@@ -25,31 +53,21 @@
           "title": null,
           "axis": {
             "labelAngle": 0,
-            "values": [2001, 2005, 2010, 2015, 2020, 2024]
+            "values": [
+              2001,
+              2005,
+              2010,
+              2015,
+              2020,
+              2024
+            ],
+            "labelOverlap": "greedy"
           }
         },
         "y": {
           "field": "forest_loss_kha",
           "type": "quantitative",
           "title": "Tree cover loss (000 ha)"
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "line",
-        "color": "#c25e1e",
-        "strokeWidth": 2.5,
-        "interpolate": "monotone"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal"
-        },
-        "y": {
-          "field": "forest_loss_kha",
-          "type": "quantitative"
         },
         "tooltip": [
           {
@@ -68,14 +86,14 @@
     {
       "transform": [
         {
-          "filter": "datum.year == 2012 || datum.year == 2014"
+          "filter": "datum.year == 2014 || datum.year == 2024"
         }
       ],
       "mark": {
         "type": "point",
         "color": "#c25e1e",
         "filled": true,
-        "size": 90,
+        "size": 85,
         "stroke": "#fff",
         "strokeWidth": 1.5
       },
@@ -87,34 +105,6 @@
         "y": {
           "field": "forest_loss_kha",
           "type": "quantitative"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.year == 2012"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "dy": -12,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#1f2421",
-        "font": "Inter"
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal"
-        },
-        "y": {
-          "field": "forest_loss_kha",
-          "type": "quantitative"
-        },
-        "text": {
-          "value": "628 kha"
         }
       }
     },
@@ -142,7 +132,40 @@
           "type": "quantitative"
         },
         "text": {
-          "value": "646 kha"
+          "value": "2014 peak: 646 kha"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2024"
+        },
+        {
+          "calculate": "'2024: ' + format(datum.forest_loss_kha, '.0f') + ' kha'",
+          "as": "final_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dx": -6,
+        "dy": -12,
+        "align": "right",
+        "fontSize": 11,
+        "font": "Inter",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "forest_loss_kha",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "final_label"
         }
       }
     }
@@ -159,8 +182,18 @@
       "labelColor": "#6b7570",
       "titleFont": "Inter",
       "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
       "grid": true,
       "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
     },
     "title": {
       "font": "Fraunces",
@@ -170,6 +203,7 @@
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
       "subtitleColor": "#6b7570",
+      "subtitleLineHeight": 18,
       "anchor": "start"
     }
   },

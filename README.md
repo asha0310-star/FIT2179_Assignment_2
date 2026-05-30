@@ -35,6 +35,10 @@ FIT2179 Data Visualisation 2, Semester 1 2026. This single-page Vega-Lite story 
 - OWID's long-run production series currently ends at 2023, while MPOB industry data in this repository includes 2025 values. The linked global-share chart therefore caps its selected-year marker at 2023.
 - MPOB PDF values that are not provided as machine-readable CSV are typed into `wrangle.py` with comments and mirrored in the small cleaned CSV files.
 
+## Hand-drawn sketch
+
+Add `sketch.pdf` before final submission. This file should be a real hand-drawn planning sketch that has been scanned or photographed and then linked/submitted through Moodle/GitHub; do not replace it with a digitally generated sketch.
+
 ## Run locally
 
 Because Vega-Lite loads local CSV/JSON files, use a local web server instead of opening `index.html` directly from the filesystem.
