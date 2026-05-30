@@ -154,6 +154,38 @@
         "align": "right",
         "fontSize": 11,
         "fontStyle": "italic",
+        "lineBreak": "\n",
+        "color": "#1f2421",
+        "dx": 8,
+        "dy": -10,
+        "align": "left"
+      },
+      "encoding": {
+        "x": {
+          "field": "planted_area_Mha",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "forest_loss_kha",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "planted_area_Mha": 5.61,
+            "forest_loss_kha": 282.53,
+            "label": "2024: lower loss\nthan the peak"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
         "font": "Inter",
         "lineBreak": "\n",
         "color": "#1f2421"

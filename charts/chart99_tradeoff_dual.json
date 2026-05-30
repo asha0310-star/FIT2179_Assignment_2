@@ -45,6 +45,9 @@
         "opacity": {
           "value": 0.9
         },
+        "opacity": {
+          "value": 0.9
+        },
         "tooltip": [
           {"field": "year", "type": "ordinal", "title": "Year"},
           {"field": "exports", "type": "quantitative", "format": ".1f", "title": "Exports (RM bn)"},
