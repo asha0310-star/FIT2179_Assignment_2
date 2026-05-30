@@ -1,5 +1,9 @@
+# Python / local environments
+.venv/
+__pycache__/
+
 # macOS
 .DS_Store
-Icon
+Icon?
 .AppleDouble
 .LSOverride

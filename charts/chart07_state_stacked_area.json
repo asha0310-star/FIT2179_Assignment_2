@@ -1,100 +1,164 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Production is still anchored in the Peninsula, but forest pressure is highest in East Malaysia",
-    "subtitle": "MPOB regional CPO production and planted area, 2025",
+    "text": "The Peninsula produces more oil from less land",
+    "subtitle": "Share of Malaysia\u2019s 2025 planted area vs share of crude palm oil output.",
     "anchor": "start"
   },
   "width": "container",
-  "height": 320,
+  "height": 300,
   "data": {
     "url": "data/state_cpo_2025.csv"
   },
   "transform": [
-    {
-      "calculate": "datum.cpo_production_t / 1000000",
-      "as": "cpo_production_Mt"
-    },
-    {
-      "calculate": "datum.planted_area_ha / 1000000",
-      "as": "planted_area_Mha"
-    },
     {
       "joinaggregate": [
         {
           "op": "sum",
           "field": "cpo_production_t",
           "as": "total_cpo_t"
+        },
+        {
+          "op": "sum",
+          "field": "planted_area_ha",
+          "as": "total_area_ha"
         }
       ]
     },
     {
       "calculate": "datum.cpo_production_t / datum.total_cpo_t * 100",
-      "as": "share_pct"
+      "as": "cpo_share_pct"
     },
     {
-      "calculate": "datum.region + ': ' + format(datum.share_pct, '.1f') + '% of CPO'",
-      "as": "label"
+      "calculate": "datum.planted_area_ha / datum.total_area_ha * 100",
+      "as": "area_share_pct"
+    },
+    {
+      "calculate": "datum.cpo_production_t / datum.planted_area_ha",
+      "as": "yield_t_per_ha"
+    },
+    {
+      "calculate": "format(datum.yield_t_per_ha, '.2f') + ' t/ha'",
+      "as": "yield_label"
     }
   ],
   "layer": [
     {
       "mark": {
-        "type": "bar",
-        "cornerRadiusEnd": 3
+        "type": "rule",
+        "strokeWidth": 4,
+        "color": "#cfd6d1"
       },
       "encoding": {
         "y": {
           "field": "region",
           "type": "nominal",
-          "sort": ["Peninsular Malaysia", "Sabah", "Sarawak"],
-          "title": null,
-          "axis": {
-            "labelFont": "Inter",
-            "labelFontSize": 12
-          }
+          "sort": [
+            "Peninsular Malaysia",
+            "Sarawak",
+            "Sabah"
+          ],
+          "title": null
         },
         "x": {
-          "field": "cpo_production_Mt",
+          "field": "area_share_pct",
           "type": "quantitative",
-          "title": "CPO production (million tonnes)",
+          "title": "Share of Malaysia total (%)",
+          "scale": {
+            "domain": [
+              0,
+              60
+            ]
+          },
           "axis": {
-            "grid": true,
-            "gridColor": "#eeece4"
+            "format": ".0f"
           }
         },
-        "color": {
+        "x2": {
+          "field": "cpo_share_pct"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 180,
+        "color": "#6b7570",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "y": {
           "field": "region",
           "type": "nominal",
-          "scale": {
-            "domain": ["Peninsular Malaysia", "Sabah", "Sarawak"],
-            "range": ["#8a5a2b", "#5c8a6e", "#1f3d2f"]
-          },
-          "legend": null
+          "sort": [
+            "Peninsular Malaysia",
+            "Sarawak",
+            "Sabah"
+          ]
+        },
+        "x": {
+          "field": "area_share_pct",
+          "type": "quantitative"
         },
         "tooltip": [
           {
-            "field": "region",
-            "type": "nominal",
-            "title": "Region"
+            "field": "region"
           },
           {
-            "field": "cpo_production_Mt",
-            "type": "quantitative",
-            "format": ".2f",
-            "title": "CPO (Mt)"
-          },
-          {
-            "field": "planted_area_Mha",
-            "type": "quantitative",
-            "format": ".2f",
-            "title": "Planted area (Mha)"
-          },
-          {
-            "field": "share_pct",
+            "field": "area_share_pct",
             "type": "quantitative",
             "format": ".1f",
-            "title": "Share of CPO (%)"
+            "title": "Planted area share (%)"
+          },
+          {
+            "field": "yield_t_per_ha",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Yield (t/ha)"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 220,
+        "color": "#c25e1e",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "y": {
+          "field": "region",
+          "type": "nominal",
+          "sort": [
+            "Peninsular Malaysia",
+            "Sarawak",
+            "Sabah"
+          ]
+        },
+        "x": {
+          "field": "cpo_share_pct",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "region"
+          },
+          {
+            "field": "cpo_share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "CPO output share (%)"
+          },
+          {
+            "field": "yield_t_per_ha",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Yield (t/ha)"
           }
         ]
       }
@@ -103,24 +167,28 @@
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 6,
+        "dx": 10,
         "font": "Inter",
-        "fontSize": 12,
-        "fontWeight": 600,
+        "fontSize": 11,
+        "fontWeight": 700,
         "color": "#1f2421"
       },
       "encoding": {
         "y": {
           "field": "region",
           "type": "nominal",
-          "sort": ["Peninsular Malaysia", "Sabah", "Sarawak"]
+          "sort": [
+            "Peninsular Malaysia",
+            "Sarawak",
+            "Sabah"
+          ]
         },
         "x": {
-          "field": "cpo_production_Mt",
+          "field": "cpo_share_pct",
           "type": "quantitative"
         },
         "text": {
-          "field": "label"
+          "field": "yield_label"
         }
       }
     },
@@ -128,30 +196,41 @@
       "data": {
         "values": [
           {
-            "note": "Sabah + Sarawak produce 43.9% of CPO but contain most cumulative tree-cover loss."
+            "x": 13,
+            "y": "Peninsular Malaysia",
+            "label": "planted area share"
+          },
+          {
+            "x": 42,
+            "y": "Peninsular Malaysia",
+            "label": "CPO output share"
           }
         ]
       },
       "mark": {
         "type": "text",
-        "align": "left",
-        "baseline": "top",
         "font": "Inter",
-        "fontSize": 12,
-        "fontStyle": "italic",
-        "color": "#4b5563",
-        "dx": 0,
-        "dy": 0
+        "fontSize": 11,
+        "fontStyle": "italic"
       },
       "encoding": {
         "x": {
-          "value": 0
+          "field": "x",
+          "type": "quantitative"
         },
         "y": {
-          "value": 285
+          "field": "y",
+          "type": "nominal"
         },
         "text": {
-          "field": "note"
+          "field": "label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.label == 'CPO output share'",
+            "value": "#c25e1e"
+          },
+          "value": "#6b7570"
         }
       }
     }
@@ -163,12 +242,23 @@
     "axis": {
       "domain": false,
       "ticks": false,
-      "labelColor": "#6b7570",
-      "titleColor": "#1f2421",
-      "titleFont": "Inter",
       "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleFontWeight": 500,
+      "titleColor": "#1f2421",
       "grid": true,
       "gridColor": "#eeece4"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "labelFontSize": 11,
+      "labelColor": "#6b7570",
+      "titleFont": "Inter",
+      "titleFontSize": 12,
+      "titleColor": "#1f2421"
     },
     "title": {
       "font": "Fraunces",
@@ -177,7 +267,9 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570"
+      "subtitleColor": "#6b7570",
+      "subtitleLineHeight": 18,
+      "anchor": "start"
     }
   }
 }

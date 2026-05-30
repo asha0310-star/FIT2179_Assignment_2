@@ -2,10 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Malaysia and Indonesia drove global palm oil growth",
-    "subtitle": "Production by country, 1961–2023 (million tonnes)"
+    "subtitle": "Production by group, 1961\u20132023 (million tonnes); \u2018Other\u2019 is aggregated across remaining producers."
   },
   "width": "container",
-  "height": 380,
+  "height": 390,
   "autosize": {
     "type": "fit",
     "contains": "padding"
@@ -19,38 +19,47 @@
     },
     {
       "calculate": "datum['Palm oil - Production (tonnes)'] / 1e6",
-      "as": "Production_Mt"
+      "as": "Production_Mt_raw"
     },
     {
       "calculate": "datum.Entity === 'Malaysia' || datum.Entity === 'Indonesia' ? datum.Entity : 'Other'",
       "as": "Group"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "Production_Mt_raw",
+          "as": "Production_Mt"
+        }
+      ],
+      "groupby": [
+        "Year",
+        "Group"
+      ]
+    },
+    {
+      "calculate": "datetime(toNumber(datum.Year), 0, 1)",
+      "as": "year_date"
     }
   ],
   "layer": [
     {
-      "params": [
-        {
-          "name": "country_select",
-          "select": {
-            "type": "point",
-            "fields": ["Entity"]
-          },
-          "bind": "legend"
-        }
-      ],
       "mark": {
         "type": "line",
-        "strokeWidth": 3,
+        "strokeWidth": 3.2,
         "interpolate": "monotone"
       },
       "encoding": {
         "x": {
-          "field": "Year",
+          "field": "year_date",
           "type": "temporal",
           "title": null,
           "axis": {
             "format": "%Y",
-            "labelAngle": 0
+            "tickCount": 9,
+            "labelAngle": 0,
+            "labelOverlap": "greedy"
           }
         },
         "y": {
@@ -66,47 +75,34 @@
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": ["Malaysia", "Indonesia", "Other"],
-            "range": ["#c25e1e", "#2d5a3d", "#9ca3af"]
+            "domain": [
+              "Malaysia",
+              "Indonesia",
+              "Other"
+            ],
+            "range": [
+              "#c25e1e",
+              "#2d5a3d",
+              "#8f9792"
+            ]
           },
-          "legend": {
-            "title": null,
-            "orient": "top-left"
-          }
-        },
-        "detail": {
-          "field": "Entity"
-        },
-        "opacity": {
-          "condition": [
-            {
-              "param": "country_select",
-              "empty": false,
-              "value": 1
-            },
-            {
-              "test": "datum.Group !== 'Other'",
-              "value": 1
-            }
-          ],
-          "value": 0.25
+          "legend": null
         },
         "tooltip": [
           {
-            "field": "Entity",
-            "type": "nominal",
-            "title": "Country"
+            "field": "Group",
+            "type": "nominal"
           },
           {
             "field": "Year",
-            "type": "temporal",
-            "format": "%Y"
+            "type": "quantitative",
+            "format": "d"
           },
           {
             "field": "Production_Mt",
             "type": "quantitative",
             "format": ".2f",
-            "title": "Million tonnes"
+            "title": "Production (Mt)"
           }
         ]
       }
@@ -114,21 +110,20 @@
     {
       "transform": [
         {
-          "filter": "datum.Entity == 'Malaysia' && datum.Year == 1990"
+          "filter": "datum.Year == 2023"
         }
       ],
       "mark": {
         "type": "text",
-        "dx": 8,
-        "dy": -8,
         "align": "left",
+        "dx": 8,
         "fontSize": 12,
-        "font": "Inter",
-        "color": "#1f2421"
+        "fontWeight": 700,
+        "font": "Inter"
       },
       "encoding": {
         "x": {
-          "field": "Year",
+          "field": "year_date",
           "type": "temporal"
         },
         "y": {
@@ -136,14 +131,31 @@
           "type": "quantitative"
         },
         "text": {
-          "value": "Malaysia ~1990: peak share era"
+          "field": "Group"
+        },
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Malaysia",
+              "Indonesia",
+              "Other"
+            ],
+            "range": [
+              "#c25e1e",
+              "#2d5a3d",
+              "#8f9792"
+            ]
+          },
+          "legend": null
         }
       }
     },
     {
       "transform": [
         {
-          "filter": "datum.Entity == 'Indonesia' && datum.Year == 2006"
+          "filter": "datum.Group == 'Indonesia' && datum.Year == 2006"
         }
       ],
       "mark": {
@@ -158,7 +170,7 @@
       },
       "encoding": {
         "x": {
-          "field": "Year",
+          "field": "year_date",
           "type": "temporal"
         },
         "y": {
@@ -204,6 +216,7 @@
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
       "subtitleColor": "#6b7570",
+      "subtitleLineHeight": 18,
       "anchor": "start"
     }
   }
