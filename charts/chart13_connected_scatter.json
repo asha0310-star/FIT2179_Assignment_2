@@ -1,11 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Planted area and forest loss move together",
-    "subtitle": "Each dot = one year, 2001–2024. Colour shows time; there is no line connecting the points.",
+    "text": "Palm expansion and forest loss overlap, but later years drift down",
+    "subtitle": "Each dot = one year, 2001–2024. Colour shows time; points are not connected because both axes are quantitative.",
     "anchor": "start"
   },
-  "width": 760,
+  "width": "container",
   "height": 460,
   "data": {
     "url": "data/area_vs_loss_yearly.csv"
@@ -173,5 +173,9 @@
       "subtitleColor": "#6b7570",
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

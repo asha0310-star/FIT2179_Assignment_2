@@ -5,7 +5,7 @@
     "subtitle": "Area harvested for oil palm: 1961 → 2023 (million hectares).",
     "anchor": "start"
   },
-  "width": 700,
+  "width": "container",
   "height": 420,
   "padding": {
     "bottom": 40
@@ -175,5 +175,9 @@
       "subtitleColor": "#6b7570",
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

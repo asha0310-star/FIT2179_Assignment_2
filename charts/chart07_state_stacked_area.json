@@ -2,9 +2,9 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "East Malaysia overtook the Peninsula",
-    "subtitle": "CPO production by region (million tonnes): Peninsular Malaysia vs Sabah vs Sarawak"
+    "subtitle": "CPO production by region (million tonnes), 2000–2024"
   },
-  "width": 700,
+  "width": "container",
   "height": 320,
   "data": {
     "url": "data/region_production_yearly.csv"
@@ -94,7 +94,7 @@
         "type": "text",
         "align": "left",
         "dx": 6,
-        "dy": -120,
+        "dy": -10,
         "fontSize": 11,
         "fontStyle": "italic",
         "font": "Inter",
@@ -106,11 +106,11 @@
           "type": "ordinal"
         },
         "y": {
-          "datum": 18,
+          "datum": 17,
           "type": "quantitative"
         },
         "text": {
-          "value": "2007: East Malaysia overtakes the Peninsula"
+          "value": "2007: East Malaysia overtakes Peninsula"
         }
       }
     }
@@ -150,5 +150,9 @@
       "subtitleColor": "#6b7570",
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

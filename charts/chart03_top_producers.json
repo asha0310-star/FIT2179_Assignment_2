@@ -2,9 +2,9 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Two countries make 85% of the world's palm oil",
-    "subtitle": "CPO production by country (million tonnes) — drag the slider to change year"
+    "subtitle": "CPO production by country (million tonnes) — move the slider to change year"
   },
-  "width": 420,
+  "width": "container",
   "height": 320,
   "data": {
     "url": "data/cpo_by_country_long.csv"
@@ -56,7 +56,8 @@
           "title": null,
           "axis": {
             "labelFont": "Inter",
-            "labelFontSize": 12
+            "labelFontSize": 12,
+            "labelLimit": 120
           }
         },
         "x": {
@@ -170,5 +171,9 @@
       "subtitleColor": "#6b7570",
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

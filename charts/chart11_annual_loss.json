@@ -2,10 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "National forest loss peaked in 2012 and 2014",
-    "subtitle": "Malaysia, annual tree cover loss (thousand hectares), 2001–2024",
+    "subtitle": "Annual tree-cover loss, 2001–2024. Includes harvest and plantation rotation, not only primary forest clearing.",
     "anchor": "start"
   },
-  "width": 420,
+  "width": "container",
   "height": 320,
   "data": {
     "url": "data/area_vs_loss_yearly.csv"
@@ -179,5 +179,9 @@
       "subtitleColor": "#6b7570",
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

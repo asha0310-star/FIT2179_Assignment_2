@@ -2,11 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Tree cover loss by state and year",
-    "subtitle": "Full overview of annual tree cover loss, 2001–2024 (thousand hectares). Darker cells show higher loss.",
+    "subtitle": "Annual tree-cover loss by state, 2001–2024 (thousand hectares). States sorted by total loss.",
     "anchor": "start"
   },
-  "width": 420,
-  "height": 360,
+  "width": "container",
+  "height": 340,
   "data": {
     "url": "data/forest_loss_by_state_long.csv"
   },
@@ -88,6 +88,73 @@
           }
         ]
       }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2012
+          },
+          {
+            "year": 2014
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          3,
+          3
+        ],
+        "strokeWidth": 1.2,
+        "color": "#1f2421",
+        "opacity": 0.45
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2012,
+            "state": "Sarawak",
+            "label": "2012 peak"
+          },
+          {
+            "year": 2014,
+            "state": "Sarawak",
+            "label": "2014 peak"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Inter",
+        "fontSize": 10,
+        "fontStyle": "italic",
+        "align": "left",
+        "dx": 4,
+        "dy": -10,
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
     }
   ],
   "config": {
@@ -121,5 +188,9 @@
       "subtitleColor": "#6b7570",
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

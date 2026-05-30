@@ -1,10 +1,10 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Malaysia's share of world palm oil is shrinking",
-    "subtitle": "Malaysia's CPO production as a % of world production, 1961–2023"
+    "text": "Malaysia’s global share is shrinking",
+    "subtitle": "Malaysia CPO production as a share of world production, 1961–2023"
   },
-  "width": 420,
+  "width": "container",
   "height": 320,
   "padding": {
     "bottom": 40
@@ -296,5 +296,9 @@
       "subtitleColor": "#6b7570",
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

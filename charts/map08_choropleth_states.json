@@ -2,9 +2,9 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Forest loss has not been spread evenly",
-    "subtitle": "Total tree cover loss, 2001–2024 (thousand hectares)"
+    "subtitle": "Total tree-cover loss by state, 2001–2024 — absolute loss, not area-normalised"
   },
-  "width": 820,
+  "width": "container",
   "height": 380,
   "projection": {
     "type": "mercator",
@@ -24,6 +24,10 @@
         }
       },
       "transform": [
+        {
+          "calculate": "datum.properties.NAME_1",
+          "as": "state_name"
+        },
         {
           "lookup": "properties.NAME_1",
           "from": {
@@ -61,7 +65,7 @@
         },
         "tooltip": [
           {
-            "field": "properties.NAME_1",
+            "field": "state_name",
             "type": "nominal",
             "title": "State"
           },
@@ -71,8 +75,38 @@
             "format": ",.0f",
             "title": "Loss (000 ha)"
           }
-        ]
-      }
+        ],
+        "opacity": {
+          "condition": {
+            "param": "state_select",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.6
+        },
+        "strokeWidth": {
+          "condition": {
+            "param": "state_select",
+            "empty": false,
+            "value": 1.6
+          },
+          "value": 0.6
+        }
+      },
+      "params": [
+        {
+          "name": "state_select",
+          "select": {
+            "type": "point",
+            "fields": [
+              "state_name"
+            ],
+            "on": "click",
+            "clear": "dblclick"
+          },
+          "value": null
+        }
+      ]
     },
     {
       "data": {
@@ -141,7 +175,7 @@
       "data": {
         "values": [
           {
-            "note": "East Malaysia: 5.0M ha of 9.5M total",
+            "note": "East Malaysia: about 5.0M ha of 9.5M total. Click a state to highlight; double-click to clear.",
             "lat": 3.3,
             "lon": 111.2
           }
@@ -208,5 +242,9 @@
       "subtitleColor": "#6b7570",
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

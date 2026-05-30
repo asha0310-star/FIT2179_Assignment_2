@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Forest loss and palm oil production go together",
-    "subtitle": "Sabah and Sarawak account for both the heaviest deforestation and the bulk of Malaysia's CPO output."
+    "text": "Where palm oil output and forest loss overlap",
+    "subtitle": "The largest production centres sit in many of the same states with the highest cumulative tree-cover loss."
   },
   "width": "container",
   "height": 320,
@@ -184,16 +184,6 @@
             "label": "Perak",
             "lat": 4.6,
             "lon": 101.1
-          },
-          {
-            "label": "Selangor",
-            "lat": 3.2,
-            "lon": 101.8
-          },
-          {
-            "label": "Negeri Sembilan",
-            "lat": 2.7,
-            "lon": 101.9
           }
         ]
       },
