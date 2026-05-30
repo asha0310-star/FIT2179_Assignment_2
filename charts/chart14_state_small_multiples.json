@@ -49,11 +49,7 @@
             "axis": {
               "labelAngle": 0,
               "labelOverlap": "greedy",
-              "values": [
-                2001,
-                2010,
-                2024
-              ],
+              "values": [2001, 2010, 2024],
               "labelFontSize": 9
             },
             "title": null
@@ -118,10 +114,7 @@
         "mark": {
           "type": "rule",
           "color": "#4b5563",
-          "strokeDash": [
-            3,
-            3
-          ]
+          "strokeDash": [3, 3]
         },
         "encoding": {
           "y": {

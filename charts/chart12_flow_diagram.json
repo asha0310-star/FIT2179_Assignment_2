@@ -1,10 +1,10 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Where Malaysia's palm oil flows — and how little is certified",
+    "text": "Where Malaysia's palm oil exports went in 2025",
     "subtitle": [
-      "Trade flow from Malaysia to its top seven importers, 2024.",
-      "Ribbon thickness = export volume (Mt). Green = RSPO-certified market; grey = mostly conventional."
+      "Top seven importers bought 7.86 Mt, or 51.5% of Malaysia palm oil exports.",
+      "Ribbon thickness = export volume; labels show each market share of total palm oil exports."
     ],
     "anchor": "start"
   },
@@ -25,8 +25,8 @@
   },
   "transform": [
     {
-      "calculate": "datum.certified == 'TRUE' ? 'RSPO-certified market' : 'Conventional market'",
-      "as": "Status"
+      "calculate": "datum.country + ' (' + format(datum.share_pct, '.1f') + '%)'",
+      "as": "country_label"
     }
   ],
   "encoding": {
@@ -35,10 +35,7 @@
       "type": "quantitative",
       "axis": null,
       "scale": {
-        "domain": [
-          -5,
-          105
-        ]
+        "domain": [-5, 105]
       }
     },
     "y": {
@@ -46,10 +43,7 @@
       "type": "quantitative",
       "axis": null,
       "scale": {
-        "domain": [
-          0.3,
-          7.7
-        ],
+        "domain": [0.3, 7.7],
         "reverse": true
       }
     }
@@ -59,7 +53,7 @@
       "mark": {
         "type": "line",
         "interpolate": "monotone",
-        "opacity": 0.75
+        "opacity": 0.72
       },
       "encoding": {
         "detail": {
@@ -74,38 +68,16 @@
           "field": "volume_Mt",
           "type": "quantitative",
           "scale": {
-            "range": [
-              3,
-              38
-            ]
+            "range": [3, 34]
           },
           "legend": {
             "title": "Volume (Mt)",
             "orient": "bottom",
-            "values": [
-              0.5,
-              1.5,
-              3.0
-            ]
+            "values": [0.5, 1.5, 2.5]
           }
         },
         "color": {
-          "field": "Status",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Conventional market",
-              "RSPO-certified market"
-            ],
-            "range": [
-              "#9ca3af",
-              "#2d5a3d"
-            ]
-          },
-          "legend": {
-            "orient": "bottom",
-            "title": null
-          }
+          "value": "#c25e1e"
         },
         "tooltip": [
           {
@@ -120,9 +92,10 @@
             "title": "Volume (Mt)"
           },
           {
-            "field": "Status",
-            "type": "nominal",
-            "title": "Status"
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Share of exports (%)"
           }
         ]
       }
@@ -140,10 +113,7 @@
               "as": "total"
             }
           ],
-          "groupby": [
-            "x",
-            "y"
-          ]
+          "groupby": ["x", "y"]
         }
       ],
       "mark": {
@@ -195,7 +165,7 @@
           {
             "x": 0,
             "y": 4,
-            "label": "16.9 Mt total exports"
+            "label": "15.27 Mt total exports"
           }
         ]
       },
@@ -235,8 +205,7 @@
       },
       "encoding": {
         "color": {
-          "field": "Status",
-          "type": "nominal"
+          "value": "#2d5a3d"
         }
       }
     },
@@ -257,7 +226,7 @@
       },
       "encoding": {
         "text": {
-          "field": "country",
+          "field": "country_label",
           "type": "nominal"
         }
       }

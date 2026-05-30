@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Where palm oil output and forest loss overlap",
-    "subtitle": "The largest production centres sit in many of the same states with the highest cumulative tree-cover loss."
+    "subtitle": "2025 regional CPO production sits beside 2001\u20132024 cumulative tree-cover loss."
   },
   "width": "container",
   "height": 320,
@@ -12,10 +12,7 @@
   },
   "projection": {
     "type": "mercator",
-    "center": [
-      111,
-      4
-    ],
+    "center": [111, 4],
     "scale": 1900
   },
   "layer": [
@@ -35,9 +32,7 @@
               "url": "data/forest_loss_state_totals.csv"
             },
             "key": "state",
-            "fields": [
-              "total_loss_2001_2024"
-            ]
+            "fields": ["total_loss_2001_2024"]
           }
         },
         {
@@ -57,10 +52,7 @@
           "scale": {
             "scheme": "oranges",
             "type": "quantize",
-            "domain": [
-              0,
-              3000
-            ]
+            "domain": [0, 3000]
           },
           "title": "Forest loss (000 ha)",
           "legend": {
@@ -84,7 +76,7 @@
     },
     {
       "data": {
-        "url": "data/state_cpo_2024.csv"
+        "url": "data/state_cpo_2025.csv"
       },
       "transform": [
         {
@@ -115,30 +107,20 @@
         "size": {
           "field": "cpo_production_t",
           "type": "quantitative",
-          "title": "CPO production 2024 (tonnes)",
+          "title": "CPO production 2025 (tonnes)",
           "scale": {
             "type": "sqrt",
-            "domain": [
-              500000,
-              5000000
-            ],
-            "range": [
-              100,
-              2200
-            ]
+            "domain": [4000000, 12000000],
+            "range": [100, 2200]
           },
           "legend": {
             "orient": "right",
-            "values": [
-              1000000,
-              2500000,
-              5000000
-            ]
+            "values": [4000000, 8000000, 12000000]
           }
         },
         "tooltip": [
           {
-            "field": "state",
+            "field": "region",
             "type": "nominal",
             "title": "Region"
           },
@@ -161,9 +143,9 @@
       "data": {
         "values": [
           {
-            "label": "Sarawak",
-            "lat": 2.5,
-            "lon": 113.5
+            "label": "Peninsular",
+            "lat": 4.0,
+            "lon": 102.5
           },
           {
             "label": "Sabah",
@@ -171,19 +153,9 @@
             "lon": 117.0
           },
           {
-            "label": "Pahang",
-            "lat": 3.8,
-            "lon": 102.6
-          },
-          {
-            "label": "Johor",
-            "lat": 2.0,
-            "lon": 103.4
-          },
-          {
-            "label": "Perak",
-            "lat": 4.6,
-            "lon": 101.1
+            "label": "Sarawak",
+            "lat": 2.5,
+            "lon": 113.5
           }
         ]
       },

@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Malaysia’s global share is shrinking",
-    "subtitle": "Malaysia CPO production as a share of world production, 1961–2023"
+    "text": "Malaysia\u2019s global share is shrinking",
+    "subtitle": "Malaysia palm oil production as a share of world production, 1961\u20132023 (OWID latest series)"
   },
   "width": "container",
   "height": 320,
@@ -19,9 +19,7 @@
     {
       "pivot": "Entity",
       "value": "Palm oil - Production (tonnes)",
-      "groupby": [
-        "Year"
-      ]
+      "groupby": ["Year"]
     },
     {
       "calculate": "toNumber(datum.Malaysia)",
@@ -54,7 +52,7 @@
   "params": [
     {
       "name": "year_link",
-      "value": 2024
+      "value": 2023
     }
   ],
   "layer": [
@@ -153,7 +151,7 @@
           "type": "quantitative"
         },
         "text": {
-          "value": "~70% in 1990"
+          "value": "53% in 1990"
         }
       }
     },
@@ -182,7 +180,7 @@
           "type": "quantitative"
         },
         "text": {
-          "value": "27% in 2023"
+          "value": "23% in 2023"
         }
       }
     },
@@ -190,10 +188,7 @@
       "mark": {
         "type": "rule",
         "color": "#6b7570",
-        "strokeDash": [
-          4,
-          4
-        ]
+        "strokeDash": [4, 4]
       },
       "encoding": {
         "x": {
@@ -256,7 +251,7 @@
           "type": "quantitative"
         },
         "text": {
-          "value": "Peak: 76% in 1982"
+          "value": "Peak: 57% in 1982"
         }
       }
     }

@@ -10,86 +10,141 @@
   },
   "width": "container",
   "height": 320,
-  "autosize": {"type": "fit", "contains": "padding"},
-  "padding": {"top": 10, "bottom": 30, "left": 10, "right": 10},
-  "data": {"url": "data/malaysia_economy_yearly.csv"},
+  "autosize": { "type": "fit", "contains": "padding" },
+  "padding": { "top": 10, "bottom": 30, "left": 10, "right": 10 },
+  "data": { "url": "data/malaysia_economy_yearly.csv" },
 
   "transform": [
-    {"calculate": "toNumber(datum.forest_loss_kha)",    "as": "loss_num"},
-    {"calculate": "toNumber(datum.cpo_production_Mt)",  "as": "prod_num"},
-    {"calculate": "datum.loss_num / datum.prod_num",    "as": "efficiency"},
-    {"calculate": "datum.efficiency > 30 ? 'High cost (>30)' : (datum.efficiency >= 20 ? 'Moderate (20–30)' : 'Improving (<20)')", "as": "band"},
-    {"calculate": "toNumber(datum.year) == 2014 ? 'Worst year: 33' : (toNumber(datum.year) == 2022 ? 'Best recent: 13' : null)", "as": "annotation"}
+    { "calculate": "toNumber(datum.forest_loss_kha)", "as": "loss_num" },
+    { "calculate": "toNumber(datum.cpo_production_Mt)", "as": "prod_num" },
+    { "calculate": "datum.loss_num / datum.prod_num", "as": "efficiency" },
+    {
+      "calculate": "datum.efficiency > 30 ? 'High cost (>30)' : (datum.efficiency >= 20 ? 'Moderate (20–30)' : 'Improving (<20)')",
+      "as": "band"
+    },
+    {
+      "calculate": "toNumber(datum.year) == 2014 ? 'Worst year: 33' : (toNumber(datum.year) == 2022 ? 'Best recent: 13' : null)",
+      "as": "annotation"
+    }
   ],
 
   "layer": [
     {
-      "data": {"values": [
-        {"y0": 0, "y1": 20, "band": "Improving (<20)"},
-        {"y0": 20, "y1": 30, "band": "Moderate (20–30)"},
-        {"y0": 30, "y1": 60, "band": "High cost (>30)"}
-      ]},
-      "mark": {"type": "rect", "opacity": 0.07},
+      "data": {
+        "values": [
+          { "y0": 0, "y1": 20, "band": "Improving (<20)" },
+          { "y0": 20, "y1": 30, "band": "Moderate (20–30)" },
+          { "y0": 30, "y1": 60, "band": "High cost (>30)" }
+        ]
+      },
+      "mark": { "type": "rect", "opacity": 0.07 },
       "encoding": {
-        "y": {"field": "y0", "type": "quantitative"},
-        "y2": {"field": "y1"},
+        "y": { "field": "y0", "type": "quantitative" },
+        "y2": { "field": "y1" },
         "color": {
           "field": "band",
           "type": "nominal",
           "scale": {
-            "domain": ["High cost (>30)", "Moderate (20–30)", "Improving (<20)"],
-            "range":  ["#b22222", "#c25e1e", "#2d5a3d"]
+            "domain": [
+              "High cost (>30)",
+              "Moderate (20–30)",
+              "Improving (<20)"
+            ],
+            "range": ["#b22222", "#c25e1e", "#2d5a3d"]
           },
           "legend": null
         }
       }
     },
     {
-      "mark": {"type": "line", "strokeWidth": 1.5, "color": "#6b7570", "opacity": 0.5},
+      "mark": {
+        "type": "line",
+        "strokeWidth": 1.5,
+        "color": "#6b7570",
+        "opacity": 0.5
+      },
       "encoding": {
-        "x": {"field": "year", "type": "ordinal", "title": null,
-              "axis": {"labelAngle": 0, "labelOverlap": "greedy"}},
-        "y": {"field": "efficiency", "type": "quantitative",
-              "title": "Forest loss per tonne of CPO (kha / Mt)",
-              "scale": {"domain": [0, 50]}}
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": { "labelAngle": 0, "labelOverlap": "greedy" }
+        },
+        "y": {
+          "field": "efficiency",
+          "type": "quantitative",
+          "title": "Forest loss per tonne of CPO (kha / Mt)",
+          "scale": { "domain": [0, 50] }
+        }
       }
     },
     {
-      "mark": {"type": "circle", "size": 110, "stroke": "white", "strokeWidth": 1.5},
+      "mark": {
+        "type": "circle",
+        "size": 110,
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
       "encoding": {
-        "x": {"field": "year", "type": "ordinal"},
-        "y": {"field": "efficiency", "type": "quantitative"},
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "efficiency", "type": "quantitative" },
         "color": {
           "field": "band",
           "type": "nominal",
           "scale": {
-            "domain": ["High cost (>30)", "Moderate (20–30)", "Improving (<20)"],
-            "range":  ["#b22222", "#c25e1e", "#2d5a3d"]
+            "domain": [
+              "High cost (>30)",
+              "Moderate (20–30)",
+              "Improving (<20)"
+            ],
+            "range": ["#b22222", "#c25e1e", "#2d5a3d"]
           },
-          "legend": {"orient": "bottom", "title": "Efficiency band"}
+          "legend": { "orient": "bottom", "title": "Efficiency band" }
         },
         "tooltip": [
-          {"field": "year", "type": "ordinal", "title": "Year"},
-          {"field": "efficiency", "type": "quantitative", "format": ".1f", "title": "kha / Mt"},
-          {"field": "forest_loss_kha", "type": "quantitative", "format": ".1f", "title": "Forest loss (kha)"},
-          {"field": "cpo_production_Mt", "type": "quantitative", "format": ".2f", "title": "CPO (Mt)"},
-          {"field": "band", "type": "nominal", "title": "Band"}
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          {
+            "field": "efficiency",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "kha / Mt"
+          },
+          {
+            "field": "forest_loss_kha",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Forest loss (kha)"
+          },
+          {
+            "field": "cpo_production_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "CPO (Mt)"
+          },
+          { "field": "band", "type": "nominal", "title": "Band" }
         ]
       }
     },
     {
-      "transform": [{"filter": "datum.annotation != null"}],
-      "mark": {"type": "text", "dy": -14, "fontSize": 11, "fontWeight": 600, "font": "Inter", "color": "#1f2421"},
+      "transform": [{ "filter": "datum.annotation != null" }],
+      "mark": {
+        "type": "text",
+        "dy": -14,
+        "fontSize": 11,
+        "fontWeight": 600,
+        "font": "Inter",
+        "color": "#1f2421"
+      },
       "encoding": {
-        "x": {"field": "year", "type": "ordinal"},
-        "y": {"field": "efficiency", "type": "quantitative"},
-        "text": {"field": "annotation"}
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "efficiency", "type": "quantitative" },
+        "text": { "field": "annotation" }
       }
     }
   ],
 
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": { "stroke": "transparent" },
     "axis": {
       "domain": false,
       "ticks": false,

@@ -23,9 +23,7 @@
           "name": "state_hover",
           "select": {
             "type": "point",
-            "fields": [
-              "state"
-            ],
+            "fields": ["state"],
             "on": "mouseover",
             "clear": "mouseout"
           }
@@ -102,10 +100,7 @@
       },
       "mark": {
         "type": "rule",
-        "strokeDash": [
-          3,
-          3
-        ],
+        "strokeDash": [3, 3],
         "strokeWidth": 1.2,
         "color": "#1f2421",
         "opacity": 0.45

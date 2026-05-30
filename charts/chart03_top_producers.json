@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Two countries make 85% of the world's palm oil",
-    "subtitle": "CPO production by country (million tonnes) — move the slider to change year"
+    "text": "Two countries make about four-fifths of the world's palm oil",
+    "subtitle": "CPO production by country (million tonnes) \u2014 move the slider to change year"
   },
   "width": "container",
   "height": 320,
@@ -73,16 +73,8 @@
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Malaysia",
-              "Indonesia",
-              "Other"
-            ],
-            "range": [
-              "#c25e1e",
-              "#2d5a3d",
-              "#9ca3af"
-            ]
+            "domain": ["Malaysia", "Indonesia", "Other"],
+            "range": ["#c25e1e", "#2d5a3d", "#9ca3af"]
           },
           "legend": null
         },
@@ -131,7 +123,7 @@
           "type": "quantitative"
         },
         "text": {
-          "value": "Indonesia + Malaysia ≈ 85% of world output"
+          "value": "Indonesia + Malaysia \u2248 85% of world output"
         }
       }
     }

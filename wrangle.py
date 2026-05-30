@@ -1,172 +1,287 @@
 """
-wrangle.py — turns the raw source files into the cleaned CSVs the
-Vega-Lite charts expect. Run once before building charts; re-run if
-the raw data changes.
+Generate the cleaned CSV files used by the Vega-Lite charts.
 
-Usage (from inside the repo folder):
-    python wrangle.py
+The project intentionally keeps the final CSVs small for GitHub Pages. Most
+series come directly from downloaded CSV/XLSX files. MPOB PDF table values that
+are used in charts are typed below and cited in README.md.
+
+Usage:
+    python3 -m pip install -r requirements.txt
+    python3 wrangle.py
 """
 
-import os
+from pathlib import Path
+
 import pandas as pd
 
-# ---------------------------------------------------------------------
-# CONFIG: put the raw downloads in a folder called 'raw/' next to this
-# script. Adjust paths if you keep them elsewhere.
-# ---------------------------------------------------------------------
-RAW = "raw"
-OUT = "data"
-os.makedirs(OUT, exist_ok=True)
+RAW = Path("raw")
+OUT = Path("data")
+OUT.mkdir(exist_ok=True)
 
-PALM_OWID   = f"{RAW}/palm-oil-production(Our World in Data).csv"
-LANDUSE     = f"{RAW}/land-use-palm-oil.csv"
-CPO_WIDE    = f"{RAW}/CPO Production by Country.csv"
-GFW         = f"{RAW}/Global Forest Watch Data.xlsx"
+PALM_OWID = RAW / "palm-oil-production(Our World in Data).csv"
+LANDUSE = RAW / "land-use-palm-oil.csv"
+CPO_WIDE = RAW / "CPO Production by Country.csv"
+GFW = RAW / "Global Forest Watch Data.xlsx"
 
-# ---------------------------------------------------------------------
-# 1) palm_production_long.csv
-#    Filter OWID file to nine entities; keep schema as-is so the
-#    chart JSONs reference the original column names.
-# ---------------------------------------------------------------------
-print("1/7  palm_production_long.csv")
-df = pd.read_csv(PALM_OWID)
-keep = ["Malaysia", "Indonesia", "Thailand", "Colombia",
-        "Nigeria", "Papua New Guinea", "Honduras", "Ghana", "World"]
-df = df[df["Entity"].isin(keep)]
-df.to_csv(f"{OUT}/palm_production_long.csv", index=False)
+PALM_ENTITIES = [
+    "Malaysia",
+    "Indonesia",
+    "Thailand",
+    "Colombia",
+    "Nigeria",
+    "Papua New Guinea",
+    "Honduras",
+    "Ghana",
+    "World",
+]
 
-# ---------------------------------------------------------------------
-# 2) cpo_by_country_long.csv
-#    Unpivot the CPO-by-country wide table to long format.
-#    Note: the source file has a one-line title row above the header.
-# ---------------------------------------------------------------------
-print("2/7  cpo_by_country_long.csv")
-df = pd.read_csv(CPO_WIDE, skiprows=1)              # skip "CPO Production..." title
-long = df.melt(id_vars="Period",
-               var_name="Country",
-               value_name="Production_kt")
-long = long.dropna(subset=["Production_kt"])
-long.to_csv(f"{OUT}/cpo_by_country_long.csv", index=False)
-
-# ---------------------------------------------------------------------
-# 3) landuse_slope.csv
-#    Only need 1961 + 2023 for the slope chart, top 10 producers + MY/ID.
-# ---------------------------------------------------------------------
-print("3/7  landuse_slope.csv")
-df = pd.read_csv(LANDUSE)
-df = df[df["Year"].isin([1961, 2023])]
-# Find top 10 by 2023 area, ignoring aggregates
-agg_codes = {"OWID_AFR", "OWID_ASI", "OWID_EUR", "OWID_NAM",
-             "OWID_SAM", "OWID_WRL", "OWID_OCE"}
-real = df[~df["Code"].isin(agg_codes) & df["Code"].notna()]
-top10 = (real[real["Year"] == 2023]
-         .nlargest(10, "Palm fruit oil - Area harvested (hectares)")["Entity"]
-         .tolist())
-# Always include Malaysia and Indonesia
-keep = set(top10) | {"Malaysia", "Indonesia"}
-slope = real[real["Entity"].isin(keep)]
-slope.to_csv(f"{OUT}/landuse_slope.csv", index=False)
-
-# ---------------------------------------------------------------------
-# 4) forest_loss_by_state_long.csv
-#    Read the GFW Subnational1 sheet, keep threshold=30 rows,
-#    melt the tc_loss_ha_YYYY columns into year + tc_loss_ha.
-# ---------------------------------------------------------------------
-print("4/7  forest_loss_by_state_long.csv")
-gfw = pd.read_excel(GFW, sheet_name="Subnational 1 tree cover loss")
-gfw = gfw[gfw["threshold"] == 30]
-year_cols = [c for c in gfw.columns if str(c).startswith("tc_loss_ha_")]
-long = gfw.melt(id_vars=["subnational1"],
-                value_vars=year_cols,
-                var_name="year_col",
-                value_name="tc_loss_ha")
-long["year"] = long["year_col"].str.replace("tc_loss_ha_", "").astype(int)
-long = long.rename(columns={"subnational1": "state"})
-long = long[["state", "year", "tc_loss_ha"]]
-long.to_csv(f"{OUT}/forest_loss_by_state_long.csv", index=False)
-
-# ---------------------------------------------------------------------
-# 5) forest_loss_state_totals.csv
-#    Aggregate by state — used by both maps.
-# ---------------------------------------------------------------------
-print("5/7  forest_loss_state_totals.csv")
-totals = (long.groupby("state", as_index=False)["tc_loss_ha"]
-          .sum()
-          .rename(columns={"tc_loss_ha": "total_loss_2001_2024"})
-          .sort_values("total_loss_2001_2024", ascending=False))
-totals.to_csv(f"{OUT}/forest_loss_state_totals.csv", index=False)
-
-# ---------------------------------------------------------------------
-# 6) area_vs_loss_yearly.csv
-#    For the connected-scatter chart. National annual loss is
-#    aggregated from GFW; planted area must be typed from MPOB.
-#    Below is a sensible Malaysia area series in Mha — REPLACE with
-#    the real MPOB-published values when you have them.
-# ---------------------------------------------------------------------
-print("6/7  area_vs_loss_yearly.csv")
-annual = (long.groupby("year", as_index=False)["tc_loss_ha"].sum()
-          .rename(columns={"tc_loss_ha": "forest_loss_ha"}))
-annual["forest_loss_kha"] = (annual["forest_loss_ha"] / 1000).round(2)
-
-# Planted area (Mha) by year — TYPE FROM MPOB REPORTS:
-planted_area = {
-    2001: 3.50, 2002: 3.67, 2003: 3.80, 2004: 3.88, 2005: 4.05,
-    2006: 4.17, 2007: 4.30, 2008: 4.49, 2009: 4.69, 2010: 4.85,
-    2011: 5.00, 2012: 5.08, 2013: 5.23, 2014: 5.39, 2015: 5.64,
-    2016: 5.74, 2017: 5.81, 2018: 5.85, 2019: 5.90, 2020: 5.87,
-    2021: 5.74, 2022: 5.67, 2023: 5.65, 2024: 5.61
+AGGREGATE_CODES = {
+    "OWID_AFR",
+    "OWID_ASI",
+    "OWID_EUR",
+    "OWID_NAM",
+    "OWID_SAM",
+    "OWID_WRL",
+    "OWID_OCE",
+    "OWID_LIC",
+    "OWID_LMC",
+    "OWID_UMC",
+    "OWID_HIC",
 }
-annual["planted_area_Mha"] = annual["year"].map(planted_area)
-annual = annual[["year", "planted_area_Mha", "forest_loss_kha"]].dropna()
-annual.to_csv(f"{OUT}/area_vs_loss_yearly.csv", index=False)
 
-# ---------------------------------------------------------------------
-# 7) typed-out MPOB CSVs — straight from the 2024 Overview PDF.
-# ---------------------------------------------------------------------
-print("7/7  typed MPOB CSVs")
+# MPOB overview reports, typed from published tables.
+PLANTED_AREA_MHA = {
+    2001: 3.50,
+    2002: 3.67,
+    2003: 3.80,
+    2004: 3.88,
+    2005: 4.05,
+    2006: 4.17,
+    2007: 4.30,
+    2008: 4.49,
+    2009: 4.69,
+    2010: 4.85,
+    2011: 5.00,
+    2012: 5.08,
+    2013: 5.23,
+    2014: 5.39,
+    2015: 5.64,
+    2016: 5.74,
+    2017: 5.81,
+    2018: 5.85,
+    2019: 5.90,
+    2020: 5.87,
+    2021: 5.74,
+    2022: 5.67,
+    2023: 5.65,
+    2024: 5.61,
+    2025: 5.70005,
+}
 
-pd.DataFrame({
-    "state":            ["Peninsular Malaysia", "Sabah", "Sarawak"],
-    "planted_area_ha":  [2504786, 1483699, 1624366],
-    "cpo_production_t": [10891417, 4274440, 4172409],
-    "latitude":         [4.0, 5.5, 2.5],
-    "longitude":        [102.5, 117.0, 113.5],
-}).to_csv(f"{OUT}/state_cpo_2024.csv", index=False)
+CPO_PRODUCTION_MT = {
+    2000: 10.842095,
+    2001: 11.804000,
+    2002: 11.909300,
+    2003: 13.354800,
+    2004: 13.976200,
+    2005: 14.961700,
+    2006: 15.880700,
+    2007: 15.823745,
+    2008: 17.734440,
+    2009: 17.564936,
+    2010: 16.993716,
+    2011: 18.911520,
+    2012: 18.785030,
+    2013: 19.216460,
+    2014: 19.667016,
+    2015: 19.961580,
+    2016: 17.319176,
+    2017: 19.919332,
+    2018: 19.516140,
+    2019: 19.858368,
+    2020: 19.140612,
+    2021: 18.116354,
+    2022: 18.453420,
+    2023: 18.551950,
+    2024: 19.338266,
+    2025: 20.283475,
+}
 
-pd.DataFrame({
-    "country":   ["India", "China", "European Union", "Kenya",
-                  "Turkiye", "Philippines", "Japan"],
-    "tonnes":    [3030000, 1390000, 1290000, 1260000, 910000, 690000, 600000],
-    "share_pct": [17.9, 8.2, 7.7, 7.5, 5.4, 4.1, 3.6],
-}).to_csv(f"{OUT}/top_importers_2024.csv", index=False)
+MALAYSIA_KPI = [
+    (2023, 18551950, 5652569, 15.79, 3809.50),
+    (2024, 19338266, 5612852, 16.70, 4179.50),
+    (2025, 20283475, 5700050, 17.77, 4292.50),
+]
 
-pd.DataFrame({
-    "year":              [2000, 2005, 2010, 2015, 2020, 2023, 2024],
-    "cpo_production_Mt": [10.84, 14.96, 16.99, 19.96, 19.14, 18.55, 19.34],
-    "planted_area_Mha":  [3.38, 4.05, 4.85, 5.64, 5.87, 5.65, 5.61],
-}).to_csv(f"{OUT}/malaysia_yearly.csv", index=False)
+REGIONAL_CPO_2025 = [
+    ("Peninsular Malaysia", 2543636, 11376845, 4.0, 102.5),
+    ("Sabah", 1496558, 4410291, 5.8, 117.0),
+    ("Sarawak", 1659857, 4496339, 2.5, 113.5),
+]
 
-# Regional production — placeholder values; replace with MPOB-published.
-pd.DataFrame([
-    ("Peninsular Malaysia", 2000, 8200000),
-    ("Sabah",               2000, 2150000),
-    ("Sarawak",             2000,  490000),
-    ("Peninsular Malaysia", 2005, 9100000),
-    ("Sabah",               2005, 4720000),
-    ("Sarawak",             2005, 1140000),
-    ("Peninsular Malaysia", 2010, 9800000),
-    ("Sabah",               2010, 5860000),
-    ("Sarawak",             2010, 1340000),
-    ("Peninsular Malaysia", 2015, 10470000),
-    ("Sabah",               2015, 5390000),
-    ("Sarawak",             2015, 4100000),
-    ("Peninsular Malaysia", 2020, 10130000),
-    ("Sabah",               2020, 4410000),
-    ("Sarawak",             2020, 4600000),
-    ("Peninsular Malaysia", 2024, 10891417),
-    ("Sabah",               2024, 4274440),
-    ("Sarawak",             2024, 4172409),
-], columns=["region", "year", "cpo_production_t"]
-).to_csv(f"{OUT}/region_production_yearly.csv", index=False)
+TOP_IMPORTERS_2025 = [
+    ("India", 2660000, 17.4, 2.66, 1),
+    ("Kenya", 1210000, 7.9, 1.21, 2),
+    ("European Union", 1030000, 6.8, 1.03, 3),
+    ("China", 900000, 5.9, 0.90, 4),
+    ("Türkiye", 750000, 4.9, 0.75, 5),
+    ("Philippines", 720000, 4.7, 0.72, 6),
+    ("Japan", 590000, 3.9, 0.59, 7),
+]
 
-print("\nAll done. Check the data/ folder.")
+
+def write_palm_production() -> None:
+    print("1/9 palm_production_long.csv")
+    df = pd.read_csv(PALM_OWID)
+    df[df["Entity"].isin(PALM_ENTITIES)].to_csv(OUT / "palm_production_long.csv", index=False)
+
+
+def write_cpo_by_country() -> None:
+    print("2/9 cpo_by_country_long.csv")
+    df = pd.read_csv(CPO_WIDE, skiprows=1)
+    long = df.melt(id_vars="Period", var_name="Country", value_name="Production_kt")
+    long.dropna(subset=["Production_kt"]).to_csv(OUT / "cpo_by_country_long.csv", index=False)
+
+
+def write_landuse_slope() -> None:
+    print("3/9 landuse_slope.csv")
+    df = pd.read_csv(LANDUSE)
+    df = df[df["Year"].isin([1961, 2023])]
+    real = df[~df["Code"].isin(AGGREGATE_CODES) & df["Code"].notna()]
+    top10 = (
+        real[real["Year"] == 2023]
+        .nlargest(10, "Palm fruit oil - Area harvested (hectares)")["Entity"]
+        .tolist()
+    )
+    keep = set(top10) | {"Malaysia", "Indonesia"}
+    real[real["Entity"].isin(keep)].to_csv(OUT / "landuse_slope.csv", index=False)
+
+
+def write_forest_loss() -> pd.DataFrame:
+    print("4/9 forest loss CSVs")
+    gfw = pd.read_excel(GFW, sheet_name="Subnational 1 tree cover loss")
+    gfw = gfw[gfw["threshold"] == 30]
+    year_cols = [c for c in gfw.columns if str(c).startswith("tc_loss_ha_")]
+    long = gfw.melt(
+        id_vars=["subnational1"],
+        value_vars=year_cols,
+        var_name="year_col",
+        value_name="tc_loss_ha",
+    )
+    long["year"] = long["year_col"].str.replace("tc_loss_ha_", "").astype(int)
+    long = long.rename(columns={"subnational1": "state"})[["state", "year", "tc_loss_ha"]]
+    long.to_csv(OUT / "forest_loss_by_state_long.csv", index=False)
+
+    totals = (
+        long.groupby("state", as_index=False)["tc_loss_ha"]
+        .sum()
+        .rename(columns={"tc_loss_ha": "total_loss_2001_2024"})
+        .sort_values("total_loss_2001_2024", ascending=False)
+    )
+    totals.to_csv(OUT / "forest_loss_state_totals.csv", index=False)
+    return long
+
+
+def write_area_loss_and_economy(forest_loss_long: pd.DataFrame) -> None:
+    print("5/9 area_vs_loss_yearly.csv and malaysia_economy_yearly.csv")
+    annual = (
+        forest_loss_long.groupby("year", as_index=False)["tc_loss_ha"]
+        .sum()
+        .rename(columns={"tc_loss_ha": "forest_loss_ha"})
+    )
+    annual["forest_loss_kha"] = (annual["forest_loss_ha"] / 1000).round(2)
+    annual["planted_area_Mha"] = annual["year"].map(PLANTED_AREA_MHA)
+    annual[["year", "planted_area_Mha", "forest_loss_kha"]].dropna().to_csv(
+        OUT / "area_vs_loss_yearly.csv", index=False
+    )
+
+    export_value = {
+        2001: 14.4,
+        2002: 14.2,
+        2003: 19.0,
+        2004: 22.5,
+        2005: 24.4,
+        2006: 31.8,
+        2007: 45.6,
+        2008: 65.2,
+        2009: 49.6,
+        2010: 59.8,
+        2011: 80.4,
+        2012: 71.5,
+        2013: 61.4,
+        2014: 63.6,
+        2015: 60.2,
+        2016: 67.6,
+        2017: 77.8,
+        2018: 67.5,
+        2019: 64.8,
+        2020: 73.3,
+        2021: 108.0,
+        2022: 137.9,
+        2023: 80.6,
+        2024: 73.0,
+    }
+    econ = annual[annual["year"].between(2001, 2024)].copy()
+    econ["cpo_production_Mt"] = econ["year"].map(CPO_PRODUCTION_MT)
+    econ["export_value_RMbn"] = econ["year"].map(export_value)
+    econ = econ[["year", "cpo_production_Mt", "planted_area_Mha", "forest_loss_kha", "export_value_RMbn"]]
+    econ.dropna().round({"cpo_production_Mt": 3, "forest_loss_kha": 2}).to_csv(
+        OUT / "malaysia_economy_yearly.csv", index=False
+    )
+
+
+def write_malaysia_yearly() -> None:
+    print("6/9 malaysia_yearly.csv")
+    rows = [
+        (year, CPO_PRODUCTION_MT[year], PLANTED_AREA_MHA[year])
+        for year in range(2000, 2026)
+        if year in CPO_PRODUCTION_MT and year in PLANTED_AREA_MHA
+    ]
+    pd.DataFrame(rows, columns=["year", "cpo_production_Mt", "planted_area_Mha"]).to_csv(
+        OUT / "malaysia_yearly.csv", index=False
+    )
+
+
+def write_2025_tables() -> None:
+    print("7/9 MPOB 2025 tables")
+    pd.DataFrame(
+        REGIONAL_CPO_2025,
+        columns=["region", "planted_area_ha", "cpo_production_t", "latitude", "longitude"],
+    ).to_csv(OUT / "state_cpo_2025.csv", index=False)
+
+    pd.DataFrame(
+        [(c, t, s) for c, t, s, _v, _o in TOP_IMPORTERS_2025],
+        columns=["country", "tonnes", "share_pct"],
+    ).to_csv(OUT / "top_importers_2025.csv", index=False)
+
+    flow_rows = []
+    for country, _tonnes, share_pct, volume_mt, order in TOP_IMPORTERS_2025:
+        flow_rows.append((country, volume_mt, share_pct, "source", 0, 4.0, 0))
+        flow_rows.append((country, volume_mt, share_pct, "dest", 100, order, 1))
+    pd.DataFrame(flow_rows, columns=["country", "volume_Mt", "share_pct", "point", "x", "y", "order"]).to_csv(
+        OUT / "imports_flows.csv", index=False
+    )
+
+
+def write_kpi() -> None:
+    print("8/9 malaysia_palmoil_kpi.csv")
+    pd.DataFrame(
+        MALAYSIA_KPI,
+        columns=["year", "cpo_production_t", "planted_area_ha", "ffb_yield_t_ha", "avg_cpo_price_rm_t"],
+    ).to_csv(OUT / "malaysia_palmoil_kpi.csv", index=False)
+
+
+def main() -> None:
+    write_palm_production()
+    write_cpo_by_country()
+    write_landuse_slope()
+    forest_loss_long = write_forest_loss()
+    write_area_loss_and_economy(forest_loss_long)
+    write_malaysia_yearly()
+    write_2025_tables()
+    write_kpi()
+    print("9/9 done")
+
+
+if __name__ == "__main__":
+    main()
