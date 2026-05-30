@@ -23,6 +23,19 @@
   "data": {
     "url": "data/malaysia_economy_yearly.csv"
   },
+  "params": [
+    {
+      "name": "year_hover_trade_chart99",
+      "select": {
+        "type": "point",
+        "fields": [
+          "year"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
+    }
+  ],
   "transform": [
     {
       "calculate": "toNumber(datum.export_value_RMbn)",
@@ -92,7 +105,18 @@
           }
         },
         "opacity": {
-          "value": 0.9
+          "condition": [
+            {
+              "param": "year_hover_trade_chart99",
+              "empty": false,
+              "value": 0.95
+            },
+            {
+              "test": "length(data('year_hover_trade_chart99_store')) == 0",
+              "value": 0.2
+            }
+          ],
+          "value": 0.35
         },
         "tooltip": [
           {
@@ -127,7 +151,18 @@
           "type": "quantitative"
         },
         "opacity": {
-          "value": 0.9
+          "condition": [
+            {
+              "param": "year_hover_trade_chart99",
+              "empty": false,
+              "value": 1
+            },
+            {
+              "test": "length(data('year_hover_trade_chart99_store')) == 0",
+              "value": 0.9
+            }
+          ],
+          "value": 0.35
         },
         "tooltip": [
           {

@@ -36,7 +36,7 @@
       "as": "World_candidate"
     },
     {
-      "joinaggregate": [
+      "aggregate": [
         {
           "op": "max",
           "field": "World_candidate",
@@ -99,7 +99,7 @@
           }
         },
         "x": {
-          "field": "Production_Mt",
+          "datum": 0,
           "type": "quantitative",
           "title": "Crude palm oil production (Mt)",
           "scale": {
@@ -114,7 +114,7 @@
           }
         },
         "x2": {
-          "datum": 0
+          "field": "Production_Mt"
         },
         "color": {
           "field": "Group",

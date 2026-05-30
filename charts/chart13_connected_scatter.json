@@ -10,6 +10,19 @@
   "data": {
     "url": "data/area_vs_loss_yearly.csv"
   },
+  "params": [
+    {
+      "name": "year_hover_chart13",
+      "select": {
+        "type": "point",
+        "fields": [
+          "year"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
+    }
+  ],
   "transform": [
     {
       "filter": "isValid(datum.planted_area_Mha) && isValid(datum.forest_loss_kha)"
@@ -69,10 +82,32 @@
           "type": "quantitative"
         },
         "size": {
-          "value": 150
+          "condition": [
+            {
+              "param": "year_hover_chart13",
+              "empty": false,
+              "value": 3.5
+            },
+            {
+              "test": "length(data('year_hover_chart13_store')) == 0",
+              "value": 150
+            }
+          ],
+          "value": 95
         },
         "opacity": {
-          "value": 0.88
+          "condition": [
+            {
+              "param": "year_hover_chart13",
+              "empty": false,
+              "value": 5
+            },
+            {
+              "test": "length(data('year_hover_chart13_store')) == 0",
+              "value": 0.88
+            }
+          ],
+          "value": 0.25
         },
         "color": {
           "field": "year",

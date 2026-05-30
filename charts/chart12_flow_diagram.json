@@ -23,6 +23,19 @@
   "data": {
     "url": "data/imports_flows.csv"
   },
+  "params": [
+    {
+      "name": "importer_hover_chart12",
+      "select": {
+        "type": "point",
+        "fields": [
+          "country"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
+    }
+  ],
   "transform": [
     {
       "calculate": "datum.country + ' (' + format(datum.share_pct, '.1f') + '%)'",
@@ -59,7 +72,7 @@
       "mark": {
         "type": "line",
         "interpolate": "monotone",
-        "opacity": 0.72
+        "opacity": 1
       },
       "encoding": {
         "detail": {
@@ -110,7 +123,21 @@
             "format": ".1f",
             "title": "Share of exports (%)"
           }
-        ]
+        ],
+        "opacity": {
+          "condition": [
+            {
+              "param": "importer_hover_chart12",
+              "empty": false,
+              "value": 0.95
+            },
+            {
+              "test": "length(data('importer_hover_chart12_store')) == 0",
+              "value": 0.72
+            }
+          ],
+          "value": 0.18
+        }
       }
     },
     {
@@ -206,6 +233,20 @@
         },
         "text": {
           "field": "label"
+        },
+        "opacity": {
+          "condition": [
+            {
+              "param": "importer_hover_chart12",
+              "empty": false,
+              "value": 1
+            },
+            {
+              "test": "length(data('importer_hover_chart12_store')) == 0",
+              "value": 0.95
+            }
+          ],
+          "value": 0.35
         }
       }
     },
