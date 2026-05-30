@@ -35,7 +35,10 @@
       "type": "quantitative",
       "axis": null,
       "scale": {
-        "domain": [-5, 105]
+        "domain": [
+          -5,
+          105
+        ]
       }
     },
     "y": {
@@ -43,7 +46,10 @@
       "type": "quantitative",
       "axis": null,
       "scale": {
-        "domain": [0.3, 7.7],
+        "domain": [
+          0.3,
+          7.7
+        ],
         "reverse": true
       }
     }
@@ -68,12 +74,19 @@
           "field": "volume_Mt",
           "type": "quantitative",
           "scale": {
-            "range": [3, 34]
+            "range": [
+              3,
+              34
+            ]
           },
           "legend": {
             "title": "Volume (Mt)",
             "orient": "bottom",
-            "values": [0.5, 1.5, 2.5]
+            "values": [
+              0.5,
+              1.5,
+              2.5
+            ]
           }
         },
         "color": {
@@ -113,7 +126,10 @@
               "as": "total"
             }
           ],
-          "groupby": ["x", "y"]
+          "groupby": [
+            "x",
+            "y"
+          ]
         }
       ],
       "mark": {
@@ -176,7 +192,8 @@
         "fontSize": 10,
         "fontStyle": "italic",
         "font": "Inter",
-        "color": "#6b7570"
+        "color": "#6b7570",
+        "opacity": 0.95
       },
       "encoding": {
         "x": {

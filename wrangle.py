@@ -51,6 +51,7 @@ AGGREGATE_CODES = {
 
 # MPOB overview reports, typed from published tables.
 PLANTED_AREA_MHA = {
+    2000: 3.38,
     2001: 3.50,
     2002: 3.67,
     2003: 3.80,
@@ -160,8 +161,20 @@ def write_landuse_slope() -> None:
 def write_forest_loss() -> pd.DataFrame:
     print("4/9 forest loss CSVs")
     gfw = pd.read_excel(GFW, sheet_name="Subnational 1 tree cover loss")
-    gfw = gfw[gfw["threshold"] == 30]
+    gfw = gfw[gfw["threshold"] == 30].copy()
     year_cols = [c for c in gfw.columns if str(c).startswith("tc_loss_ha_")]
+
+    intensity = gfw.rename(
+        columns={"subnational1": "state", "extent_2000_ha": "tree_cover_extent_2000"}
+    ).copy()
+    intensity["total_loss_2001_2024"] = intensity[year_cols].sum(axis=1)
+    intensity["loss_intensity_pct"] = (
+        intensity["total_loss_2001_2024"] / intensity["tree_cover_extent_2000"] * 100
+    ).round(2)
+    intensity = intensity[
+        ["state", "total_loss_2001_2024", "tree_cover_extent_2000", "loss_intensity_pct"]
+    ].sort_values("loss_intensity_pct", ascending=False)
+    intensity.to_csv(OUT / "state_loss_intensity.csv", index=False)
     long = gfw.melt(
         id_vars=["subnational1"],
         value_vars=year_cols,
@@ -231,14 +244,23 @@ def write_area_loss_and_economy(forest_loss_long: pd.DataFrame) -> None:
 
 
 def write_malaysia_yearly() -> None:
-    print("6/9 malaysia_yearly.csv")
+    print("6/9 malaysia_yearly.csv and production_area_index.csv")
     rows = [
         (year, CPO_PRODUCTION_MT[year], PLANTED_AREA_MHA[year])
         for year in range(2000, 2026)
         if year in CPO_PRODUCTION_MT and year in PLANTED_AREA_MHA
     ]
-    pd.DataFrame(rows, columns=["year", "cpo_production_Mt", "planted_area_Mha"]).to_csv(
-        OUT / "malaysia_yearly.csv", index=False
+    yearly = pd.DataFrame(rows, columns=["year", "cpo_production_Mt", "planted_area_Mha"])
+    yearly.to_csv(OUT / "malaysia_yearly.csv", index=False)
+
+    index = yearly[yearly["year"] >= 2001].copy()
+    index["cpo_production_t"] = (index["cpo_production_Mt"] * 1_000_000).round().astype(int)
+    index["planted_area_ha"] = (index["planted_area_Mha"] * 1_000_000).round().astype(int)
+    base = index[index["year"] == 2001].iloc[0]
+    index["production_index"] = (index["cpo_production_t"] / base["cpo_production_t"] * 100).round(2)
+    index["area_index"] = (index["planted_area_ha"] / base["planted_area_ha"] * 100).round(2)
+    index[["year", "cpo_production_t", "planted_area_ha", "production_index", "area_index"]].to_csv(
+        OUT / "production_area_index.csv", index=False
     )
 
 

@@ -478,3 +478,64 @@ section {
     padding: 1.5rem;
   }
 }
+
+/* === POLISH PASS === */
+.audience-note {
+  max-width: 54ch;
+  margin: -1.5rem 0 2.5rem;
+  padding: 0.85rem 1rem 0.85rem 1.15rem;
+  border-left: 4px solid #8fa69a;
+  background: #f0f4f1;
+  color: #52615a;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.caption {
+  max-width: 76ch;
+  padding-left: 1rem;
+  border-left: 3px solid #d6dad7;
+  line-height: 1.55;
+}
+
+.chart-card {
+  overflow: hidden;
+}
+
+.vega-embed .mark-text text,
+.vega-embed .role-title text {
+  overflow: visible;
+}
+
+@media (min-width: 761px) {
+  .container > section:nth-of-type(even) {
+    margin-left: calc(-1 * min(3rem, 4vw));
+    margin-right: calc(-1 * min(3rem, 4vw));
+    padding-left: min(3rem, 4vw);
+    padding-right: min(3rem, 4vw);
+  }
+}
+
+@media (max-width: 1280px) {
+  .container {
+    max-width: 1040px;
+  }
+
+  .chart-card {
+    padding: 2rem;
+  }
+}
+
+@media print {
+  .section-nav,
+  .skip-link {
+    display: none !important;
+  }
+
+  .chart-card,
+  section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

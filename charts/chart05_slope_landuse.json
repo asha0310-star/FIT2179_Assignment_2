@@ -1,14 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Where palm oil land grew the most",
-    "subtitle": "Area harvested for oil palm: 1961 → 2023 (million hectares).",
+    "text": "Palm oil land expansion is country-led",
+    "subtitle": "Area harvested for oil palm: 1961 \u2192 2023 (million hectares), excluding income-group aggregates.",
     "anchor": "start"
   },
   "width": "container",
   "height": 420,
   "padding": {
-    "bottom": 40
+    "right": 100,
+    "bottom": 30
   },
   "data": {
     "url": "data/landuse_slope.csv"
@@ -18,12 +19,19 @@
       "filter": "datum.Year == 1961 || datum.Year == 2023"
     },
     {
+      "filter": "datum.Entity != 'Low-income countries' && datum.Entity != 'Lower-middle-income countries' && datum.Entity != 'Upper-middle-income countries'"
+    },
+    {
       "calculate": "datum['Palm fruit oil - Area harvested (hectares)'] / 1e6",
       "as": "Area_Mha"
     },
     {
-      "calculate": "datum.Entity === 'Malaysia' || datum.Entity === 'Indonesia' ? datum.Entity : 'Other'",
+      "calculate": "datum.Entity === 'Malaysia' || datum.Entity === 'Indonesia' ? datum.Entity : 'Other countries'",
       "as": "Group"
+    },
+    {
+      "calculate": "format(datum.Area_Mha, '.2f') + ' Mha'",
+      "as": "area_label"
     }
   ],
   "layer": [
@@ -32,7 +40,7 @@
         "type": "line",
         "strokeWidth": 3,
         "point": {
-          "size": 100,
+          "size": 95,
           "filled": true
         }
       },
@@ -62,10 +70,21 @@
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": ["Malaysia", "Indonesia", "Other"],
-            "range": ["#c25e1e", "#2d5a3d", "#9ca3af"]
+            "domain": [
+              "Malaysia",
+              "Indonesia",
+              "Other countries"
+            ],
+            "range": [
+              "#c25e1e",
+              "#2d5a3d",
+              "#8f9792"
+            ]
           },
           "legend": null
+        },
+        "detail": {
+          "field": "Entity"
         },
         "tooltip": [
           {
@@ -88,7 +107,11 @@
     {
       "transform": [
         {
-          "filter": "datum.Year == 2023"
+          "filter": "datum.Year == 2023 && indexof(['Indonesia','Malaysia','Nigeria','Thailand','Colombia','Ghana',\"Cote d'Ivoire\"], datum.Entity) >= 0"
+        },
+        {
+          "calculate": "datum.Entity + '  ' + datum.area_label",
+          "as": "right_label"
         }
       ],
       "mark": {
@@ -96,7 +119,7 @@
         "align": "left",
         "dx": 8,
         "font": "Inter",
-        "fontSize": 12,
+        "fontSize": 11,
         "fill": "#1f2421"
       },
       "encoding": {
@@ -109,15 +132,23 @@
           "type": "quantitative"
         },
         "text": {
-          "field": "Entity",
+          "field": "right_label",
           "type": "nominal"
         },
         "color": {
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": ["Malaysia", "Indonesia", "Other"],
-            "range": ["#c25e1e", "#2d5a3d", "#9ca3af"]
+            "domain": [
+              "Malaysia",
+              "Indonesia",
+              "Other countries"
+            ],
+            "range": [
+              "#c25e1e",
+              "#2d5a3d",
+              "#8f9792"
+            ]
           },
           "legend": null
         }
@@ -157,6 +188,7 @@
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
       "subtitleColor": "#6b7570",
+      "subtitleLineHeight": 18,
       "anchor": "start"
     }
   },

@@ -1,11 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Two countries make about four-fifths of the world's palm oil",
-    "subtitle": "CPO production by country (million tonnes) \u2014 move the slider to change year"
+    "text": "Two producers dominate the world market",
+    "subtitle": "Ranked crude palm oil production by country (million tonnes); move the slider to change year."
   },
   "width": "container",
-  "height": 320,
+  "height": 360,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
   "data": {
     "url": "data/cpo_by_country_long.csv"
   },
@@ -24,106 +28,222 @@
   ],
   "transform": [
     {
-      "filter": "datum.Country !== 'World'"
+      "calculate": "toNumber(datum.Production_kt)",
+      "as": "Production_kt_num"
     },
     {
-      "filter": "datum.Period == year_select"
+      "calculate": "datum.Country == 'World' ? datum.Production_kt_num : null",
+      "as": "World_candidate"
     },
     {
-      "calculate": "toNumber(datum.Production_kt) / 1000",
+      "joinaggregate": [
+        {
+          "op": "max",
+          "field": "World_candidate",
+          "as": "World_kt"
+        }
+      ],
+      "groupby": [
+        "Period"
+      ]
+    },
+    {
+      "filter": "datum.Country !== 'World' && datum.Period == year_select"
+    },
+    {
+      "calculate": "datum.Production_kt_num / 1000",
       "as": "Production_Mt"
+    },
+    {
+      "calculate": "datum.Production_kt_num / datum.World_kt * 100",
+      "as": "share_pct"
     },
     {
       "calculate": "datum.Country === 'Malaysia' || datum.Country === 'Indonesia' ? datum.Country : 'Other'",
       "as": "Group"
+    },
+    {
+      "calculate": "format(datum.Production_Mt, '.1f') + ' Mt \u00b7 ' + format(datum.share_pct, '.1f') + '%'",
+      "as": "value_label"
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Production_Mt",
+          "order": "descending"
+        }
+      ]
     }
   ],
   "layer": [
     {
       "mark": {
-        "type": "bar",
-        "cornerRadiusEnd": 2
+        "type": "rule",
+        "strokeWidth": 3,
+        "opacity": 0.55
       },
       "encoding": {
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": {
-            "op": "max",
-            "field": "Production_Mt",
-            "order": "descending"
-          },
+          "sort": "-x",
           "title": null,
           "axis": {
-            "labelFont": "Inter",
-            "labelFontSize": 12,
             "labelLimit": 120
           }
         },
         "x": {
           "field": "Production_Mt",
           "type": "quantitative",
-          "title": "Million tonnes",
+          "title": "Crude palm oil production (Mt)",
+          "scale": {
+            "domain": [
+              0,
+              48
+            ]
+          },
           "axis": {
             "grid": true,
-            "gridColor": "#eeece4"
+            "tickCount": 6
           }
+        },
+        "x2": {
+          "datum": 0
         },
         "color": {
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": ["Malaysia", "Indonesia", "Other"],
-            "range": ["#c25e1e", "#2d5a3d", "#9ca3af"]
+            "domain": [
+              "Indonesia",
+              "Malaysia",
+              "Other"
+            ],
+            "range": [
+              "#2d5a3d",
+              "#c25e1e",
+              "#b9c0bc"
+            ]
           },
           "legend": null
         },
         "tooltip": [
           {
-            "field": "Country",
-            "type": "nominal"
-          },
-          {
-            "field": "Period",
-            "type": "ordinal",
-            "title": "Year"
+            "field": "Country"
           },
           {
             "field": "Production_Mt",
             "type": "quantitative",
-            "format": ".2f",
-            "title": "Production (Mt)"
+            "format": ".2f"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "World share (%)"
           }
         ]
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.Country === 'Indonesia'"
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 180,
+        "stroke": "white",
+        "strokeWidth": 1.8
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "Production_Mt",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Indonesia",
+              "Malaysia",
+              "Other"
+            ],
+            "range": [
+              "#2d5a3d",
+              "#c25e1e",
+              "#b9c0bc"
+            ]
+          },
+          "legend": null
         }
-      ],
+      }
+    },
+    {
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 6,
-        "dy": -6,
-        "fontSize": 11,
-        "fontStyle": "italic",
+        "dx": 10,
         "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": 600,
         "color": "#1f2421"
       },
       "encoding": {
         "y": {
           "field": "Country",
-          "type": "nominal"
+          "type": "nominal",
+          "sort": "-x"
         },
         "x": {
           "field": "Production_Mt",
           "type": "quantitative"
         },
         "text": {
-          "value": "Indonesia + Malaysia \u2248 85% of world output"
+          "field": "value_label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "Country": "Thailand",
+            "Production_Mt": 28,
+            "note": "Indonesia + Malaysia account for about 80\u201385%\nof the world total in recent years."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "font": "Inter",
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "lineBreak": "\n",
+        "color": "#3a4540"
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "Production_Mt",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "note"
         }
       }
     }
@@ -161,11 +281,8 @@
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
       "subtitleColor": "#6b7570",
+      "subtitleLineHeight": 18,
       "anchor": "start"
     }
-  },
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
   }
 }
