@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Palm oil land expansion is country-led",
-    "subtitle": "Area harvested for oil palm: 1961 \u2192 2023 (million hectares), excluding income-group aggregates.",
+    "subtitle": "Area harvested for oil palm: 1961 → 2023 (million hectares), excluding income-group aggregates.",
     "anchor": "start"
   },
   "width": "container",
@@ -78,7 +78,7 @@
             "range": [
               "#c25e1e",
               "#2d5a3d",
-              "#9ca3af"
+              "#8f9792"
             ]
           },
           "legend": null
