@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Seven markets buy half of Malaysia\u2019s palm oil exports",
-    "subtitle": "Top importers by 2025 volume; labels show tonnes and share of total palm oil exports.",
+    "text": "Seven markets buy half of Malaysia’s palm oil exports",
+    "subtitle": "Top importers by 2025 volume; direct labels show tonnes and export share.",
     "anchor": "start"
   },
   "width": "container",
@@ -20,7 +20,7 @@
       "as": "tonnes_Mt"
     },
     {
-      "calculate": "format(datum.tonnes/1000000, '.2f') + ' Mt \u00b7 ' + format(datum.share_pct, '.1f') + '%'",
+      "calculate": "format(datum.tonnes/1000000, '.2f') + ' Mt · ' + format(datum.share_pct, '.1f') + '%'",
       "as": "label"
     }
   ],
@@ -46,7 +46,17 @@
           "title": "Import volume (million tonnes)",
           "axis": {
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee",
+            "values": [
+              0,
+              0.5,
+              1,
+              1.5,
+              2,
+              2.5,
+              3
+            ],
+            "labelColor": "#3a4540"
           }
         },
         "tooltip": [
@@ -85,8 +95,39 @@
         },
         "x": {
           "field": "tonnes_Mt",
-          "type": "quantitative"
-        }
+          "type": "quantitative",
+          "axis": {
+            "values": [
+              0,
+              0.5,
+              1,
+              1.5,
+              2,
+              2.5,
+              3
+            ],
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "title": "Importer"
+          },
+          {
+            "field": "tonnes_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Volume (Mt)"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Share (%)"
+          }
+        ]
       }
     },
     {
@@ -107,11 +148,42 @@
         },
         "x": {
           "field": "tonnes_Mt",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "values": [
+              0,
+              0.5,
+              1,
+              1.5,
+              2,
+              2.5,
+              3
+            ],
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "text": {
           "field": "label"
-        }
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "title": "Importer"
+          },
+          {
+            "field": "tonnes_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Volume (Mt)"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Share (%)"
+          }
+        ]
       }
     }
   ],
@@ -123,19 +195,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -147,9 +220,15 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
+  },
+  "padding": {
+    "top": 18,
+    "right": 95,
+    "bottom": 32,
+    "left": 8
   }
 }

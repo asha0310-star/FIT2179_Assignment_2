@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Tree cover loss by state and year",
-    "subtitle": "Annual tree-cover loss by state, 2001–2024 (thousand hectares). States sorted by total loss.",
+    "subtitle": "Annual tree-cover loss by state, 2001–2024 (kha). States sorted by total loss.",
     "anchor": "start"
   },
   "width": "container",
@@ -23,7 +23,9 @@
           "name": "state_hover",
           "select": {
             "type": "point",
-            "fields": ["state"],
+            "fields": [
+              "state"
+            ],
             "on": "mouseover",
             "clear": "mouseout"
           }
@@ -37,7 +39,9 @@
           "title": null,
           "axis": {
             "labelAngle": 0,
-            "labelOverlap": "greedy"
+            "labelOverlap": "greedy",
+            "labelColor": "#3a4540",
+            "gridColor": "#eeeeee"
           }
         },
         "y": {
@@ -48,6 +52,10 @@
             "op": "max",
             "field": "loss_kha",
             "order": "descending"
+          },
+          "axis": {
+            "labelColor": "#3a4540",
+            "gridColor": "#eeeeee"
           }
         },
         "color": {
@@ -100,7 +108,10 @@
       },
       "mark": {
         "type": "rule",
-        "strokeDash": [3, 3],
+        "strokeDash": [
+          3,
+          3
+        ],
         "strokeWidth": 1.2,
         "color": "#1f2421",
         "opacity": 0.45
@@ -108,7 +119,52 @@
       "encoding": {
         "x": {
           "field": "year",
-          "type": "ordinal"
+          "type": "ordinal",
+          "axis": {
+            "labelColor": "#3a4540",
+            "gridColor": "#eeeeee"
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2012,
+            "state": "Sarawak",
+            "label": "2012 peak"
+          },
+          {
+            "year": 2014,
+            "state": "Sarawak",
+            "label": "2014 peak"
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "fill": "#fffdf8",
+        "opacity": 0.88,
+        "stroke": "#d6dad7",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": {
+            "labelColor": "#3a4540",
+            "gridColor": "#eeeeee"
+          }
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "axis": {
+            "labelColor": "#3a4540",
+            "gridColor": "#eeeeee"
+          }
         }
       }
     },
@@ -131,20 +187,26 @@
         "type": "text",
         "font": "Inter",
         "fontSize": 10,
-        "fontStyle": "italic",
-        "align": "left",
-        "dx": 4,
-        "dy": -10,
+        "fontWeight": 700,
+        "align": "center",
         "color": "#1f2421"
       },
       "encoding": {
         "x": {
           "field": "year",
-          "type": "ordinal"
+          "type": "ordinal",
+          "axis": {
+            "labelColor": "#3a4540",
+            "gridColor": "#eeeeee"
+          }
         },
         "y": {
           "field": "state",
-          "type": "nominal"
+          "type": "nominal",
+          "axis": {
+            "labelColor": "#3a4540",
+            "gridColor": "#eeeeee"
+          }
         },
         "text": {
           "field": "label"
@@ -160,18 +222,23 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "titleColor": "#1f2421",
+      "titleFontWeight": 500,
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
       "titleFont": "Inter",
-      "titleFontSize": 12
+      "titleFontSize": 12,
+      "labelColor": "#3a4540",
+      "titleColor": "#1f2421"
     },
     "title": {
       "font": "Fraunces",
@@ -180,12 +247,19 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
-      "anchor": "start"
+      "subtitleColor": "#4b5563",
+      "anchor": "start",
+      "subtitleLineHeight": 18
     }
   },
   "autosize": {
     "type": "fit",
     "contains": "padding"
+  },
+  "padding": {
+    "top": 18,
+    "right": 18,
+    "bottom": 28,
+    "left": 8
   }
 }

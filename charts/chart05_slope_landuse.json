@@ -2,14 +2,16 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Palm oil land expansion is country-led",
-    "subtitle": "Area harvested for oil palm: 1961 → 2023 (million hectares), excluding income-group aggregates.",
+    "subtitle": "Area harvested for oil palm, 1961 → 2023; units: million hectares.",
     "anchor": "start"
   },
   "width": "container",
   "height": 420,
   "padding": {
-    "right": 100,
-    "bottom": 30
+    "right": 125,
+    "bottom": 34,
+    "top": 18,
+    "left": 8
   },
   "data": {
     "url": "data/landuse_slope.csv"
@@ -60,10 +62,11 @@
         "y": {
           "field": "Area_Mha",
           "type": "quantitative",
-          "title": "Million hectares",
+          "title": null,
           "axis": {
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
           }
         },
         "color": {
@@ -107,7 +110,7 @@
     {
       "transform": [
         {
-          "filter": "datum.Year == 2023 && indexof(['Indonesia','Malaysia','Nigeria','Thailand','Colombia','Ghana',\"Cote d'Ivoire\"], datum.Entity) >= 0"
+          "filter": "datum.Year == 2023 && indexof(['Indonesia','Malaysia','Nigeria','Thailand'], datum.Entity) >= 0"
         },
         {
           "calculate": "datum.Entity + '  ' + datum.area_label",
@@ -129,7 +132,12 @@
         },
         "y": {
           "field": "Area_Mha",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "text": {
           "field": "right_label",
@@ -163,19 +171,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -187,7 +196,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
