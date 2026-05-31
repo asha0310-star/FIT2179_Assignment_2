@@ -1,13 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Malaysia\u2019s global share is shrinking",
-    "subtitle": "Malaysia palm oil production as a share of world production, 1961\u20132023 (OWID latest series)."
+    "text": "Malaysia’s global share is shrinking",
+    "subtitle": "Malaysia palm oil production as a share of world production, 1961–2023 (OWID latest series)."
   },
   "width": "container",
   "height": 320,
   "padding": {
-    "right": 28,
+    "right": 70,
     "bottom": 30
   },
   "data": {
@@ -145,62 +145,85 @@
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.Year == 1982"
-        }
-      ],
+      "data": {
+        "values": [
+          {
+            "x": "1982-01-01",
+            "y": 56.8667,
+            "x2": "1988-01-01",
+            "y2": 53.5
+          },
+          {
+            "x": "2023-01-01",
+            "y": 23.3161,
+            "x2": "2015-01-01",
+            "y2": 30.0
+          }
+        ]
+      },
       "mark": {
-        "type": "text",
-        "dx": 10,
-        "dy": -10,
-        "align": "left",
-        "fontSize": 11,
-        "fontStyle": "italic",
-        "font": "Inter",
-        "color": "#1f2421"
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeWidth": 1,
+        "opacity": 0.7
       },
       "encoding": {
         "x": {
-          "field": "year_date",
+          "field": "x",
           "type": "temporal"
         },
         "y": {
-          "field": "share_pct",
+          "field": "y",
           "type": "quantitative"
         },
-        "text": {
-          "value": "Peak: 57% in 1982"
+        "x2": {
+          "field": "x2",
+          "type": "temporal"
+        },
+        "y2": {
+          "field": "y2",
+          "type": "quantitative"
         }
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.Year == 2023"
-        }
-      ],
+      "data": {
+        "values": [
+          {
+            "x": "1988-01-01",
+            "y": 53.5,
+            "label": "Peak share\n1982: 57%",
+            "align": "left"
+          },
+          {
+            "x": "2015-01-01",
+            "y": 30.0,
+            "label": "Recent decline\n2023: 23%",
+            "align": "right"
+          }
+        ]
+      },
       "mark": {
         "type": "text",
-        "dx": -6,
-        "dy": -12,
-        "align": "right",
+        "font": "Inter",
         "fontSize": 11,
         "fontWeight": 700,
-        "font": "Inter",
-        "color": "#1f2421"
+        "lineBreak": "\n",
+        "color": "#1f2421",
+        "align": "left"
       },
       "encoding": {
         "x": {
-          "field": "year_date",
+          "field": "x",
           "type": "temporal"
         },
         "y": {
-          "field": "share_pct",
+          "field": "y",
           "type": "quantitative"
         },
         "text": {
-          "value": "2023: 23%"
+          "field": "label",
+          "type": "nominal"
         }
       }
     },
