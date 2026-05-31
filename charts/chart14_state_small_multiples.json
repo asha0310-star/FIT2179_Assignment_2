@@ -243,5 +243,9 @@
     "scale": {
       "y": "independent"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

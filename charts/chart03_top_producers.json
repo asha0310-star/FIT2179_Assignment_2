@@ -27,6 +27,17 @@
         "step": 1,
         "name": "Year: "
       }
+    },
+    {
+      "name": "producer_hover",
+      "select": {
+        "type": "point",
+        "fields": [
+          "Country"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
     }
   ],
   "transform": [
