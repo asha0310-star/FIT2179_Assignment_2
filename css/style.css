@@ -464,6 +464,98 @@ section {
   border-left: 3px solid var(--color-malaysia);
 }
 
+/* === CENTREPIECE TRADE-OFF SECTION === */
+.centrepiece-section {
+  position: relative;
+}
+
+.centrepiece-section h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  max-width: 16ch;
+  margin-bottom: 1rem;
+}
+
+.centrepiece-lede {
+  max-width: 72ch;
+  font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+}
+
+.reading-guide,
+.insight-callout {
+  max-width: 82ch;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 3px 14px rgba(31, 36, 33, 0.07);
+}
+
+.reading-guide {
+  margin: 2rem 0 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 5px solid #8fa69a;
+}
+
+.reading-guide p {
+  margin-bottom: 0.75rem;
+}
+
+.reading-guide ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 1.5rem;
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #3a4540;
+}
+
+.centrepiece-card {
+  margin-top: 2rem;
+  padding: 3.25rem 2.75rem;
+}
+
+.centrepiece-card > div {
+  min-height: 500px;
+}
+
+.insight-callout {
+  margin: -0.75rem 0 1.5rem auto;
+  padding: 1.5rem 1.75rem;
+  border-top: 5px solid var(--color-malaysia);
+}
+
+.insight-callout h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.insight-callout p {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.centrepiece-caption {
+  max-width: 86ch;
+}
+
+@media (max-width: 760px) {
+  .reading-guide,
+  .insight-callout {
+    padding: 1.15rem 1.25rem;
+  }
+
+  .reading-guide ul {
+    grid-template-columns: 1fr;
+  }
+
+  .centrepiece-card {
+    padding: 1.5rem;
+  }
+
+  .centrepiece-card > div {
+    min-height: 420px;
+  }
+}
+
 /* Mobile fix for the wider section padding. */
 @media (max-width: 760px) {
   section {
