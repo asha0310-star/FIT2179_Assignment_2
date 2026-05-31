@@ -6,7 +6,7 @@
     "anchor": "start"
   },
   "width": "container",
-  "height": 460,
+  "height": 520,
   "data": {
     "url": "data/area_vs_loss_yearly.csv"
   },
