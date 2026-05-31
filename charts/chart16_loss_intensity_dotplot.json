@@ -48,6 +48,9 @@
       "as": "loss_kha"
     },
     {
+      "filter": "isValid(datum.loss_kha)"
+    },
+    {
       "calculate": "datum.tree_cover_extent_2000 / 1000000",
       "as": "extent_Mha"
     }

@@ -33,6 +33,9 @@
       "as": "loss_kha"
     },
     {
+      "filter": "isValid(datum.loss_kha)"
+    },
+    {
       "calculate": "-datum.loss_kha / 5",
       "as": "loss_neg"
     },

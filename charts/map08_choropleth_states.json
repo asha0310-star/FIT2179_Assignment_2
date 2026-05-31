@@ -43,6 +43,9 @@
         {
           "calculate": "datum.total_loss_2001_2024 / 1000",
           "as": "loss_kha"
+        },
+        {
+          "filter": "isValid(datum.loss_kha)"
         }
       ],
       "mark": {
