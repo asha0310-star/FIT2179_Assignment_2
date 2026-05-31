@@ -285,6 +285,41 @@
       "data": {
         "values": [
           {
+            "note": "East Malaysia concentration",
+            "lat": 4.4,
+            "lon": 114.1
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "align": "left",
+        "dx": 6,
+        "dy": -6,
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "note",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
             "note": "Sarawak: high loss and production",
             "lat": 2.9,
             "lon": 112.5

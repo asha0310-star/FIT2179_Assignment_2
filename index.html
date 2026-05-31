@@ -309,7 +309,7 @@
           clearing of primary forest.
         </p>
 
-        <h3>Where loss concentrates</h3>
+        <h3>A. Where is total forest loss highest?</h3>
         <div class="chart-card wide">
           <div
             id="map08"
@@ -324,6 +324,33 @@
           loss in hectares, not a per-hectare rate.
         </p>
 
+        <h3>B. Where is forest loss most intense relative to forest area?</h3>
+        <div class="chart-card wide">
+          <div
+            id="chart16"
+            role="img"
+            aria-label="Dot plot ranking Malaysian states by total tree-cover loss from 2001 to 2024 as a percentage of 2000 tree-cover extent."
+          ></div>
+        </div>
+        <p class="caption">
+          Relative intensity changes the ranking: smaller Peninsular states can
+          appear high because the denominator is their own 2000 tree-cover
+          extent. Sabah and Sarawak remain important hotspots because their
+          relative rates sit near the national average while their absolute
+          hectare losses are very large. Data source: Global Forest Watch,
+          2001–2024.
+        </p>
+
+        <div class="narrative">
+          <p>
+            <strong>Hotspot annotations:</strong> Sarawak is the largest absolute
+            loss hotspot, Sabah is both a major forest-loss and palm-oil
+            production hotspot, and together they make East Malaysia the main
+            concentration of forest pressure in this story.
+          </p>
+        </div>
+
+        <h3>C. What spatial pattern emerges?</h3>
         <div class="chart-card wide">
           <div
             id="map09"
@@ -555,6 +582,10 @@
       const p08 = embedIfExists(
         "#map08",
         "charts/map08_choropleth_states.json",
+      );
+      const p16 = embedIfExists(
+        "#chart16",
+        "charts/chart16_loss_intensity_dotplot.json",
       );
       const p09 = embedIfExists("#map09", "charts/map09_layered_map.json");
       const p10 = embedIfExists("#chart10", "charts/chart10_heatmap.json");
