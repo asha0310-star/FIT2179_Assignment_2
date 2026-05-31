@@ -291,7 +291,106 @@
           "type": "quantitative"
         },
         "y2": {
-          "field": "production_index"
+          "field": "production_index",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2003,
+            "y": 113.14,
+            "x2": 2006,
+            "y2": 126
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeWidth": 1,
+        "opacity": 0.65
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x2",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "y2",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2006,
+            "y": 126,
+            "label": "Output first\noutpaces land\n2003"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": 700,
+        "lineBreak": "\n",
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2003,
+            "y": 113.14
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 100,
+        "color": "#c25e1e",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
         }
       }
     },
