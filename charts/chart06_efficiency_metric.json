@@ -89,7 +89,10 @@
               "#2d5a3d"
             ]
           },
-          "legend": null
+          "legend": {
+            "orient": "bottom",
+            "title": "Efficiency band"
+          }
         }
       }
     },

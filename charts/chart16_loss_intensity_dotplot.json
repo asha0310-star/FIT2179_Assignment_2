@@ -107,15 +107,13 @@
         "fontSize": 11,
         "fontStyle": "italic",
         "color": "#4b5563",
-        "fontWeight": 700
+        "fontWeight": 700,
+        "y": 8
       },
       "encoding": {
         "x": {
           "field": "national_avg_pct",
           "type": "quantitative"
-        },
-        "y": {
-          "value": 0
         },
         "text": {
           "value": "National average"

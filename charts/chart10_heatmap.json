@@ -167,6 +167,11 @@
           "axis": {
             "labelColor": "#3a4540",
             "gridColor": "#eeeeee"
+          },
+          "sort": {
+            "op": "max",
+            "field": "loss_kha",
+            "order": "descending"
           }
         }
       }
@@ -209,6 +214,11 @@
           "axis": {
             "labelColor": "#3a4540",
             "gridColor": "#eeeeee"
+          },
+          "sort": {
+            "op": "max",
+            "field": "loss_kha",
+            "order": "descending"
           }
         },
         "text": {
