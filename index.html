@@ -186,6 +186,34 @@
           >.
         </p>
 
+        <h3>More output from existing land</h3>
+        <p>
+          The next step is productivity. Malaysia's crude palm-oil production
+          has continued increasing, while planted-area growth has slowed. That
+          makes yields, replanting, and better use of existing estates more
+          important than simply expanding the plantation footprint.
+        </p>
+        <div class="chart-card">
+          <div
+            id="chart17"
+            role="img"
+            aria-label="Indexed line chart comparing Malaysia's crude palm oil production and planted oil palm area from 2001 to 2025, both indexed to 2001 equals 100."
+          ></div>
+        </div>
+        <p class="caption">
+          By indexing both series to 2001 = 100, the chart shows whether output
+          is rising faster than land area without using a dual axis. The 2025
+          divergence highlights why productivity is central to future growth.
+          Data source:
+          <a
+            href="https://bepi.mpob.gov.my/images/overview/Overview2025.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >MPOB 2025 Overview</a
+          >, cleaned into the production_area_index.csv file in this
+          repository.
+        </p>
+
         <div class="chart-card">
           <div
             id="chart07"
@@ -515,6 +543,10 @@
       const p06 = embedIfExists(
         "#chart06",
         "charts/chart06_efficiency_metric.json",
+      );
+      const p17 = embedIfExists(
+        "#chart17",
+        "charts/chart17_indexed_production_area.json",
       );
       const p07 = embedIfExists(
         "#chart07",

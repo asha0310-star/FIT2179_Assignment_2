@@ -266,6 +266,71 @@
       }
     },
     {
+      "transform": [
+        {
+          "filter": "datum.year == 2025 && datum.metric_key == 'production_index'"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeDash": [
+          3,
+          3
+        ],
+        "strokeWidth": 1.5,
+        "opacity": 0.8
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "area_index",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "production_index"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2025 && datum.metric_key == 'production_index'"
+        },
+        {
+          "calculate": "'2025 gap: output ' + format(datum.production_index, '.0f') + ' vs land ' + format(datum.area_index, '.0f')",
+          "as": "divergence_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -10,
+        "dy": -8,
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": 700,
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "production_index",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "divergence_label",
+          "type": "nominal"
+        }
+      }
+    },
+    {
       "data": {
         "values": [
           {
