@@ -2,7 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Malaysia and Indonesia drove global palm oil growth",
-    "subtitle": "Production by group, 1961–2023 (million tonnes); ‘Other’ is aggregated across remaining producers."
+    "subtitle": [
+      "Production by group, 1961–2023; units: million tonnes.",
+      "“Other” aggregates remaining producers."
+    ]
   },
   "width": "container",
   "height": 390,
@@ -59,16 +62,23 @@
             "format": "%Y",
             "tickCount": 9,
             "labelAngle": 0,
-            "labelOverlap": "greedy"
+            "labelOverlap": "greedy",
+            "labelColor": "#3a4540"
+          },
+          "scale": {
+            "domain": [
+              "1961-01-01",
+              "2023-01-01"
+            ]
           }
         },
         "y": {
           "field": "Production_Mt",
           "type": "quantitative",
-          "title": "Million tonnes",
+          "title": null,
           "axis": {
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee"
           }
         },
         "color": {
@@ -124,11 +134,24 @@
       "encoding": {
         "x": {
           "field": "year_date",
-          "type": "temporal"
+          "type": "temporal",
+          "scale": {
+            "domain": [
+              "1961-01-01",
+              "2023-01-01"
+            ]
+          },
+          "axis": {
+            "labelColor": "#3a4540"
+          }
         },
         "y": {
           "field": "Production_Mt",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "gridColor": "#eeeeee"
+          }
         },
         "text": {
           "field": "Group"
@@ -153,32 +176,72 @@
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.Group == 'Indonesia' && datum.Year == 2006"
+      "data": {
+        "values": [
+          {
+            "x": "2006-01-01",
+            "y": 17.35,
+            "x2": "2009-01-01",
+            "y2": 25.5
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#4b5563",
+        "strokeWidth": 1,
+        "opacity": 0.65
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x2",
+          "type": "temporal"
+        },
+        "y2": {
+          "field": "y2",
+          "type": "quantitative"
         }
-      ],
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": "2009-01-01",
+            "y": 25.5,
+            "label": "Indonesia overtakes\nMalaysia, 2006"
+          }
+        ]
+      },
       "mark": {
         "type": "text",
-        "dx": 10,
-        "dy": -10,
         "align": "left",
-        "fontSize": 12,
-        "fontStyle": "italic",
         "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": 700,
+        "lineBreak": "\n",
         "color": "#1f2421"
       },
       "encoding": {
         "x": {
-          "field": "year_date",
+          "field": "x",
           "type": "temporal"
         },
         "y": {
-          "field": "Production_Mt",
+          "field": "y",
           "type": "quantitative"
         },
         "text": {
-          "value": "Indonesia overtakes Malaysia, 2006"
+          "field": "label",
+          "type": "nominal"
         }
       }
     }
@@ -191,19 +254,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -215,9 +279,14 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
+  },
+  "padding": {
+    "top": 12,
+    "right": 82,
+    "bottom": 32
   }
 }

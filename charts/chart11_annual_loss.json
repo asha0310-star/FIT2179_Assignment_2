@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "National forest loss peaked in 2014",
-    "subtitle": "Annual tree-cover loss, 2001\u20132024. Includes harvest and plantation rotation, not only primary forest clearing.",
+    "subtitle": "Annual tree-cover loss, 2001–2024 (kha). Includes harvest and plantation rotation, not only primary forest clearing.",
     "anchor": "start"
   },
   "width": "container",
@@ -61,13 +61,18 @@
               2020,
               2024
             ],
-            "labelOverlap": "greedy"
+            "labelOverlap": "greedy",
+            "labelColor": "#3a4540"
           }
         },
         "y": {
           "field": "forest_loss_kha",
           "type": "quantitative",
-          "title": "Tree cover loss (000 ha)"
+          "title": "Loss (kha)",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "tooltip": [
           {
@@ -100,39 +105,90 @@
       "encoding": {
         "x": {
           "field": "year",
-          "type": "ordinal"
+          "type": "ordinal",
+          "axis": {
+            "labelColor": "#3a4540"
+          }
         },
         "y": {
           "field": "forest_loss_kha",
+          "type": "quantitative",
+          "title": "Loss (kha)",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2014,
+            "y": 646.03,
+            "y2": 710
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeWidth": 1,
+        "opacity": 0.7
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": {
+            "labelColor": "#3a4540"
+          }
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "y2",
           "type": "quantitative"
         }
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.year == 2014"
-        }
-      ],
+      "data": {
+        "values": [
+          {
+            "year": 2014,
+            "y": 710,
+            "label": "Peak loss year\n2014: 646 kha"
+          }
+        ]
+      },
       "mark": {
         "type": "text",
-        "dy": -12,
+        "dy": -4,
         "fontSize": 11,
         "fontWeight": "bold",
+        "lineBreak": "\n",
         "color": "#1f2421",
         "font": "Inter"
       },
       "encoding": {
         "x": {
           "field": "year",
-          "type": "ordinal"
+          "type": "ordinal",
+          "axis": {
+            "labelColor": "#3a4540"
+          }
         },
         "y": {
-          "field": "forest_loss_kha",
+          "field": "y",
           "type": "quantitative"
         },
         "text": {
-          "value": "2014 peak: 646 kha"
+          "field": "label",
+          "type": "nominal"
         }
       }
     },
@@ -158,11 +214,19 @@
       "encoding": {
         "x": {
           "field": "year",
-          "type": "ordinal"
+          "type": "ordinal",
+          "axis": {
+            "labelColor": "#3a4540"
+          }
         },
         "y": {
           "field": "forest_loss_kha",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": "Loss (kha)",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "text": {
           "field": "final_label"
@@ -178,19 +242,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -202,7 +267,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
@@ -210,5 +275,11 @@
   "autosize": {
     "type": "fit",
     "contains": "padding"
+  },
+  "padding": {
+    "top": 18,
+    "right": 55,
+    "bottom": 32,
+    "left": 8
   }
 }
