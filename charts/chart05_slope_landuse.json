@@ -34,6 +34,35 @@
     {
       "calculate": "format(datum.Area_Mha, '.2f') + ' Mha'",
       "as": "area_label"
+    },
+    {
+      "calculate": "datum.Year == 1961 ? datum.Area_Mha : null",
+      "as": "area_1961_candidate"
+    },
+    {
+      "calculate": "datum.Year == 2023 ? datum.Area_Mha : null",
+      "as": "area_2023_candidate"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "max",
+          "field": "area_1961_candidate",
+          "as": "area_1961_Mha"
+        },
+        {
+          "op": "max",
+          "field": "area_2023_candidate",
+          "as": "area_2023_Mha"
+        }
+      ],
+      "groupby": [
+        "Entity"
+      ]
+    },
+    {
+      "calculate": "datum.area_2023_Mha - datum.area_1961_Mha",
+      "as": "area_change_Mha"
     }
   ],
   "layer": [
@@ -92,17 +121,26 @@
         "tooltip": [
           {
             "field": "Entity",
-            "type": "nominal"
+            "type": "nominal",
+            "title": "Country"
           },
           {
-            "field": "Year",
-            "type": "ordinal"
-          },
-          {
-            "field": "Area_Mha",
+            "field": "area_1961_Mha",
             "type": "quantitative",
             "format": ".2f",
-            "title": "Million hectares"
+            "title": "1961 area (Mha)"
+          },
+          {
+            "field": "area_2023_Mha",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "2023 area (Mha)"
+          },
+          {
+            "field": "area_change_Mha",
+            "type": "quantitative",
+            "format": "+.2f",
+            "title": "Change (Mha)"
           }
         ]
       }

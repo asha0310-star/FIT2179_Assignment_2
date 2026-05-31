@@ -27,6 +27,17 @@
         "step": 1,
         "name": "Year: "
       }
+    },
+    {
+      "name": "producer_hover",
+      "select": {
+        "type": "point",
+        "fields": [
+          "Country"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
     }
   ],
   "transform": [
@@ -133,6 +144,12 @@
             "type": "nominal"
           },
           {
+            "field": "Period",
+            "type": "quantitative",
+            "format": "d",
+            "title": "Selected year"
+          },
+          {
             "field": "Production_Mt",
             "type": "quantitative",
             "format": ".2f",
@@ -144,7 +161,15 @@
             "format": ".1f",
             "title": "World share (%)"
           }
-        ]
+        ],
+        "opacity": {
+          "condition": {
+            "param": "producer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.65
+        }
       }
     },
     {
@@ -195,6 +220,14 @@
             ]
           },
           "legend": null
+        },
+        "opacity": {
+          "condition": {
+            "param": "producer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.9
         }
       }
     },
@@ -234,6 +267,14 @@
         },
         "text": {
           "field": "value_label"
+        },
+        "opacity": {
+          "condition": {
+            "param": "producer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.82
         }
       }
     }

@@ -75,7 +75,15 @@
             "format": ".1f",
             "title": "Share (%)"
           }
-        ]
+        ],
+        "opacity": {
+          "condition": {
+            "param": "importer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.55
+        }
       }
     },
     {
@@ -127,7 +135,23 @@
             "format": ".1f",
             "title": "Share (%)"
           }
-        ]
+        ],
+        "opacity": {
+          "condition": {
+            "param": "importer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.8
+        },
+        "strokeWidth": {
+          "condition": {
+            "param": "importer_hover",
+            "empty": false,
+            "value": 3
+          },
+          "value": 1.5
+        }
       }
     },
     {
@@ -183,7 +207,15 @@
             "format": ".1f",
             "title": "Share (%)"
           }
-        ]
+        ],
+        "opacity": {
+          "condition": {
+            "param": "importer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.8
+        }
       }
     }
   ],
@@ -230,5 +262,18 @@
     "right": 95,
     "bottom": 32,
     "left": 8
-  }
+  },
+  "params": [
+    {
+      "name": "importer_hover",
+      "select": {
+        "type": "point",
+        "fields": [
+          "country"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
+    }
+  ]
 }
