@@ -105,12 +105,12 @@
       "data": {
         "values": [
           {
-            "label": "Sarawak",
+            "label": "Sarawak hotspot",
             "lat": 2.5,
             "lon": 113.5
           },
           {
-            "label": "Sabah",
+            "label": "Sabah hotspot",
             "lat": 5.4,
             "lon": 117.0
           },

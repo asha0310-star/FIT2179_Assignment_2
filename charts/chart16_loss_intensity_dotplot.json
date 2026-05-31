@@ -12,7 +12,7 @@
     "contains": "padding"
   },
   "padding": {
-    "right": 42
+    "right": 150
   },
   "data": {
     "url": "data/state_loss_intensity.csv"
@@ -37,7 +37,7 @@
       "as": "national_avg_pct"
     },
     {
-      "calculate": "format(datum.loss_intensity_pct, '.1f') + '%'",
+      "calculate": "format(datum.loss_intensity_pct, '.1f') + '%' + (datum.state == 'Sabah' ? ' · Sabah hotspot' : (datum.state == 'Sarawak' ? ' · Sarawak hotspot' : ''))",
       "as": "intensity_label"
     },
     {
