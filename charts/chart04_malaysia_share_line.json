@@ -2,13 +2,18 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Malaysia’s global share is shrinking",
-    "subtitle": "Malaysia palm oil production as a share of world production, 1961–2023 (OWID latest series)."
+    "subtitle": [
+      "Malaysia share of world production, 1961–2023.",
+      "Unit: percent of world palm oil production."
+    ]
   },
   "width": "container",
   "height": 320,
   "padding": {
-    "right": 70,
-    "bottom": 30
+    "right": 95,
+    "bottom": 34,
+    "top": 18,
+    "left": 8
   },
   "data": {
     "url": "data/palm_production_long.csv"
@@ -81,7 +86,7 @@
         "y": {
           "field": "share_pct",
           "type": "quantitative",
-          "title": "Share of world production (%)",
+          "title": null,
           "scale": {
             "domain": [
               0,
@@ -89,7 +94,9 @@
             ]
           },
           "axis": {
-            "format": ".0f"
+            "format": ".0f",
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
           }
         },
         "tooltip": [
@@ -140,7 +147,12 @@
         },
         "y": {
           "field": "share_pct",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         }
       }
     },
@@ -150,14 +162,14 @@
           {
             "x": "1982-01-01",
             "y": 56.8667,
-            "x2": "1988-01-01",
-            "y2": 53.5
+            "x2": "1989-01-01",
+            "y2": 55.5
           },
           {
             "x": "2023-01-01",
             "y": 23.3161,
-            "x2": "2015-01-01",
-            "y2": 30.0
+            "x2": "2011-01-01",
+            "y2": 33.5
           }
         ]
       },
@@ -190,14 +202,14 @@
       "data": {
         "values": [
           {
-            "x": "1988-01-01",
-            "y": 53.5,
+            "x": "1989-01-01",
+            "y": 55.5,
             "label": "Peak share\n1982: 57%",
             "align": "left"
           },
           {
-            "x": "2015-01-01",
-            "y": 30.0,
+            "x": "2011-01-01",
+            "y": 33.5,
             "label": "Recent decline\n2023: 23%",
             "align": "right"
           }
@@ -249,9 +261,9 @@
     {
       "mark": {
         "type": "text",
-        "dx": 5,
+        "dx": -4,
         "dy": 4,
-        "align": "left",
+        "align": "right",
         "baseline": "top",
         "fontSize": 10,
         "fontStyle": "italic",
@@ -260,9 +272,7 @@
       },
       "encoding": {
         "x": {
-          "datum": {
-            "expr": "datetime(year_link, 0, 1)"
-          },
+          "datum": "2023-01-01",
           "type": "temporal"
         },
         "y": {
@@ -283,19 +293,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -307,7 +318,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }

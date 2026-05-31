@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Production has grown faster than planted area",
-    "subtitle": "Indexed to 2001 = 100, so both series can be compared without a dual axis.",
+    "subtitle": "Indexed to 2001 = 100; compares output growth with planted-area growth without a dual axis.",
     "anchor": "start"
   },
   "width": "container",
@@ -12,8 +12,10 @@
     "contains": "padding"
   },
   "padding": {
-    "right": 82,
-    "bottom": 30
+    "right": 100,
+    "bottom": 34,
+    "top": 18,
+    "left": 8
   },
   "data": {
     "url": "data/production_area_index.csv"
@@ -76,15 +78,16 @@
           "title": null,
           "axis": {
             "format": "d",
-            "tickCount": 7,
+            "tickCount": 6,
             "labelAngle": 0,
-            "labelOverlap": "greedy"
+            "labelOverlap": "greedy",
+            "labelColor": "#3a4540"
           }
         },
         "y": {
           "field": "index_value",
           "type": "quantitative",
-          "title": "Index (2001 = 100)",
+          "title": null,
           "scale": {
             "domain": [
               90,
@@ -93,7 +96,8 @@
           },
           "axis": {
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
           }
         },
         "color": {
@@ -155,11 +159,20 @@
       "encoding": {
         "x": {
           "field": "year",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
         },
         "y": {
           "field": "index_value",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "color": {
           "field": "metric",
@@ -206,11 +219,20 @@
       "encoding": {
         "x": {
           "field": "year",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
         },
         "y": {
           "field": "index_value",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "text": {
           "field": "end_label"
@@ -233,12 +255,87 @@
       }
     },
     {
+      "transform": [
+        {
+          "filter": "datum.year == 2025 && datum.metric_key == 'production_index'"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeDash": [
+          3,
+          3
+        ],
+        "strokeWidth": 1.5,
+        "opacity": 0.8
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "area_index",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "production_index",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
       "data": {
         "values": [
           {
-            "year": 2017,
-            "index_value": 171,
-            "label": "Production grew faster\nthan planted area"
+            "year": 2003,
+            "y": 113.14,
+            "x2": 2006,
+            "y2": 126
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeWidth": 1,
+        "opacity": 0.65
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x2",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "y2",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2006,
+            "y": 126,
+            "label": "Output first\noutpaces land\n2003"
           }
         ]
       },
@@ -246,22 +343,98 @@
         "type": "text",
         "align": "left",
         "font": "Inter",
-        "fontSize": 12,
-        "fontStyle": "italic",
+        "fontSize": 11,
+        "fontWeight": 700,
         "lineBreak": "\n",
-        "color": "#3a4540"
+        "color": "#1f2421"
       },
       "encoding": {
         "x": {
           "field": "year",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
         },
         "y": {
-          "field": "index_value",
+          "field": "y",
           "type": "quantitative"
         },
         "text": {
-          "field": "label"
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2003,
+            "y": 113.14
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 100,
+        "color": "#c25e1e",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2025 && datum.metric_key == 'production_index'"
+        },
+        {
+          "calculate": "'2025 gap: output ' + format(datum.production_index, '.0f') + ' vs land ' + format(datum.area_index, '.0f')",
+          "as": "divergence_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -10,
+        "dy": -8,
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": 700,
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "production_index",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "divergence_label",
+          "type": "nominal"
         }
       }
     },
@@ -434,7 +607,7 @@
         "values": [
           {
             "year": 2001,
-            "index_value": 100,
+            "index_value": 103,
             "label": "2001 baseline"
           }
         ]
@@ -443,7 +616,7 @@
         "type": "text",
         "align": "left",
         "dx": 6,
-        "dy": -8,
+        "dy": -10,
         "font": "Inter",
         "fontSize": 10.5,
         "fontStyle": "italic",
@@ -452,11 +625,20 @@
       "encoding": {
         "x": {
           "field": "year",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
         },
         "y": {
           "field": "index_value",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "text": {
           "field": "label"
@@ -472,20 +654,23 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
       "titleFont": "Inter",
-      "titleFontSize": 12
+      "titleFontSize": 12,
+      "labelColor": "#3a4540",
+      "titleColor": "#1f2421"
     },
     "title": {
       "font": "Fraunces",
@@ -494,7 +679,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }

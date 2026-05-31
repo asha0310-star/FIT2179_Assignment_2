@@ -3,8 +3,8 @@
   "title": {
     "text": "Economic Gain vs Environmental Bill",
     "subtitle": [
-      "Malaysia, 2001–2024: export earnings rise above zero; tree-cover loss is shown below zero.",
-      "Units are explained in labels and caption; loss is rescaled for visual comparison, not equivalence."
+      "Malaysia, 2001–2024: export earnings above zero; tree-cover loss below zero.",
+      "Units: exports = RM bn; forest loss = kha ÷ 5 for direction, not equivalence."
     ],
     "anchor": "start"
   },
@@ -15,10 +15,10 @@
     "contains": "padding"
   },
   "padding": {
-    "top": 20,
-    "bottom": 30,
+    "top": 24,
+    "bottom": 36,
     "left": 10,
-    "right": 10
+    "right": 20
   },
   "data": {
     "url": "data/malaysia_economy_yearly.csv"
@@ -81,9 +81,10 @@
           "type": "quantitative",
           "title": null,
           "axis": {
-            "labelExpr": "datum.value >= 0 ? format(datum.value, '.0f') : format(-datum.value * 5, '.0f')",
+            "labelExpr": "datum.value >= 0 ? format(datum.value, '.0f') : '−' + format(-datum.value * 5, '.0f')",
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
           },
           "scale": {
             "domain": [
@@ -166,13 +167,13 @@
       },
       "mark": {
         "type": "line",
-        "color": "#1f2421",
+        "color": "#6b7570",
         "strokeDash": [
           3,
           3
         ],
-        "strokeWidth": 1.4,
-        "opacity": 0.75
+        "strokeWidth": 1.1,
+        "opacity": 0.45
       },
       "encoding": {
         "x": {
@@ -181,7 +182,12 @@
         },
         "y": {
           "field": "exports",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540",
+            "labelExpr": "datum.value >= 0 ? format(datum.value, '.0f') : '−' + format(-datum.value * 5, '.0f')"
+          }
         },
         "order": {
           "field": "order",
@@ -259,14 +265,14 @@
         "values": [
           {
             "year": "2014",
-            "y": -145,
+            "y": -138,
             "label": "Forest-loss peak\n2014"
           }
         ]
       },
       "mark": {
         "type": "text",
-        "dy": 12,
+        "dy": 8,
         "fontSize": 11,
         "fontWeight": 700,
         "lineBreak": "\n",
@@ -287,49 +293,6 @@
           "type": "nominal"
         }
       }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "label": "↑ Export earnings (RM bn)",
-            "x": "2001",
-            "y": 130
-          },
-          {
-            "label": "↓ Forest loss (kha, ÷5 scale)",
-            "x": "2001",
-            "y": -130
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "fontSize": 11,
-        "fontWeight": 600,
-        "font": "Inter"
-      },
-      "encoding": {
-        "x": {
-          "field": "x",
-          "type": "ordinal"
-        },
-        "y": {
-          "field": "y",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "label"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.y > 0",
-            "value": "#c25e1e"
-          },
-          "value": "#2d5a3d"
-        }
-      }
     }
   ],
   "config": {
@@ -340,19 +303,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -364,7 +328,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }

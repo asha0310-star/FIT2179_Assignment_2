@@ -12,7 +12,10 @@
     "contains": "padding"
   },
   "padding": {
-    "right": 150
+    "right": 80,
+    "top": 18,
+    "bottom": 30,
+    "left": 8
   },
   "data": {
     "url": "data/state_loss_intensity.csv"
@@ -94,13 +97,14 @@
       "mark": {
         "type": "text",
         "align": "left",
-        "baseline": "top",
-        "dx": 6,
-        "dy": 6,
+        "baseline": "bottom",
+        "dx": 10,
+        "dy": -8,
         "font": "Inter",
         "fontSize": 11,
         "fontStyle": "italic",
-        "color": "#4b5563"
+        "color": "#4b5563",
+        "fontWeight": 700
       },
       "encoding": {
         "x": {
@@ -137,7 +141,8 @@
           "axis": {
             "format": ".0f",
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
           }
         },
         "y": {
@@ -149,7 +154,10 @@
             "order": "descending"
           },
           "axis": {
-            "labelLimit": 130
+            "labelLimit": 130,
+            "labelColor": "#3a4540",
+            "labelAlign": "right",
+            "labelPadding": 8
           }
         },
         "color": {
@@ -205,7 +213,11 @@
       "encoding": {
         "x": {
           "field": "loss_intensity_pct",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "y": {
           "field": "state",
@@ -213,10 +225,49 @@
           "sort": {
             "field": "loss_intensity_pct",
             "order": "descending"
+          },
+          "axis": {
+            "labelColor": "#3a4540",
+            "labelAlign": "right",
+            "labelPadding": 8
           }
         },
         "text": {
           "field": "intensity_label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": 43,
+            "y": "Labuan",
+            "label": "Hotspots coloured:\nSabah green, Sarawak orange"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "font": "Inter",
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "lineBreak": "\n",
+        "color": "#3a4540"
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "nominal"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
         }
       }
     }
@@ -229,20 +280,23 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
       "titleFont": "Inter",
-      "titleFontSize": 12
+      "titleFontSize": 12,
+      "labelColor": "#3a4540",
+      "titleColor": "#1f2421"
     },
     "title": {
       "font": "Fraunces",
@@ -251,7 +305,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
