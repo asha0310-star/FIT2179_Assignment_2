@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Sarawak and Sabah carried most of the forest loss",
-    "subtitle": "Each panel uses its own y-scale to show shape; compare absolute magnitude using the map and heatmap above.",
+    "subtitle": "Annual tree-cover loss by state, 2001–2024. Unit: loss (kha); each panel uses its own y-scale.",
     "anchor": "start"
   },
   "data": {
@@ -54,7 +54,8 @@
                 2010,
                 2024
               ],
-              "labelFontSize": 9
+              "labelFontSize": 9,
+              "labelColor": "#3a4540"
             },
             "title": null
           },
@@ -64,7 +65,8 @@
             "title": null,
             "axis": {
               "labelFontSize": 9,
-              "tickCount": 3
+              "tickCount": 3,
+              "labelColor": "#3a4540"
             }
           }
         }
@@ -79,11 +81,17 @@
         "encoding": {
           "x": {
             "field": "year",
-            "type": "ordinal"
+            "type": "ordinal",
+            "axis": {
+              "labelColor": "#3a4540"
+            }
           },
           "y": {
             "field": "loss_kha",
-            "type": "quantitative"
+            "type": "quantitative",
+            "axis": {
+              "labelColor": "#3a4540"
+            }
           },
           "tooltip": [
             {
@@ -117,16 +125,20 @@
         ],
         "mark": {
           "type": "rule",
-          "color": "#4b5563",
+          "color": "#6b7570",
           "strokeDash": [
             3,
             3
-          ]
+          ],
+          "opacity": 0.45
         },
         "encoding": {
           "y": {
             "field": "mean_loss",
-            "type": "quantitative"
+            "type": "quantitative",
+            "axis": {
+              "labelColor": "#3a4540"
+            }
           }
         }
       },
@@ -148,6 +160,9 @@
             "filter": "datum.loss_kha == datum.state_peak"
           },
           {
+            "filter": "datum.state_peak >= 10"
+          },
+          {
             "calculate": "'peak ' + format(datum.loss_kha, '.0f')",
             "as": "peak_label"
           }
@@ -156,18 +171,25 @@
           "type": "text",
           "fontSize": 9,
           "font": "Inter",
-          "dy": -6,
-          "dx": 3,
-          "color": "#1f2421"
+          "dy": -8,
+          "dx": 4,
+          "color": "#1f2421",
+          "fontWeight": 700
         },
         "encoding": {
           "x": {
             "field": "year",
-            "type": "ordinal"
+            "type": "ordinal",
+            "axis": {
+              "labelColor": "#3a4540"
+            }
           },
           "y": {
             "field": "loss_kha",
-            "type": "quantitative"
+            "type": "quantitative",
+            "axis": {
+              "labelColor": "#3a4540"
+            }
           },
           "text": {
             "field": "peak_label"
@@ -184,17 +206,23 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
-      "grid": false
+      "grid": false,
+      "titleColor": "#1f2421",
+      "titleFontWeight": 500,
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
       "titleFont": "Inter",
-      "titleFontSize": 12
+      "titleFontSize": 12,
+      "labelColor": "#3a4540",
+      "titleColor": "#1f2421"
     },
     "title": {
       "font": "Fraunces",
@@ -203,13 +231,18 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
-      "anchor": "start"
+      "subtitleColor": "#4b5563",
+      "anchor": "start",
+      "subtitleLineHeight": 18
     }
   },
   "resolve": {
     "scale": {
       "y": "independent"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
   }
 }

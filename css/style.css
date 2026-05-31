@@ -5,30 +5,18 @@
   padding: 0;
 }
 
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
 img {
-  max-width: 100%;
   display: block;
+  max-width: 100%;
 }
 
 a {
   color: inherit;
-}
-
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
-  transform: translateY(-160%);
-  background: #1f2421;
-  color: #fafaf7;
-  padding: 0.6rem 1rem;
-  border-radius: 4px;
-  text-decoration: none;
-  z-index: 100;
-}
-
-.skip-link:focus {
-  transform: translateY(0);
 }
 
 :root {
@@ -39,18 +27,21 @@ a {
   --color-sabah: #5c8a6e;
   --color-sarawak: #1f3d2f;
   --color-importers: #7c3aed;
+  --page-bg: #fafaf7;
+  --ink: #1f2421;
+  --muted: #6b7570;
+  --card-bg: #ffffff;
+  --rule: #d6dad7;
 }
 
 /* === TYPOGRAPHY === */
-/* Fraunces (display serif) — fits an "editorial / journalistic" topic */
-/* Inter (geometric sans) — clean modern body text */
 body {
   font-family: "Inter", system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.65;
-  color: #1f2421;
-  background: #fafaf7;
-  overflow-x: hidden;
+  color: var(--ink);
+  background: var(--page-bg);
+  overflow-x: clip;
 }
 
 h1,
@@ -58,7 +49,7 @@ h2,
 h3 {
   font-family: "Fraunces", Georgia, serif;
   font-weight: 800;
-  color: #1f2421;
+  color: var(--ink);
   letter-spacing: -0.01em;
 }
 
@@ -71,7 +62,7 @@ h1 {
 h2 {
   font-size: 2.1rem;
   line-height: 1.15;
-  margin: 4rem 0 1.5rem 0;
+  margin: 4rem 0 1.5rem;
   padding-top: 2rem;
   border-top: 3px solid var(--color-malaysia);
 }
@@ -100,13 +91,38 @@ p {
   letter-spacing: 0.15em;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #6b7570;
+  color: var(--muted);
   margin-bottom: 1.5rem;
+}
+
+/* === ACCESSIBILITY === */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  transform: translateY(-160%);
+  background: var(--ink);
+  color: var(--page-bg);
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.section-nav a:focus-visible,
+footer a:focus-visible {
+  outline: 3px solid rgba(194, 94, 30, 0.45);
+  outline-offset: 4px;
+  border-radius: 3px;
 }
 
 /* === LAYOUT === */
 .container {
-  max-width: 1100px;
+  width: min(100%, 1100px);
   margin: 0 auto;
   padding: 5rem 3rem;
 }
@@ -124,23 +140,105 @@ p {
   max-width: 38ch;
 }
 
+.audience-note {
+  max-width: 54ch;
+  margin: -1.5rem 0 2.5rem;
+  padding: 0.85rem 1rem 0.85rem 1.15rem;
+  border-left: 4px solid #8fa69a;
+  background: #f0f4f1;
+  color: #52615a;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+section {
+  margin: 7rem 0;
+  scroll-margin-top: 4.5rem;
+}
+
+.container > section:nth-of-type(even) {
+  background: linear-gradient(180deg, #fbf9f7 0%, var(--page-bg) 100%);
+  margin-left: calc(-1 * min(3rem, 4vw));
+  margin-right: calc(-1 * min(3rem, 4vw));
+  padding: 4rem min(3rem, 4vw) 5rem;
+  border-radius: 4px;
+}
+
+/* === NAVIGATION === */
+.section-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  background: rgba(250, 250, 247, 0.96);
+  border-bottom: 1px solid #e8e6e1;
+  backdrop-filter: blur(8px);
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.section-nav a {
+  text-decoration: none;
+  padding: 0.2rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.section-nav a:hover,
+.section-nav a:focus-visible {
+  color: var(--color-malaysia);
+  border-bottom-color: var(--color-malaysia);
+}
+
+@media (min-width: 1440px) {
+  .section-nav {
+    position: fixed;
+    top: 50%;
+    right: max(1.5rem, calc((100vw - 1180px) / 2 - 7.5rem));
+    transform: translateY(-50%);
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding: 0;
+    background: transparent;
+    border-bottom: none;
+    backdrop-filter: none;
+  }
+
+  .section-nav a {
+    padding: 0.25rem 0.5rem 0.25rem 0;
+    border-bottom: none;
+    border-right: 2px solid transparent;
+  }
+
+  .section-nav a:hover,
+  .section-nav a:focus-visible {
+    border-bottom-color: transparent;
+    border-right-color: var(--color-malaysia);
+  }
+}
+
+/* === KPI AND GRID BLOCKS === */
 .kpi-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
 .kpi {
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #fbf9f7 100%);
   border-left: 4px solid var(--color-malaysia);
   padding: 1.75rem 2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   border-radius: 2px;
-}
-
-.kpi {
-  background: linear-gradient(180deg, #ffffff 0%, #fbf9f7 100%);
 }
 
 .kpi-number {
@@ -148,7 +246,7 @@ p {
   font-family: "Fraunces", serif;
   font-size: 2.6rem;
   font-weight: 800;
-  color: #1f2421;
+  color: var(--ink);
   line-height: 1;
 }
 
@@ -156,98 +254,105 @@ p {
   display: block;
   margin-top: 0.75rem;
   font-size: 0.95rem;
-  color: #6b7570;
+  color: var(--muted);
   line-height: 1.4;
 }
 
-section {
-  margin: 5rem 0;
+.two-col,
+.three-col {
+  display: grid;
+  gap: 2rem;
+  margin: 2.5rem 0;
+  align-items: stretch;
 }
 
+.two-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.three-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* === CHART CARDS AND VEGA EMBEDS === */
 .chart-card {
-  background: #ffffff;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
   border-radius: 4px;
   padding: 2.5rem;
   margin: 2.5rem 0;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  overflow: visible;
 }
 
 .chart-card.wide {
   padding: 2.5rem;
 }
 
-/* Ensure wide chart cards are visually prominent */
+.chart-card.hero {
+  border-left: 6px solid var(--color-malaysia);
+  box-shadow: 0 4px 16px rgba(31, 36, 33, 0.08);
+  padding: 3rem 2.5rem;
+}
+
+.chart-card > div {
+  width: 100%;
+  min-width: 0;
+  min-height: 220px;
+  flex: 1 1 auto;
+  overflow: visible;
+}
+
 .chart-card.wide > div {
   min-height: 320px;
 }
 
-.section-nav {
-  position: fixed;
-  top: 50%;
-  right: 1.5rem;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  font-family: "Inter", sans-serif;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #6b7570;
-  z-index: 20;
+.chart-card.hero > div {
+  min-height: 380px;
 }
 
-.section-nav a {
-  text-decoration: none;
-  padding: 0.25rem 0.5rem 0.25rem 0;
-  border-right: 2px solid transparent;
+.chart-card > div .vega-embed,
+.chart-card > div .vega-embed > div,
+.chart-card > div .vega-embed > svg,
+.chart-card > div iframe {
+  max-width: 100%;
 }
 
-.section-nav a:hover {
-  color: #c25e1e;
-  border-right-color: #c25e1e;
+.chart-card > div .vega-embed,
+.chart-card > div .vega-embed > div {
+  width: 100%;
+  overflow: visible;
 }
 
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin: 2.5rem 0;
+.chart-card > div .vega-embed > svg {
+  height: auto;
+  overflow: visible;
 }
 
-/* Ensure grid children stretch to equal height and chart-cards layout cleanly */
-.two-col {
-  align-items: stretch;
-}
-
-.chart-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.chart-card > div {
-  /* make the embedded chart area expand to fill available card height */
-  flex: 1 1 auto;
-  min-height: 220px;
-}
-
-.three-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
-  margin: 2.5rem 0;
+.vega-embed .mark-text text,
+.vega-embed .role-title text {
+  overflow: visible;
 }
 
 .caption {
+  max-width: 76ch;
+  padding-left: 1rem;
+  border-left: 3px solid var(--rule);
   font-size: 0.85rem;
-  color: #6b7570;
+  color: var(--muted);
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
   font-style: italic;
+  line-height: 1.55;
 }
 
+/* === NARRATIVE BLOCKS === */
 .narrative {
-  background: #fafaf7;
+  background: var(--page-bg);
   padding: 1.5rem 2rem;
   margin: 1.5rem 0;
   border-left: 3px solid #e8e6e1;
@@ -262,16 +367,102 @@ section {
   margin-bottom: 0;
 }
 
+.pull-quote {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--ink);
+  max-width: 32ch;
+  margin: 2rem 0 2rem 1rem;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--color-malaysia);
+}
+
+/* === CENTREPIECE TRADE-OFF SECTION === */
+.centrepiece-section {
+  position: relative;
+}
+
+.centrepiece-section h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  max-width: 16ch;
+  margin-bottom: 1rem;
+}
+
+.centrepiece-lede {
+  max-width: 72ch;
+  font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+}
+
+.reading-guide,
+.insight-callout {
+  max-width: 82ch;
+  background: var(--card-bg);
+  border-radius: 6px;
+  box-shadow: 0 3px 14px rgba(31, 36, 33, 0.07);
+}
+
+.reading-guide {
+  margin: 2rem 0 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 5px solid #8fa69a;
+}
+
+.reading-guide p {
+  margin-bottom: 0.75rem;
+}
+
+.reading-guide ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 1.5rem;
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #3a4540;
+}
+
+.centrepiece-card {
+  margin-top: 2rem;
+  padding: 3.25rem 2.75rem;
+}
+
+.centrepiece-card > div {
+  min-height: 500px;
+}
+
+.insight-callout {
+  margin: -0.75rem 0 1.5rem auto;
+  padding: 1.5rem 1.75rem;
+  border-top: 5px solid var(--color-malaysia);
+}
+
+.insight-callout h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.insight-callout p {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.centrepiece-caption {
+  max-width: 86ch;
+}
+
+/* === CLOSING AND FOOTER === */
 .closing {
-  background: #1f2421;
-  color: #fafaf7;
+  background: var(--ink);
+  color: var(--page-bg);
   padding: 4rem 3rem;
-  margin: 5rem -3rem 0 -3rem;
+  margin: 5rem -3rem 0;
   border-radius: 4px;
 }
 
 .closing h2 {
-  color: #fafaf7;
+  color: var(--page-bg);
   margin-top: 0;
   border-top: none;
   padding-top: 0;
@@ -285,9 +476,9 @@ section {
 footer {
   margin-top: 5rem;
   padding-top: 2.5rem;
-  border-top: 1px solid #d6dad7;
+  border-top: 1px solid var(--rule);
   font-size: 0.85rem;
-  color: #6b7570;
+  color: var(--muted);
 }
 
 footer p {
@@ -296,61 +487,39 @@ footer p {
 }
 
 footer p strong {
-  color: #1f2421;
+  color: var(--ink);
 }
 
 footer a {
-  color: #c25e1e;
+  color: var(--color-malaysia);
   text-decoration: none;
-  border-bottom: 1px dotted #c25e1e;
+  border-bottom: 1px dotted var(--color-malaysia);
   transition: all 0.2s ease;
 }
 
-footer a:hover {
+footer a:hover,
+footer a:focus-visible {
   color: #a04d1a;
   border-bottom-color: #a04d1a;
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .container {
+    width: min(100%, 1040px);
     padding: 4rem 2.5rem;
-  }
-
-  .section-nav {
-    position: sticky;
-    top: 0;
-    right: auto;
-    transform: none;
-    flex-direction: row;
-    justify-content: center;
-    background: rgba(250, 250, 247, 0.94);
-    padding: 0.6rem 1rem;
-    border-bottom: 1px solid #e8e6e1;
-  }
-
-  .section-nav a {
-    border-right: none;
-    border-bottom: 2px solid transparent;
-    padding: 0.2rem 0;
-  }
-
-  .section-nav a:hover {
-    border-right-color: transparent;
-    border-bottom-color: #c25e1e;
-  }
-
-  .kpi-row {
-    gap: 1.5rem;
-  }
-
-  .two-col,
-  .three-col {
-    gap: 1.5rem;
   }
 
   .chart-card {
     padding: 2rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .two-col,
+  .three-col {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
@@ -365,29 +534,26 @@ footer a:hover {
 
   h2 {
     font-size: 1.6rem;
-    margin: 3rem 0 1rem 0;
+    margin: 3rem 0 1rem;
     padding-top: 1.5rem;
   }
 
-  .kpi-row,
-  .two-col,
-  .three-col {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  section {
+    margin: 4rem 0;
   }
 
-  .chart-card {
-    padding: 1.5rem;
-  }
-
-  .chart-card.wide {
-    padding: 1.5rem;
+  .container > section:nth-of-type(even) {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    padding: 2.5rem 1.5rem 3rem;
   }
 
   .section-nav {
+    justify-content: flex-start;
     gap: 0.9rem;
     font-size: 0.68rem;
     overflow-x: auto;
+    scrollbar-width: thin;
   }
 
   .lede {
@@ -395,147 +561,118 @@ footer a:hover {
     margin-bottom: 1.5rem;
   }
 
+  .kpi-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .chart-card,
+  .chart-card.wide,
+  .chart-card.hero,
+  .centrepiece-card {
+    padding: 1.5rem;
+  }
+
+  .reading-guide,
+  .insight-callout {
+    padding: 1.15rem 1.25rem;
+  }
+
+  .reading-guide ul {
+    grid-template-columns: 1fr;
+  }
+
+  .centrepiece-card > div {
+    min-height: 420px;
+  }
+
   .closing {
-    margin: 3rem -1.5rem 0 -1.5rem;
+    margin: 3rem -1.5rem 0;
     padding: 2.5rem 1.5rem;
   }
 }
 
-/* === VEGA EMBED RESPONSIVE FIX ===
-   Ensure vega-embed outputs (svg/iframes) scale to their container width
-   instead of forcing layout overflow on narrow laptops. This preserves visual
-   fidelity while avoiding horizontal scroll on ~1300px screens.
-*/
-.chart-card > div .vega-embed,
-.chart-card > div .vega-embed > div,
-.chart-card > div .vega-embed > svg,
-.chart-card > div iframe {
-  max-width: 100%;
-  width: 100% !important;
-  height: auto !important;
-}
-
-/* In some embed variants the inner element uses explicit width attributes;
-   forcing box-sizing and overflow hidden at the container avoids scrollbars. */
-.chart-card > div {
-  overflow-x: hidden;
-}
-/* === SECTION RHYTHM AND EMPHASIS === */
-
-/* Tighter section spacing rhythm for editorial pacing. */
-section {
-  margin: 7rem 0;
-  scroll-margin-top: 2rem;
-}
-
-/* Subtle alternating-band background so each section reads
-   as its own page — improves figure-ground separation. */
-.container > section:nth-of-type(even) {
-  background: linear-gradient(180deg, #fbf9f7 0%, #fafaf7 100%);
-  margin-left: -3rem;
-  margin-right: -3rem;
-  padding: 4rem 3rem 5rem 3rem;
-  border-radius: 4px;
-}
-
-/* `.hero` modifier for chart-cards that anchor a section.
-   Larger shadow + left accent stripe in the Malaysia orange
-   communicates "this chart matters." */
-.chart-card.hero {
-  border-left: 6px solid var(--color-malaysia);
-  box-shadow: 0 4px 16px rgba(31, 36, 33, 0.08);
-  padding: 3rem 2.5rem;
-}
-
-.chart-card.hero > div {
-  min-height: 380px;
-}
-
-/* Pull-quote used below the trade-off hero chart. */
-.pull-quote {
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 1.35;
-  color: #1f2421;
-  max-width: 32ch;
-  margin: 2rem 0 2rem 1rem;
-  padding-left: 1.25rem;
-  border-left: 3px solid var(--color-malaysia);
-}
-
-/* Mobile fix for the wider section padding. */
-@media (max-width: 760px) {
-  section {
-    margin: 4rem 0;
-  }
-  .container > section:nth-of-type(even) {
-    margin-left: -1.5rem;
-    margin-right: -1.5rem;
-    padding: 2.5rem 1.5rem 3rem 1.5rem;
-  }
-  .chart-card.hero {
-    padding: 1.5rem;
-  }
-}
-
-/* === POLISH PASS === */
-.audience-note {
-  max-width: 54ch;
-  margin: -1.5rem 0 2.5rem;
-  padding: 0.85rem 1rem 0.85rem 1.15rem;
-  border-left: 4px solid #8fa69a;
-  background: #f0f4f1;
-  color: #52615a;
-  font-size: 0.95rem;
-  font-style: italic;
-  line-height: 1.55;
-}
-
-.caption {
-  max-width: 76ch;
-  padding-left: 1rem;
-  border-left: 3px solid #d6dad7;
-  line-height: 1.55;
-}
-
-.chart-card {
-  overflow: hidden;
-}
-
-.vega-embed .mark-text text,
-.vega-embed .role-title text {
-  overflow: visible;
-}
-
-@media (min-width: 761px) {
-  .container > section:nth-of-type(even) {
-    margin-left: calc(-1 * min(3rem, 4vw));
-    margin-right: calc(-1 * min(3rem, 4vw));
-    padding-left: min(3rem, 4vw);
-    padding-right: min(3rem, 4vw);
-  }
-}
-
-@media (max-width: 1280px) {
-  .container {
-    max-width: 1040px;
-  }
-
-  .chart-card {
-    padding: 2rem;
-  }
-}
-
+/* === PRINT / STATIC PDF === */
 @media print {
+  @page {
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    overflow: visible !important;
+    background: #ffffff;
+  }
+
   .section-nav,
   .skip-link {
     display: none !important;
   }
 
-  .chart-card,
-  section {
+  .container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  section,
+  .container > section:nth-of-type(even) {
+    margin: 1.2rem 0;
+    padding: 0;
+    background: transparent;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  h2 {
+    margin-top: 1.2rem;
+    padding-top: 0.8rem;
+  }
+
+  .chart-card {
+    margin: 0.75rem 0 1rem;
+    padding: 0.5rem;
+    box-shadow: none;
+    border: 1px solid #e8e6e1;
+    overflow: visible;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .chart-card > div,
+  .chart-card.wide > div,
+  .chart-card.hero > div,
+  .centrepiece-card > div {
+    min-height: 0 !important;
+  }
+
+  .print-flow,
+  .print-flow > div,
+  #chart14 {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .two-col,
+  .three-col {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .caption,
+  .narrative,
+  .reading-guide,
+  .insight-callout {
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+
+  .closing {
+    margin: 1rem 0 0;
+    padding: 1.5rem;
+  }
+
+  footer {
+    margin-top: 1.5rem;
   }
 }

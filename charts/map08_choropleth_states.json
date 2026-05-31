@@ -2,13 +2,16 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Forest loss has not been spread evenly",
-    "subtitle": "Total tree-cover loss by state, 2001–2024 — absolute loss, not area-normalised"
+    "subtitle": "Total tree-cover loss by state, 2001–2024 — absolute loss, not area-normalised."
   },
   "width": "container",
   "height": 380,
   "projection": {
     "type": "mercator",
-    "center": [109, 4],
+    "center": [
+      109,
+      4
+    ],
     "scale": 1900
   },
   "layer": [
@@ -32,7 +35,9 @@
               "url": "data/forest_loss_state_totals.csv"
             },
             "key": "state",
-            "fields": ["total_loss_2001_2024"]
+            "fields": [
+              "total_loss_2001_2024"
+            ]
           }
         },
         {
@@ -93,7 +98,9 @@
           "name": "state_select",
           "select": {
             "type": "point",
-            "fields": ["state_name"],
+            "fields": [
+              "state_name"
+            ],
             "on": "click",
             "clear": "dblclick"
           },
@@ -105,29 +112,59 @@
       "data": {
         "values": [
           {
-            "label": "Sarawak",
-            "lat": 2.5,
-            "lon": 113.5
+            "lon": 112.4,
+            "lat": 2.0,
+            "lon2": 113.5,
+            "lat2": 2.5
           },
           {
-            "label": "Sabah",
-            "lat": 5.4,
-            "lon": 117.0
+            "lon": 116.2,
+            "lat": 6.3,
+            "lon2": 117.0,
+            "lat2": 5.4
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeWidth": 1,
+        "opacity": 0.65
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "lon2"
+        },
+        "latitude2": {
+          "field": "lat2"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "label": "Sarawak hotspot",
+            "lat": 2.0,
+            "lon": 112.4
+          },
+          {
+            "label": "Sabah hotspot",
+            "lat": 6.3,
+            "lon": 116.2
           },
           {
             "label": "Pahang",
             "lat": 3.8,
             "lon": 102.6
-          },
-          {
-            "label": "Johor",
-            "lat": 2.0,
-            "lon": 103.4
-          },
-          {
-            "label": "Perak",
-            "lat": 4.6,
-            "lon": 101.1
           }
         ]
       },
@@ -135,10 +172,11 @@
         "type": "text",
         "font": "Inter",
         "fontSize": 11,
-        "fontWeight": "normal",
+        "fontWeight": 700,
         "dx": 0,
         "dy": -8,
-        "align": "center"
+        "align": "center",
+        "color": "#1f2421"
       },
       "encoding": {
         "longitude": {
@@ -168,9 +206,9 @@
       "data": {
         "values": [
           {
-            "note": "East Malaysia: about 5.0M ha of 9.5M total. Click a state to highlight; double-click to clear.",
-            "lat": 3.3,
-            "lon": 111.2
+            "note": "East Malaysia: ~5.0M ha of 9.5M total",
+            "lat": 3.9,
+            "lon": 112.0
           }
         ]
       },
@@ -182,7 +220,8 @@
         "align": "left",
         "dx": 6,
         "dy": -6,
-        "color": "#1f2421"
+        "color": "#1f2421",
+        "fontWeight": 700
       },
       "encoding": {
         "longitude": {
@@ -208,19 +247,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -232,12 +272,19 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
-      "anchor": "start"
+      "subtitleColor": "#4b5563",
+      "anchor": "start",
+      "subtitleLineHeight": 18
     }
   },
   "autosize": {
     "type": "fit",
     "contains": "padding"
+  },
+  "padding": {
+    "top": 16,
+    "right": 30,
+    "bottom": 20,
+    "left": 10
   }
 }

@@ -2,7 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Two producers dominate the world market",
-    "subtitle": "Ranked crude palm oil production by country (million tonnes); move the slider to change year."
+    "subtitle": [
+      "Crude palm oil production by country (Mt).",
+      "Use the slider below to change year."
+    ]
   },
   "width": "container",
   "height": 360,
@@ -24,6 +27,17 @@
         "step": 1,
         "name": "Year: "
       }
+    },
+    {
+      "name": "producer_hover",
+      "select": {
+        "type": "point",
+        "fields": [
+          "Country"
+        ],
+        "on": "mouseover",
+        "clear": "mouseout"
+      }
     }
   ],
   "transform": [
@@ -43,7 +57,9 @@
           "as": "World_kt"
         }
       ],
-      "groupby": ["Period"]
+      "groupby": [
+        "Period"
+      ]
     },
     {
       "filter": "datum.Country !== 'World' && datum.Period == year_select"
@@ -76,32 +92,84 @@
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": {"field": "Production_Mt", "order": "descending"},
+          "sort": {
+            "field": "Production_Mt",
+            "order": "descending"
+          },
           "title": null,
-          "axis": {"labelLimit": 120}
+          "axis": {
+            "labelLimit": 120
+          }
         },
         "x": {
           "field": "Production_Mt",
           "type": "quantitative",
           "title": "Crude palm oil production (Mt)",
-          "scale": {"domain": [0, 48]},
-          "axis": {"grid": true, "tickCount": 6}
+          "scale": {
+            "domain": [
+              0,
+              46
+            ]
+          },
+          "axis": {
+            "grid": true,
+            "tickCount": 6,
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
-        "x2": {"datum": 0},
+        "x2": {
+          "datum": 0
+        },
         "color": {
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": ["Indonesia", "Malaysia", "Other"],
-            "range": ["#2d5a3d", "#c25e1e", "#8f9792"]
+            "domain": [
+              "Indonesia",
+              "Malaysia",
+              "Other"
+            ],
+            "range": [
+              "#2d5a3d",
+              "#c25e1e",
+              "#8f9792"
+            ]
           },
           "legend": null
         },
         "tooltip": [
-          {"field": "Country", "type": "nominal"},
-          {"field": "Production_Mt", "type": "quantitative", "format": ".2f", "title": "Production (Mt)"},
-          {"field": "share_pct", "type": "quantitative", "format": ".1f", "title": "World share (%)"}
-        ]
+          {
+            "field": "Country",
+            "type": "nominal"
+          },
+          {
+            "field": "Period",
+            "type": "quantitative",
+            "format": "d",
+            "title": "Selected year"
+          },
+          {
+            "field": "Production_Mt",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Production (Mt)"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "World share (%)"
+          }
+        ],
+        "opacity": {
+          "condition": {
+            "param": "producer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.65
+        }
       }
     },
     {
@@ -116,17 +184,50 @@
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": {"field": "Production_Mt", "order": "descending"}
+          "sort": {
+            "field": "Production_Mt",
+            "order": "descending"
+          }
         },
-        "x": {"field": "Production_Mt", "type": "quantitative"},
+        "x": {
+          "field": "Production_Mt",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              46
+            ]
+          },
+          "axis": {
+            "gridColor": "#eeeeee",
+            "tickCount": 6,
+            "labelColor": "#3a4540"
+          }
+        },
         "color": {
           "field": "Group",
           "type": "nominal",
           "scale": {
-            "domain": ["Indonesia", "Malaysia", "Other"],
-            "range": ["#2d5a3d", "#c25e1e", "#8f9792"]
+            "domain": [
+              "Indonesia",
+              "Malaysia",
+              "Other"
+            ],
+            "range": [
+              "#2d5a3d",
+              "#c25e1e",
+              "#8f9792"
+            ]
           },
           "legend": null
+        },
+        "opacity": {
+          "condition": {
+            "param": "producer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.9
         }
       }
     },
@@ -144,61 +245,62 @@
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": {"field": "Production_Mt", "order": "descending"}
-        },
-        "x": {"field": "Production_Mt", "type": "quantitative"},
-        "text": {"field": "value_label"}
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "Country": "Thailand",
-            "Production_Mt": 28,
-            "note": "Indonesia + Malaysia account for about 80–85%\nof the world total in recent years."
+          "sort": {
+            "field": "Production_Mt",
+            "order": "descending"
           }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "font": "Inter",
-        "fontSize": 12,
-        "fontStyle": "italic",
-        "lineBreak": "\n",
-        "color": "#3a4540"
-      },
-      "encoding": {
-        "y": {
-          "field": "Country",
-          "type": "nominal",
-          "sort": {"field": "Production_Mt", "order": "descending"}
         },
-        "x": {"field": "Production_Mt", "type": "quantitative"},
-        "text": {"field": "note"}
+        "x": {
+          "field": "Production_Mt",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              46
+            ]
+          },
+          "axis": {
+            "gridColor": "#eeeeee",
+            "tickCount": 6,
+            "labelColor": "#3a4540"
+          }
+        },
+        "text": {
+          "field": "value_label"
+        },
+        "opacity": {
+          "condition": {
+            "param": "producer_hover",
+            "empty": false,
+            "value": 1
+          },
+          "value": 0.82
+        }
       }
     }
   ],
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    },
     "axis": {
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -210,9 +312,15 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
+  },
+  "padding": {
+    "top": 18,
+    "right": 42,
+    "bottom": 72,
+    "left": 8
   }
 }

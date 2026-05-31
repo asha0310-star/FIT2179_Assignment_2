@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "The Peninsula produces more oil from less land",
-    "subtitle": "Share of Malaysia\u2019s 2025 planted area vs share of crude palm oil output.",
+    "subtitle": "Share of Malaysia’s 2025 total. Grey = planted area; orange = CPO output.",
     "anchor": "start"
   },
   "width": "container",
@@ -46,8 +46,8 @@
     {
       "mark": {
         "type": "rule",
-        "strokeWidth": 4,
-        "color": "#cfd6d1"
+        "strokeWidth": 5,
+        "color": "#b8c0bb"
       },
       "encoding": {
         "y": {
@@ -71,7 +71,9 @@
             ]
           },
           "axis": {
-            "format": ".0f"
+            "format": ".0f",
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
           }
         },
         "x2": {
@@ -100,7 +102,11 @@
         },
         "x": {
           "field": "area_share_pct",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "tooltip": [
           {
@@ -142,7 +148,11 @@
         },
         "x": {
           "field": "cpo_share_pct",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "tooltip": [
           {
@@ -185,52 +195,14 @@
         },
         "x": {
           "field": "cpo_share_pct",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "text": {
           "field": "yield_label"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "x": 13,
-            "y": "Peninsular Malaysia",
-            "label": "planted area share"
-          },
-          {
-            "x": 42,
-            "y": "Peninsular Malaysia",
-            "label": "CPO output share"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "font": "Inter",
-        "fontSize": 11,
-        "fontStyle": "italic"
-      },
-      "encoding": {
-        "x": {
-          "field": "x",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "y",
-          "type": "nominal"
-        },
-        "text": {
-          "field": "label"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.label == 'CPO output share'",
-            "value": "#c25e1e"
-          },
-          "value": "#6b7570"
         }
       }
     }
@@ -243,19 +215,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -267,9 +240,19 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "padding": {
+    "top": 42,
+    "right": 55,
+    "bottom": 28,
+    "left": 8
   }
 }
