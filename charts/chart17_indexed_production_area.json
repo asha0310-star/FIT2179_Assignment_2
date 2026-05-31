@@ -360,6 +360,37 @@
         "y": {
           "field": "y",
           "type": "quantitative"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2025 && datum.metric_key == 'production_index'"
+        },
+        {
+          "calculate": "'2025 gap: output ' + format(datum.production_index, '.0f') + ' vs land ' + format(datum.area_index, '.0f')",
+          "as": "divergence_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -10,
+        "dy": -8,
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": 700,
+        "color": "#1f2421"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "axis": {
+            "labelColor": "#3a4540",
+            "tickCount": 6
+          }
         },
         "text": {
           "field": "label",
