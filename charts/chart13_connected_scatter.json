@@ -6,7 +6,7 @@
     "anchor": "start"
   },
   "width": "container",
-  "height": 460,
+  "height": 520,
   "data": {
     "url": "data/area_vs_loss_yearly.csv"
   },
@@ -35,7 +35,9 @@
           "title": "Malaysia's oil palm planted area (million hectares)",
           "axis": {
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee",
+            "tickCount": 5,
+            "labelColor": "#3a4540"
           }
         },
         "y": {
@@ -44,7 +46,8 @@
           "title": "Tree cover loss that year (thousand hectares)",
           "axis": {
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
           }
         },
         "order": {
@@ -62,11 +65,20 @@
       "encoding": {
         "x": {
           "field": "planted_area_Mha",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "tickCount": 5,
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "y": {
           "field": "forest_loss_kha",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "size": {
           "value": 150
@@ -84,7 +96,9 @@
           "legend": {
             "orient": "right",
             "gradientLength": 200,
-            "format": "d"
+            "format": "d",
+            "labelColor": "#3a4540",
+            "titleColor": "#1f2421"
           }
         },
         "tooltip": [
@@ -110,67 +124,50 @@
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.year == 2001 || datum.year == 2009 || datum.year == 2012 || datum.year == 2014 || datum.year == 2024"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "dy": -14,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#1f2421",
-        "font": "Inter"
-      },
-      "encoding": {
-        "x": {
-          "field": "planted_area_Mha",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "forest_loss_kha",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "year",
-          "type": "quantitative",
-          "format": "d"
-        }
-      }
-    },
-    {
       "data": {
         "values": [
           {
-            "planted_area_Mha": 5.42,
-            "forest_loss_kha": 245,
-            "label": "Late years drift down\nfrom the 2014 peak"
+            "x": 3.5,
+            "y": 332.81,
+            "x2": 3.72,
+            "y2": 385
+          },
+          {
+            "x": 5.39,
+            "y": 646.03,
+            "x2": 4.83,
+            "y2": 715
+          },
+          {
+            "x": 5.61,
+            "y": 282.53,
+            "x2": 5.3,
+            "y2": 210
           }
         ]
       },
       "mark": {
-        "type": "text",
-        "align": "right",
-        "fontSize": 11,
-        "fontStyle": "italic",
-        "lineBreak": "\n",
+        "type": "rule",
         "color": "#1f2421",
-        "dx": 8,
-        "dy": -10,
-        "align": "left"
+        "strokeWidth": 1,
+        "opacity": 0.65
       },
       "encoding": {
         "x": {
-          "field": "planted_area_Mha",
+          "field": "x",
           "type": "quantitative"
         },
         "y": {
-          "field": "forest_loss_kha",
+          "field": "y",
           "type": "quantitative"
         },
-        "text": {
-          "field": "label"
+        "x2": {
+          "field": "x2",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "y2",
+          "type": "quantitative"
         }
       }
     },
@@ -178,29 +175,90 @@
       "data": {
         "values": [
           {
-            "planted_area_Mha": 5.61,
-            "forest_loss_kha": 282.53,
-            "label": "2024: lower loss\nthan the peak"
+            "x": 3.72,
+            "y": 385,
+            "label": "Start\n2001",
+            "align": "left"
+          },
+          {
+            "x": 4.83,
+            "y": 715,
+            "label": "Peak-loss period\n2012–2014",
+            "align": "right"
+          },
+          {
+            "x": 5.3,
+            "y": 210,
+            "label": "Latest\n2024",
+            "align": "right"
           }
         ]
       },
       "mark": {
         "type": "text",
         "font": "Inter",
+        "fontSize": 12,
+        "fontWeight": 700,
         "lineBreak": "\n",
-        "color": "#1f2421"
+        "color": "#1f2421",
+        "align": "left"
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2001 || datum.year == 2012 || datum.year == 2014 || datum.year == 2024"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 190,
+        "stroke": "#1f2421",
+        "strokeWidth": 1.4
       },
       "encoding": {
         "x": {
           "field": "planted_area_Mha",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "tickCount": 5,
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "y": {
           "field": "forest_loss_kha",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
-        "text": {
-          "field": "label"
+        "color": {
+          "field": "year",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "viridis"
+          },
+          "legend": {
+            "labelColor": "#3a4540",
+            "titleColor": "#1f2421"
+          }
         }
       }
     }
@@ -213,19 +271,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -237,7 +296,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
@@ -245,5 +304,11 @@
   "autosize": {
     "type": "fit",
     "contains": "padding"
+  },
+  "padding": {
+    "top": 18,
+    "right": 110,
+    "bottom": 42,
+    "left": 8
   }
 }

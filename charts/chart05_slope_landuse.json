@@ -2,14 +2,16 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Palm oil land expansion is country-led",
-    "subtitle": "Area harvested for oil palm: 1961 → 2023 (million hectares), excluding income-group aggregates.",
+    "subtitle": "Area harvested for oil palm, 1961 → 2023; units: million hectares.",
     "anchor": "start"
   },
   "width": "container",
   "height": 420,
   "padding": {
-    "right": 100,
-    "bottom": 30
+    "right": 125,
+    "bottom": 34,
+    "top": 18,
+    "left": 8
   },
   "data": {
     "url": "data/landuse_slope.csv"
@@ -32,6 +34,35 @@
     {
       "calculate": "format(datum.Area_Mha, '.2f') + ' Mha'",
       "as": "area_label"
+    },
+    {
+      "calculate": "datum.Year == 1961 ? datum.Area_Mha : null",
+      "as": "area_1961_candidate"
+    },
+    {
+      "calculate": "datum.Year == 2023 ? datum.Area_Mha : null",
+      "as": "area_2023_candidate"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "max",
+          "field": "area_1961_candidate",
+          "as": "area_1961_Mha"
+        },
+        {
+          "op": "max",
+          "field": "area_2023_candidate",
+          "as": "area_2023_Mha"
+        }
+      ],
+      "groupby": [
+        "Entity"
+      ]
+    },
+    {
+      "calculate": "datum.area_2023_Mha - datum.area_1961_Mha",
+      "as": "area_change_Mha"
     }
   ],
   "layer": [
@@ -60,10 +91,11 @@
         "y": {
           "field": "Area_Mha",
           "type": "quantitative",
-          "title": "Million hectares",
+          "title": null,
           "axis": {
             "grid": true,
-            "gridColor": "#eeece4"
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
           }
         },
         "color": {
@@ -89,17 +121,26 @@
         "tooltip": [
           {
             "field": "Entity",
-            "type": "nominal"
+            "type": "nominal",
+            "title": "Country"
           },
           {
-            "field": "Year",
-            "type": "ordinal"
-          },
-          {
-            "field": "Area_Mha",
+            "field": "area_1961_Mha",
             "type": "quantitative",
             "format": ".2f",
-            "title": "Million hectares"
+            "title": "1961 area (Mha)"
+          },
+          {
+            "field": "area_2023_Mha",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "2023 area (Mha)"
+          },
+          {
+            "field": "area_change_Mha",
+            "type": "quantitative",
+            "format": "+.2f",
+            "title": "Change (Mha)"
           }
         ]
       }
@@ -107,7 +148,7 @@
     {
       "transform": [
         {
-          "filter": "datum.Year == 2023 && indexof(['Indonesia','Malaysia','Nigeria','Thailand','Colombia','Ghana',\"Cote d'Ivoire\"], datum.Entity) >= 0"
+          "filter": "datum.Year == 2023 && indexof(['Indonesia','Malaysia','Nigeria','Thailand'], datum.Entity) >= 0"
         },
         {
           "calculate": "datum.Entity + '  ' + datum.area_label",
@@ -129,7 +170,12 @@
         },
         "y": {
           "field": "Area_Mha",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": null,
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         },
         "text": {
           "field": "right_label",
@@ -163,19 +209,20 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelFontSize": 12,
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
       "grid": true,
-      "gridColor": "#eeece4"
+      "gridColor": "#eeeeee",
+      "gridOpacity": 0.75
     },
     "legend": {
       "labelFont": "Inter",
       "labelFontSize": 11,
-      "labelColor": "#6b7570",
+      "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
       "titleColor": "#1f2421"
@@ -187,7 +234,7 @@
       "color": "#1f2421",
       "subtitleFont": "Inter",
       "subtitleFontSize": 13,
-      "subtitleColor": "#6b7570",
+      "subtitleColor": "#4b5563",
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
