@@ -16,7 +16,7 @@
       "as": "loss_kha"
     },
     {
-      "filter": "isValid(datum.loss_kha)"
+      "filter": "datum.loss_kha != null && isFinite(datum.loss_kha)"
     }
   ],
   "params": [

@@ -64,7 +64,7 @@
       "value": 2023
     },
     {
-      "name": "hover_sel_chart04",
+      "name": "hover_chart04_point",
       "select": {
         "type": "point",
         "on": "mousemove",
@@ -318,7 +318,7 @@
         },
         "opacity": {
           "condition": {
-            "param": "hover_sel_chart04",
+            "param": "hover_chart04_point",
             "value": 0.9
           },
           "value": 0
@@ -345,7 +345,7 @@
         },
         "opacity": {
           "condition": {
-            "param": "hover_sel_chart04",
+            "param": "hover_chart04_point",
             "value": 1
           },
           "value": 0

@@ -81,10 +81,6 @@
         "y": {
           "field": "Country",
           "type": "nominal",
-          "sort": {
-            "field": "Production_Mt",
-            "order": "descending"
-          },
           "title": null,
           "axis": {
             "labelLimit": 120
