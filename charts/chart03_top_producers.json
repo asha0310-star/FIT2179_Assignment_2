@@ -27,17 +27,6 @@
         "step": 1,
         "name": "Year: "
       }
-    },
-    {
-      "name": "producer_hover",
-      "select": {
-        "type": "point",
-        "fields": [
-          "Country"
-        ],
-        "on": "mouseover",
-        "clear": "mouseout"
-      }
     }
   ],
   "transform": [
@@ -77,7 +66,7 @@
       "as": "Group"
     },
     {
-      "calculate": "format(datum.Production_Mt, '.1f') + ' Mt · ' + format(datum.share_pct, '.1f') + '%'",
+      "calculate": "format(datum.Production_Mt, '.1f') + ' (' + format(datum.share_pct, '.1f') + '%)'",
       "as": "value_label"
     }
   ],
@@ -178,11 +167,7 @@
       "encoding": {
         "y": {
           "field": "Country",
-          "type": "nominal",
-          "sort": {
-            "field": "Production_Mt",
-            "order": "descending"
-          }
+          "type": "nominal"
         },
         "x": {
           "field": "Production_Mt",
@@ -228,17 +213,12 @@
         "dx": 10,
         "font": "Inter",
         "fontSize": 11,
-        "fontWeight": 600,
-        "color": "#1f2421"
+        "fontWeight": 600
       },
       "encoding": {
         "y": {
           "field": "Country",
-          "type": "nominal",
-          "sort": {
-            "field": "Production_Mt",
-            "order": "descending"
-          }
+          "type": "nominal"
         },
         "x": {
           "field": "Production_Mt",
@@ -258,8 +238,65 @@
         "text": {
           "field": "value_label"
         },
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Indonesia",
+              "Malaysia",
+              "Other"
+            ],
+            "range": [
+              "#2d5a3d",
+              "#c25e1e",
+              "#8f9792"
+            ]
+          },
+          "legend": null
+        },
         "opacity": {
           "value": 0.9
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -8,
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal"
+        },
+        "x": {
+          "datum": 0,
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Country"
+        },
+        "color": {
+          "field": "Group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Indonesia",
+              "Malaysia",
+              "Other"
+            ],
+            "range": [
+              "#2d5a3d",
+              "#c25e1e",
+              "#8f9792"
+            ]
+          },
+          "legend": null
         }
       }
     }

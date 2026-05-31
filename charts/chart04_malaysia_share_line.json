@@ -5,7 +5,8 @@
     "subtitle": [
       "Malaysia share of world production, 1961–2023.",
       "Unit: percent of world palm oil production."
-    ]
+    ],
+    "anchor": "start"
   },
   "width": "container",
   "height": 320,
@@ -61,6 +62,16 @@
     {
       "name": "year_link",
       "value": 2023
+    },
+    {
+      "name": "hover_sel_chart04",
+      "select": {
+        "type": "point",
+        "on": "mousemove",
+        "fields": [
+          "Year"
+        ]
+      }
     }
   ],
   "layer": [
@@ -95,7 +106,6 @@
           },
           "axis": {
             "format": ".0f",
-            "gridColor": "#eeeeee",
             "labelColor": "#3a4540"
           }
         },
@@ -147,32 +157,11 @@
         },
         "y": {
           "field": "share_pct",
-          "type": "quantitative",
-          "title": null,
-          "axis": {
-            "gridColor": "#eeeeee",
-            "labelColor": "#3a4540"
-          }
+          "type": "quantitative"
         }
       }
     },
     {
-      "data": {
-        "values": [
-          {
-            "x": "1982-01-01",
-            "y": 56.8667,
-            "x2": "1989-01-01",
-            "y2": 55.5
-          },
-          {
-            "x": "2023-01-01",
-            "y": 23.3161,
-            "x2": "2011-01-01",
-            "y2": 33.5
-          }
-        ]
-      },
       "mark": {
         "type": "rule",
         "color": "#1f2421",
@@ -181,19 +170,45 @@
       },
       "encoding": {
         "x": {
-          "field": "x",
+          "datum": "1982-01-01",
+          "type": "temporal"
+        },
+        "x2": {
+          "datum": "1989-01-01",
           "type": "temporal"
         },
         "y": {
-          "field": "y",
+          "datum": 56.8667,
           "type": "quantitative"
         },
-        "x2": {
-          "field": "x2",
+        "y2": {
+          "datum": 55.5,
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#1f2421",
+        "strokeWidth": 1,
+        "opacity": 0.7
+      },
+      "encoding": {
+        "x": {
+          "datum": "2023-01-01",
           "type": "temporal"
         },
+        "x2": {
+          "datum": "2011-01-01",
+          "type": "temporal"
+        },
+        "y": {
+          "datum": 23.3161,
+          "type": "quantitative"
+        },
         "y2": {
-          "field": "y2",
+          "datum": 33.5,
           "type": "quantitative"
         }
       }
@@ -204,14 +219,7 @@
           {
             "x": "1989-01-01",
             "y": 55.5,
-            "label": "Peak share\n1982: 57%",
-            "align": "left"
-          },
-          {
-            "x": "2011-01-01",
-            "y": 33.5,
-            "label": "Recent decline\n2023: 23%",
-            "align": "right"
+            "label": "Peak share\n1982: 57%"
           }
         ]
       },
@@ -221,8 +229,46 @@
         "fontSize": 11,
         "fontWeight": 700,
         "lineBreak": "\n",
-        "color": "#1f2421",
-        "align": "left"
+        "color": "#c25e1e",
+        "align": "left",
+        "dx": 6,
+        "dy": -10
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": "2011-01-01",
+            "y": 33.5,
+            "label": "Recent decline\n2023: 23%"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Inter",
+        "fontSize": 11,
+        "fontWeight": 700,
+        "lineBreak": "\n",
+        "color": "#c25e1e",
+        "align": "right",
+        "dx": -6,
+        "dy": -10
       },
       "encoding": {
         "x": {
@@ -260,23 +306,81 @@
     },
     {
       "mark": {
+        "type": "rule",
+        "color": "#6b7570",
+        "strokeWidth": 1,
+        "opacity": 0.6
+      },
+      "encoding": {
+        "x": {
+          "field": "year_date",
+          "type": "temporal"
+        },
+        "opacity": {
+          "condition": {
+            "param": "hover_sel_chart04",
+            "value": 0.9
+          },
+          "value": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 120,
+        "color": "#c25e1e",
+        "stroke": "white",
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "x": {
+          "field": "year_date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "share_pct",
+          "type": "quantitative"
+        },
+        "opacity": {
+          "condition": {
+            "param": "hover_sel_chart04",
+            "value": 1
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "quantitative",
+            "format": "d",
+            "title": "Year"
+          },
+          {
+            "field": "share_pct",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Malaysia share (%)"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
         "type": "text",
-        "dx": -4,
-        "dy": 4,
-        "align": "right",
-        "baseline": "top",
-        "fontSize": 10,
+        "fontSize": 11,
         "fontStyle": "italic",
         "font": "Inter",
         "color": "#4b5563"
       },
       "encoding": {
         "x": {
-          "datum": "2023-01-01",
+          "datum": "1965-01-01",
           "type": "temporal"
         },
         "y": {
-          "datum": 56,
+          "datum": 59,
           "type": "quantitative"
         },
         "text": {
@@ -290,7 +394,7 @@
       "stroke": "transparent"
     },
     "axis": {
-      "domain": false,
+      "domain": true,
       "ticks": false,
       "labelFont": "Inter",
       "labelFontSize": 12,
@@ -299,7 +403,7 @@
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
-      "grid": true,
+      "grid": false,
       "gridColor": "#eeeeee",
       "gridOpacity": 0.75
     },

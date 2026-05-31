@@ -8,7 +8,7 @@
     ]
   },
   "width": "container",
-  "height": 390,
+  "height": 420,
   "autosize": {
     "type": "fit",
     "contains": "padding"
@@ -46,6 +46,12 @@
       "as": "year_date"
     }
   ],
+  "params": [
+    {
+      "name": "year_link",
+      "value": 2006
+    }
+  ],
   "layer": [
     {
       "mark": {
@@ -63,7 +69,9 @@
             "tickCount": 9,
             "labelAngle": 0,
             "labelOverlap": "greedy",
-            "labelColor": "#3a4540"
+            "labelColor": "#3a4540",
+            "domain": true,
+            "grid": false
           },
           "scale": {
             "domain": [
@@ -75,10 +83,14 @@
         "y": {
           "field": "Production_Mt",
           "type": "quantitative",
-          "title": null,
+          "title": "Production (Million Tonnes)",
           "axis": {
             "grid": true,
-            "gridColor": "#eeeeee"
+            "gridColor": "#eeeeee",
+            "titleAngle": 270
+          },
+          "scale": {
+            "zero": true
           }
         },
         "color": {
@@ -148,9 +160,12 @@
         "y": {
           "field": "Production_Mt",
           "type": "quantitative",
-          "title": null,
+          "title": "Production (Million Tonnes)",
           "axis": {
             "gridColor": "#eeeeee"
+          },
+          "scale": {
+            "zero": true
           }
         },
         "text": {
@@ -178,36 +193,29 @@
     {
       "data": {
         "values": [
-          {
-            "x": "2006-01-01",
-            "y": 17.35,
-            "x2": "2009-01-01",
-            "y2": 25.5
-          }
+          {}
         ]
       },
+      "transform": [
+        {
+          "calculate": "datetime(year_link, 0, 1)",
+          "as": "rule_x"
+        }
+      ],
       "mark": {
         "type": "rule",
         "color": "#4b5563",
         "strokeWidth": 1,
-        "opacity": 0.65
+        "opacity": 0.55,
+        "strokeDash": [
+          4,
+          3
+        ]
       },
       "encoding": {
         "x": {
-          "field": "x",
+          "field": "rule_x",
           "type": "temporal"
-        },
-        "y": {
-          "field": "y",
-          "type": "quantitative"
-        },
-        "x2": {
-          "field": "x2",
-          "type": "temporal"
-        },
-        "y2": {
-          "field": "y2",
-          "type": "quantitative"
         }
       }
     },
@@ -215,8 +223,8 @@
       "data": {
         "values": [
           {
-            "x": "2009-01-01",
-            "y": 25.5,
+            "x": "1998-01-01",
+            "y": 46,
             "label": "Indonesia overtakes\nMalaysia, 2006"
           }
         ]
@@ -224,11 +232,14 @@
       "mark": {
         "type": "text",
         "align": "left",
+        "baseline": "bottom",
+        "dx": 0,
+        "dy": -8,
         "font": "Inter",
         "fontSize": 11,
         "fontWeight": 700,
         "lineBreak": "\n",
-        "color": "#1f2421"
+        "color": "#4b5563"
       },
       "encoding": {
         "x": {
@@ -251,7 +262,7 @@
       "stroke": "transparent"
     },
     "axis": {
-      "domain": false,
+      "domain": true,
       "ticks": false,
       "labelFont": "Inter",
       "labelFontSize": 12,
@@ -260,7 +271,7 @@
       "titleFontSize": 12,
       "titleFontWeight": 500,
       "titleColor": "#1f2421",
-      "grid": true,
+      "grid": false,
       "gridColor": "#eeeeee",
       "gridOpacity": 0.75
     },
@@ -287,6 +298,7 @@
   "padding": {
     "top": 12,
     "right": 82,
-    "bottom": 32
+    "bottom": 32,
+    "left": 8
   }
 }

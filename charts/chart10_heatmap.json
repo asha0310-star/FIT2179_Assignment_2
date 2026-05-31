@@ -6,7 +6,7 @@
     "anchor": "start"
   },
   "width": "container",
-  "height": 340,
+  "height": 480,
   "data": {
     "url": "data/forest_loss_by_state_long.csv"
   },
@@ -19,23 +19,66 @@
       "filter": "isValid(datum.loss_kha)"
     }
   ],
+  "params": [
+    {
+      "name": "state_focus",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All",
+          "Johor",
+          "Kedah",
+          "Kelantan",
+          "Kuala Lumpur",
+          "Labuan",
+          "Melaka",
+          "Negeri Sembilan",
+          "Pahang",
+          "Perak",
+          "Perlis",
+          "Pulau Pinang",
+          "Putrajaya",
+          "Sabah",
+          "Sarawak",
+          "Selangor",
+          "Trengganu"
+        ],
+        "name": "Highlight state: "
+      }
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal"
+    }
+  },
   "layer": [
     {
-      "params": [
-        {
-          "name": "state_hover",
-          "select": {
-            "type": "point",
-            "fields": [
-              "state"
-            ],
-            "on": "mouseover",
-            "clear": "mouseout"
-          }
-        }
-      ],
       "mark": "rect",
       "encoding": {
+        "opacity": {
+          "condition": {
+            "test": "state_focus === 'All' || datum.state === state_focus",
+            "value": 0.98
+          },
+          "value": 0.18
+        },
+        "stroke": {
+          "condition": {
+            "test": "state_focus === 'All' || datum.state === state_focus",
+            "value": "#1f2421"
+          },
+          "value": "#ffffff"
+        },
+        "strokeWidth": {
+          "condition": {
+            "test": "state_focus === 'All' || datum.state === state_focus",
+            "value": 0.45
+          },
+          "value": 0.1
+        },
         "x": {
           "field": "year",
           "type": "ordinal",
@@ -51,12 +94,10 @@
           "field": "state",
           "type": "nominal",
           "title": null,
-          "sort": {
-            "op": "max",
-            "field": "loss_kha",
-            "order": "descending"
-          },
           "axis": {
+            "labelFontSize": 11,
+            "labelLimit": 120,
+            "labelPadding": 6,
             "labelColor": "#3a4540",
             "gridColor": "#eeeeee"
           }
@@ -71,14 +112,6 @@
           "legend": {
             "orient": "bottom"
           }
-        },
-        "opacity": {
-          "condition": {
-            "param": "state_hover",
-            "value": 0.9,
-            "empty": false
-          },
-          "value": 0.8
         },
         "tooltip": [
           {
@@ -167,11 +200,6 @@
           "axis": {
             "labelColor": "#3a4540",
             "gridColor": "#eeeeee"
-          },
-          "sort": {
-            "op": "max",
-            "field": "loss_kha",
-            "order": "descending"
           }
         }
       }
@@ -214,11 +242,6 @@
           "axis": {
             "labelColor": "#3a4540",
             "gridColor": "#eeeeee"
-          },
-          "sort": {
-            "op": "max",
-            "field": "loss_kha",
-            "order": "descending"
           }
         },
         "text": {
@@ -235,7 +258,7 @@
       "domain": false,
       "ticks": false,
       "labelFont": "Inter",
-      "labelFontSize": 12,
+      "labelFontSize": 11,
       "labelColor": "#3a4540",
       "titleFont": "Inter",
       "titleFontSize": 12,
@@ -271,8 +294,8 @@
   },
   "padding": {
     "top": 18,
-    "right": 18,
+    "right": 28,
     "bottom": 28,
-    "left": 8
+    "left": 14
   }
 }

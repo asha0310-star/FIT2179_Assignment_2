@@ -6,36 +6,84 @@
     "anchor": "start"
   },
   "width": "container",
-  "height": 320,
+  "height": 460,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "padding": {
+    "top": 24,
+    "right": 34,
+    "bottom": 40,
+    "left": 18
+  },
   "data": {
     "url": "data/area_vs_loss_yearly.csv"
   },
+  "params": [
+    {
+      "name": "year_start",
+      "value": 2001,
+      "bind": {
+        "input": "range",
+        "min": 2001,
+        "max": 2024,
+        "step": 1,
+        "name": "Start year: "
+      }
+    },
+    {
+      "name": "year_end",
+      "value": 2024,
+      "bind": {
+        "input": "range",
+        "min": 2001,
+        "max": 2024,
+        "step": 1,
+        "name": "End year: "
+      }
+    }
+  ],
   "layer": [
     {
+      "mark": {
+        "type": "area",
+        "color": "#c25e1e",
+        "opacity": 0.14,
+        "interpolate": "monotone"
+      },
       "transform": [
         {
-          "aggregate": [
-            {
-              "op": "mean",
-              "field": "forest_loss_kha",
-              "as": "mean_loss"
-            }
-          ]
+          "filter": "datum.year >= min(year_start, year_end) && datum.year <= max(year_start, year_end)"
         }
       ],
-      "mark": {
-        "type": "rule",
-        "color": "#6b7570",
-        "strokeDash": [
-          4,
-          4
-        ],
-        "opacity": 0.55
-      },
       "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": null,
+          "axis": {
+            "labelAngle": 0,
+            "values": [
+              2001,
+              2005,
+              2010,
+              2015,
+              2020,
+              2024
+            ],
+            "labelOverlap": "greedy",
+            "labelColor": "#3a4540"
+          }
+        },
         "y": {
-          "field": "mean_loss",
-          "type": "quantitative"
+          "field": "forest_loss_kha",
+          "type": "quantitative",
+          "title": "Loss (kha)",
+          "axis": {
+            "gridColor": "#eeeeee",
+            "labelColor": "#3a4540"
+          }
         }
       }
     },
@@ -46,6 +94,11 @@
         "strokeWidth": 2.8,
         "interpolate": "monotone"
       },
+      "transform": [
+        {
+          "filter": "datum.year >= min(year_start, year_end) && datum.year <= max(year_start, year_end)"
+        }
+      ],
       "encoding": {
         "x": {
           "field": "year",
@@ -91,14 +144,14 @@
     {
       "transform": [
         {
-          "filter": "datum.year == 2014 || datum.year == 2024"
+          "filter": "datum.year >= min(year_start, year_end) && datum.year <= max(year_start, year_end) && (datum.year == 2014 || datum.year == 2024)"
         }
       ],
       "mark": {
         "type": "point",
         "color": "#c25e1e",
         "filled": true,
-        "size": 85,
+        "size": 95,
         "stroke": "#fff",
         "strokeWidth": 1.5
       },
@@ -123,52 +176,24 @@
     },
     {
       "data": {
-        "values": [
-          {
-            "year": 2014,
-            "y": 646.03,
-            "y2": 710
-          }
-        ]
+        "url": "data/area_vs_loss_yearly.csv"
       },
-      "mark": {
-        "type": "rule",
-        "color": "#1f2421",
-        "strokeWidth": 1,
-        "opacity": 0.7
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal",
-          "axis": {
-            "labelColor": "#3a4540"
-          }
+      "transform": [
+        {
+          "filter": "datum.year == 2014"
         },
-        "y": {
-          "field": "y",
-          "type": "quantitative"
-        },
-        "y2": {
-          "field": "y2",
-          "type": "quantitative"
+        {
+          "calculate": "'Peak loss year\\n2014: ' + format(datum.forest_loss_kha, '.0f') + ' kha'",
+          "as": "peak_label"
         }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "year": 2014,
-            "y": 710,
-            "label": "Peak loss year\n2014: 646 kha"
-          }
-        ]
-      },
+      ],
       "mark": {
         "type": "text",
-        "dy": -4,
-        "fontSize": 11,
+        "dx": 10,
+        "dy": -10,
+        "align": "left",
+        "baseline": "bottom",
+        "fontSize": 10.5,
         "fontWeight": "bold",
         "lineBreak": "\n",
         "color": "#1f2421",
@@ -177,17 +202,14 @@
       "encoding": {
         "x": {
           "field": "year",
-          "type": "ordinal",
-          "axis": {
-            "labelColor": "#3a4540"
-          }
+          "type": "ordinal"
         },
         "y": {
-          "field": "y",
+          "field": "forest_loss_kha",
           "type": "quantitative"
         },
         "text": {
-          "field": "label",
+          "field": "peak_label",
           "type": "nominal"
         }
       }
@@ -195,7 +217,7 @@
     {
       "transform": [
         {
-          "filter": "datum.year == 2024"
+          "filter": "datum.year >= min(year_start, year_end) && datum.year <= max(year_start, year_end) && datum.year == 2024"
         },
         {
           "calculate": "'2024: ' + format(datum.forest_loss_kha, '.0f') + ' kha'",
@@ -204,10 +226,11 @@
       ],
       "mark": {
         "type": "text",
-        "dx": -6,
-        "dy": -12,
+        "dx": -10,
+        "dy": -10,
         "align": "right",
-        "fontSize": 11,
+        "baseline": "bottom",
+        "fontSize": 10.5,
         "font": "Inter",
         "color": "#1f2421"
       },
@@ -271,15 +294,5 @@
       "subtitleLineHeight": 18,
       "anchor": "start"
     }
-  },
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
-  "padding": {
-    "top": 18,
-    "right": 55,
-    "bottom": 32,
-    "left": 8
   }
 }
